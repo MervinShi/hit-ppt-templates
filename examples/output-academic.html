@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多模态传感数据驱动的城市交通预测研究 — 哈工大深圳 HTML PPT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS Variables (VIS-compliant) ===== */
+:root {
+  --primary: #005375;
+  --accent: #45d6c8;
+  --gold: #d7b66f;
+  --ink: #eaf7ff;
+  --paper: #071117;
+  --muted: #8ab8d0;
+  --surface: rgba(233, 251, 255, .06);
+  --font-title: 'Noto Serif SC', 'Songti SC', Georgia, serif;
+  --font-body: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  --slide-w: 1280px;
+  --slide-h: 720px;
+  --scale: 1;
+}
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; font-family: var(--font-body); }
+body { display: grid; place-items: center; }
+
+/* ===== Stage Container ===== */
+.stage {
+  width: var(--slide-w); height: var(--slide-h);
+  position: relative; overflow: hidden;
+  transform: scale(var(--scale)); transform-origin: center center;
+  box-shadow: 0 30px 120px rgba(0,0,0,.6);
+}
+
+/* ===== Slide Base ===== */
+.slide {
+  position: absolute; inset: 0; display: none;
+  overflow: hidden; color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font-title);
+}
+.slide.active { display: block; }
+
+/* Slide decorative mesh background */
+.slide::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(69,214,200,.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(69,214,200,.035) 1px, transparent 1px),
+    radial-gradient(circle at 72% 18%, rgba(69,214,200,.12), transparent 25%);
+  background-size: 46px 46px, 46px 46px, auto;
+  pointer-events: none;
+}
+
+/* Slide backdrop gradient */
+.slide::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(125deg, rgba(69,214,200,.11), transparent 38%),
+    linear-gradient(270deg, rgba(215,182,111,.08), transparent 52%);
+  pointer-events: none;
+}
+
+/* Cover & Thanks special overlay */
+.slide.kind-cover::after,
+.slide.kind-thanks::after {
+  background:
+    linear-gradient(90deg, rgba(0,35,57,.94) 0%, rgba(0,83,117,.72) 42%, rgba(0,83,117,.18) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,83,117,.2));
+}
+
+/* ===== Brand Header (VIS-compliant: fixed position, no decoration overlap) ===== */
+.brand-header {
+  position: absolute; top: 4.4%; left: 5.2%; right: 5.2%; z-index: 20;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; padding-bottom: 12px;
+  border-bottom: 1px solid rgba(215,182,111,.38);
+  pointer-events: none;
+}
+.brand-lockup {
+  width: 30%; min-width: 220px; max-width: 360px; height: 38px;
+  display: flex; align-items: center;
+}
+.brand-lockup img { max-width: 100%; max-height: 38px; object-fit: contain; object-position: left center; }
+.brand-meta {
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+  color: rgba(234,247,255,.88); font-family: var(--font-body);
+  font-size: 11px; text-align: right;
+}
+.brand-meta b { color: var(--gold); font-weight: 900; }
+.brand-right-mark { width: 28px; height: 28px; object-fit: contain; }
+
+/* ===== Slide Chrome (title & subtitle area) ===== */
+.slide-chrome {
+  position: absolute; left: 5.4%; right: 5.4%; top: 16%; z-index: 10;
+  pointer-events: none;
+}
+.slide-chrome .kicker {
+  color: var(--accent); font-family: var(--font-body);
+  font-size: 11px; font-weight: 900; letter-spacing: .12em; margin-bottom: 8px;
+}
+.slide-chrome h1 {
+  width: min(72%, 800px); font-size: clamp(22px, 3.1vw, 44px);
+  line-height: 1.12; font-weight: 900;
+}
+.slide-chrome p {
+  width: min(58%, 680px); margin-top: 8px;
+  color: var(--muted); font-size: clamp(11px, 1.15vw, 16px); line-height: 1.4;
+}
+
+/* Hide chrome on cover slides */
+.slide.kind-cover .slide-chrome,
+.slide.kind-thanks .slide-chrome { top: auto; }
+
+/* ===== Slide Footer ===== */
+.slide-footer {
+  position: absolute; left: 5.4%; right: 5.4%; bottom: 4.2%; z-index: 20;
+  display: flex; justify-content: space-between;
+  color: rgba(138,184,208,.78); font-family: var(--font-body);
+  font-size: 11px; pointer-events: none;
+}
+
+/* ===== Content Blocks ===== */
+.block {
+  position: absolute; z-index: 5;
+}
+
+/* Title block */
+.block-title { display: grid; align-items: start; }
+.block-title p {
+  font-family: var(--font-title); font-weight: 900;
+  font-size: clamp(28px, 5vw, 68px); line-height: 1.05;
+  text-shadow: 0 2px 30px rgba(0,0,0,.4);
+}
+
+/* Subtitle block */
+.block-subtitle { display: grid; align-items: start; padding-left: 14px; border-left: 4px solid var(--gold); }
+.block-subtitle p { color: var(--muted); font-size: clamp(15px, 1.6vw, 22px); line-height: 1.6; }
+
+/* Body block */
+.block-body p { color: rgba(234,247,255,.82); font-size: clamp(17px, 1.7vw, 25px); line-height: 1.72; }
+
+/* List block */
+.block-list ul {
+  list-style: none; display: grid; gap: 10px; padding: 0;
+  font-size: clamp(18px, 1.9vw, 28px); font-weight: 800; line-height: 1.5;
+}
+.block-list li {
+  padding: 12px 16px; border-left: 4px solid var(--accent);
+  background: var(--surface); border: 1px solid rgba(69,214,200,.34);
+  border-left: 4px solid var(--accent);
+}
+
+/* Metric block */
+.block-metric {
+  display: grid; align-content: center; justify-items: center; gap: 6px;
+  border: 1px solid rgba(69,214,200,.34);
+  background: rgba(233,251,255,.055);
+  backdrop-filter: blur(12px);
+}
+.block-metric strong {
+  color: var(--accent); font-family: Georgia, var(--font-title);
+  font-size: clamp(32px, 4.2vw, 64px); line-height: 1; font-weight: 900;
+}
+.block-metric span { color: var(--muted); font-size: clamp(13px, 1.2vw, 17px); }
+
+/* Image block */
+.block-image img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Timeline block */
+.block-timeline ol {
+  list-style: none; display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px; padding: 0; width: 100%;
+}
+.block-timeline .timeline-node {
+  min-height: 84px; display: grid; place-items: center; padding: 12px;
+  text-align: center; border: 1px solid rgba(69,214,200,.34);
+  background: rgba(233,251,255,.055);
+  font-weight: 800; line-height: 1.35; font-size: clamp(14px, 1.3vw, 18px);
+}
+
+/* Card block */
+.block-card {
+  padding: 20px; display: grid; align-content: center;
+  border: 1px solid rgba(69,214,200,.34);
+  background: rgba(233,251,255,.055);
+  font-weight: 800;
+}
+.block-card p { font-size: clamp(18px, 1.9vw, 26px); line-height: 1.45; white-space: pre-line; }
+
+/* Chart container */
+.chart-wrap { width: 100%; height: 100%; position: relative; }
+.chart-wrap canvas { width: 100% !important; height: 100% !important; }
+
+/* ===== Decorative Elements ===== */
+.ornament-ring {
+  position: absolute; right: -12%; top: -18%; z-index: 2;
+  width: 44%; aspect-ratio: 1; border-radius: 50%;
+  border: 2px solid rgba(215,182,111,.48);
+  box-shadow: inset 0 0 0 22px rgba(69,214,200,.08), 0 0 80px rgba(69,214,200,.22);
+  pointer-events: none;
+}
+.ornament-ring::before, .ornament-ring::after {
+  content: ''; position: absolute; border-radius: inherit;
+  border: 1px dashed rgba(69,214,200,.36); inset: 10%;
+}
+.ornament-ring::after { inset: 25%; }
+
+.ornament-ribbon {
+  position: absolute; left: -8%; bottom: 8%; z-index: 2;
+  width: 62%; height: 10%; transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(69,214,200,.34), transparent);
+  pointer-events: none;
+}
+
+.ornament-badge {
+  position: absolute; right: 7%; bottom: 11%; z-index: 2;
+  width: 8%; aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid rgba(215,182,111,.5);
+  background: radial-gradient(circle, rgba(215,182,111,.24), transparent 62%), rgba(0,83,117,.2);
+  pointer-events: none;
+}
+
+/* Grid decoration */
+.research-grid {
+  border: 1px solid rgba(69,214,200,.7);
+  background-image:
+    linear-gradient(90deg, rgba(69,214,200,.42) 1px, transparent 1px),
+    linear-gradient(rgba(69,214,200,.42) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Bars decoration */
+.bars { height: 100%; display: flex; align-items: end; gap: 14px; padding: 16px 22px; border-radius: 8px; background: var(--surface); }
+.bar { flex: 1; min-width: 24px; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, var(--accent), rgba(69,214,200,.34)); }
+
+/* Vertical axis */
+.vert-axis { height: 100%; width: 3px; background: linear-gradient(var(--accent), transparent); }
+
+/* Signal wave */
+.signal-wave { display: flex; align-items: end; gap: 8px; padding: 8px 16px; height: 100%; }
+.signal-wave i { flex: 1; background: var(--accent); opacity: .45; border-radius: 2px 2px 0 0; }
+
+/* ===== Navigation Controls ===== */
+.nav-controls {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 100;
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(12,14,17,.88); backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.12); border-radius: 12px;
+  padding: 8px 16px;
+}
+.nav-btn {
+  width: 36px; height: 36px; border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06); color: #f4f2ed;
+  border-radius: 8px; cursor: pointer; display: grid; place-items: center;
+  font-size: 16px; transition: transform .15s, background .15s;
+}
+.nav-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,.12); }
+.nav-info { color: rgba(244,242,237,.68); font-size: 13px; font-family: var(--font-body); min-width: 60px; text-align: center; }
+.nav-track {
+  width: 120px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.12); overflow: hidden;
+}
+.nav-track i { display: block; height: 100%; border-radius: inherit; background: var(--gold); transition: width .3s; }
+
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  padding: 8px 14px; border: 1px solid rgba(255,255,255,.16);
+  background: rgba(12,14,17,.76); color: #f4f2ed;
+  border-radius: 8px; cursor: pointer; font-size: 13px; font-family: var(--font-body);
+  backdrop-filter: blur(12px); transition: transform .15s;
+}
+.fullscreen-btn:hover { transform: translateY(-1px); }
+
+/* ===== Responsive scaling ===== */
+@media (max-width: 1320px) { :root { --scale: calc((100vw - 40px) / 1280); } }
+@media (max-height: 760px) { :root { --scale: calc((100vh - 100px) / 720); } }
+@media (max-width: 760px) {
+  .brand-header { gap: 8px; }
+  .brand-lockup { min-width: 140px; }
+  .brand-meta { font-size: 8px; gap: 4px; }
+  .nav-controls { gap: 8px; padding: 6px 12px; }
+  .nav-track { width: 60px; }
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <section class="slide kind-cover" data-index="0">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>01 / 10</b>
+      </div>
+    </div>
+    
+    <div class="ornament-ring"></div>
+    <div class="ornament-ribbon"></div>
+    <div class="ornament-badge"></div>
+    
+    
+    <div class="block block-title" style="left:7%;top:24%;width:58%;height:20%;" data-animation="heroReveal">
+      <p>多模态传感数据驱动的城市交通预测研究</p>
+    </div>
+    <div class="block block-subtitle" style="left:8%;top:54%;width:54%;height:7%;" data-animation="fadeUp">
+      <p>博士研究汇报 · 计算学部 · 2026</p>
+    </div>
+    <div class="block block-image" style="right:6%;top:18%;width:18%;height:22%;" data-animation="scaleIn">
+      <img src="hit-shenzhen/hit-building.png" alt="">
+    </div>
+    <div class="block" style="left:6%;bottom:15%;width:82%;height:10%;" data-animation="lineSweep">
+      <div class="research-grid"></div>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>01</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="1">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>02 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>目录</h1>
+      <p>从研究问题到实验验证的完整链路</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>01 研究背景与问题定义</li>
+<li>02 方法框架与关键模型</li>
+<li>03 实验设置与结果分析</li>
+<li>04 结论、局限与后续计划</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>02</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="2">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>03 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="ornament-badge"></div>
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>研究背景</h1>
+      <p>交通状态预测需要更细粒度、更可信的跨源融合</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>37%</strong><span>早晚高峰误差上升</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>5min</strong><span>预测时间粒度</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;">城市路网传感器、视频检测器与轨迹数据的采样频率、空间覆盖和噪声模式存在显著差异。传统单源模型难以兼顾短时异常和长期周期变化。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>03</span></div>
+  </section>
+
+  <section class="slide kind-timeline" data-index="3">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>04 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">TIMELINE</div>
+      <h1>方法框架</h1>
+      <p>时空图网络 + 跨模态注意力 + 不确定性估计</p>
+    </div>
+    
+    <div class="block block-timeline" style="left:8%;top:34%;width:82%;height:22%;" data-animation="stagger">
+      <ol><li class="timeline-node">数据清洗与预处理</li>
+<li class="timeline-node">路网图构建</li>
+<li class="timeline-node">跨模态特征对齐</li>
+<li class="timeline-node">预测头与输出</li>
+<li class="timeline-node">置信区间估计</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:64%;width:67%;height:8%;" data-animation="fadeUp">
+      <p>模型在图结构中编码邻接关系，并通过模态门控模块动态选择可信信号。输出层同步给出点预测与区间估计，用于支撑调度决策。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>04</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="4">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>05 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="ornament-badge"></div>
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>实验数据</h1>
+      <p>主要指标较基线模型保持稳定提升</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>12.8%</strong><span>MAE 下降</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>18.4%</strong><span>RMSE 下降</span>
+    </div>
+
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>0.91</strong><span>置信覆盖率</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;"></p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>05</span></div>
+  </section>
+
+  <section class="slide kind-figure" data-index="5">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>06 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">FIGURE</div>
+      <h1>图文展示</h1>
+      <p>模型架构图与实验结果可视化</p>
+    </div>
+    
+    <div class="block block-list" style="left:9%;top:34%;width:32%;height:30%;" data-animation="stagger">
+      <ul><li>左下方为模型架构总览图</li>
+<li>建议使用高分辨率核心图</li>
+<li>右侧保留三条核心结论</li></ul>
+    </div>
+    <div class="block block-image" style="right:8%;top:30%;width:38%;height:42%;" data-animation="parallax">
+      <img src="hit-shenzhen/campus-mark.jpg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>06</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="6">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>07 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="ornament-badge"></div>
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>实验结果</h1>
+      <p>跨三个数据集验证，关键指标全面提升</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>12.8%</strong><span>MAE 下降</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>18.4%</strong><span>RMSE 下降</span>
+    </div>
+
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>0.91</strong><span>置信覆盖率</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;"></p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>07</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="7">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>08 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>研究计划</h1>
+      <p>从模型稳健性到真实场景部署</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>数据补充与消融实验</li>
+<li>跨路网泛化验证</li>
+<li>论文撰写与投稿</li>
+<li>原型系统部署</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>08</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="8">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>09 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>结论与展望</h1>
+      <p>模型、数据和部署三条线同步收束</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>提出面向多源传感器的时空融合预测框架</li>
+<li>在主要路网指标上优于传统基线方法</li>
+<li>后续重点关注可解释性、鲁棒性和轻量化部署</li>
+<li>计划在三个真实路口进行试点验证</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>09</span></div>
+  </section>
+
+  <section class="slide kind-thanks" data-index="9">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>10 / 10</b>
+      </div>
+    </div>
+    
+    <div class="ornament-ring"></div>
+    <div class="ornament-ribbon"></div>
+    <div class="ornament-badge"></div>
+    
+    
+    <div class="block block-image" style="right:5%;top:16%;width:14%;height:20%;" data-animation="scaleIn">
+      <img src="../public/assets/hit-shenzhen/hit-emblem-black.png" alt="">
+    </div>
+    <div class="block block-title" style="left:10%;top:28%;width:52%;height:18%;" data-animation="heroReveal">
+      <p>感谢聆听</p>
+    </div>
+    <div class="block block-subtitle" style="left:11%;top:52%;width:44%;height:6%;" data-animation="fadeUp">
+      <p>欢迎各位老师批评指正</p>
+    </div>
+    <div class="block" style="left:9%;bottom:14%;width:78%;height:8%;" data-animation="lineSweep">
+      <div class="research-grid"></div>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>10</span></div>
+  </section>
+</div>
+
+<nav class="nav-controls">
+  <button class="nav-btn" id="prevBtn">&#8592;</button>
+  <div class="nav-info" id="navInfo">01 / 10</div>
+  <div class="nav-track"><i id="navTrack"></i></div>
+  <button class="nav-btn" id="nextBtn">&#8594;</button>
+</nav>
+<button class="fullscreen-btn" id="fullscreenBtn">&#9633; 全屏</button>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+  var stage = document.getElementById('stage');
+  var slides = stage.querySelectorAll('.slide');
+  var totalSlides = slides.length;
+  var currentIndex = 0;
+
+  function animateSlide(slide) {
+    var blocks = slide.querySelectorAll('[data-animation]');
+    gsap.killTweensOf(blocks);
+    gsap.set(blocks, { clearProps: 'transform,opacity,clipPath' });
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    blocks.forEach(function(block, i) {
+      var preset = block.dataset.animation;
+      var delay = i * 0.07;
+      switch (preset) {
+        case 'heroReveal': tl.from(block, { y: 42, opacity: 0, duration: 0.72 }, delay); break;
+        case 'scaleIn': tl.from(block, { scale: 0.86, opacity: 0, duration: 0.56 }, delay); break;
+        case 'lineSweep': tl.from(block, { clipPath: 'inset(0 100% 0 0)', opacity: 0.5, duration: 0.74 }, delay); break;
+        case 'parallax': tl.from(block, { x: 34, scale: 1.04, opacity: 0, duration: 0.75 }, delay); break;
+        case 'stagger':
+          tl.from(block, { y: 22, opacity: 0, duration: 0.58 }, delay);
+          tl.from(block.querySelectorAll('li, .timeline-node, .bar'), { y: 16, opacity: 0, stagger: 0.08, duration: 0.45 }, delay + 0.12);
+          break;
+        case 'dataGlow': tl.from(block, { scale: 0.9, opacity: 0, duration: 0.6 }, delay); break;
+        case 'chartRise':
+          tl.from(block, { y: 30, opacity: 0, duration: 0.65 }, delay);
+          tl.from(block.querySelectorAll('.bar'), { scaleY: 0, transformOrigin: 'bottom', stagger: 0.1, duration: 0.5 }, delay + 0.1);
+          break;
+        case 'badgeStamp': tl.from(block, { scale: 0, opacity: 0, duration: 0.55, ease: 'back.out(1.7)' }, delay); break;
+        default: tl.from(block, { y: 20, opacity: 0, duration: 0.5 }, delay);
+      }
+    });
+  }
+
+  function goTo(index) {
+    if (index < 0 || index >= totalSlides) return;
+    slides[currentIndex].classList.remove('active');
+    currentIndex = index;
+    slides[currentIndex].classList.add('active');
+    animateSlide(slides[currentIndex]);
+    document.getElementById('navInfo').textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+    document.getElementById('navTrack').style.width = ((currentIndex + 1) / totalSlides * 100) + '%';
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function() { goTo(currentIndex - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function() { goTo(currentIndex + 1); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goTo(currentIndex + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(currentIndex - 1); }
+    if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    if (e.key === 'End') { e.preventDefault(); goTo(totalSlides - 1); }
+  });
+  stage.addEventListener('click', function(e) {
+    if (e.target.closest('button, a, .nav-controls')) return;
+    goTo(e.clientX > window.innerWidth / 2 ? currentIndex + 1 : currentIndex - 1);
+  });
+  var touchStartX = 0;
+  stage.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+  stage.addEventListener('touchend', function(e) {
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(currentIndex + (diff > 0 ? 1 : -1));
+  });
+  document.getElementById('fullscreenBtn').addEventListener('click', function() {
+    document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  });
+  function updateScale() {
+    var scaleW = (window.innerWidth - 40) / 1280;
+    var scaleH = (window.innerHeight - 100) / 720;
+    document.documentElement.style.setProperty('--scale', Math.min(scaleW, scaleH, 1));
+  }
+  window.addEventListener('resize', updateScale);
+  updateScale();
+  goTo(0);
+})();
+</script>
+</body>
+</html>

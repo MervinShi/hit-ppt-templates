@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学生会主席团竞选答辩 — 哈工大深圳 HTML PPT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS Variables (VIS-compliant) ===== */
+:root {
+  --primary: #A72126;
+  --accent: #f5c66b;
+  --gold: #f5c66b;
+  --deep: #7f1118;
+  --ink: #fff3d6;
+  --paper: #A72126;
+  --muted: #f1d39c;
+  --surface: rgba(255, 243, 214, .18);
+  --font-title: 'Noto Serif SC', 'STSong', Georgia, serif;
+  --font-body: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --slide-w: 1280px;
+  --slide-h: 720px;
+  --scale: 1;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #0a0808; font-family: var(--font-body); }
+body { display: grid; place-items: center; }
+
+.stage {
+  width: var(--slide-w); height: var(--slide-h);
+  position: relative; overflow: hidden;
+  transform: scale(var(--scale)); transform-origin: center center;
+  box-shadow: 0 30px 120px rgba(0,0,0,.7);
+}
+
+.slide {
+  position: absolute; inset: 0; display: none; overflow: hidden;
+  color: var(--ink); background: #12100d;
+  font-family: var(--font-title);
+}
+.slide.active { display: block; }
+
+/* Gold grid + dark base */
+.slide::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(245,198,107,.06) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(245,198,107,.045) 1px, transparent 1px);
+  background-size: 96px 96px;
+  pointer-events: none;
+}
+
+/* Red + gold gradient */
+.slide::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(110deg, rgba(245,198,107,.12), transparent 40%),
+    radial-gradient(circle at 72% 72%, rgba(167,33,38,.34), transparent 25%);
+  pointer-events: none;
+}
+
+/* Border frame for campaign */
+.slide {
+  border-top: 2px solid rgba(245,198,107,.5);
+  border-bottom: 2px solid rgba(245,198,107,.5);
+  padding: 6% 0;
+}
+
+/* Cover & Thanks overlay */
+.slide.kind-cover::after,
+.slide.kind-thanks::after {
+  background:
+    linear-gradient(90deg, rgba(167,33,38,.94) 0%, rgba(167,33,38,.58) 38%, rgba(255,243,214,.18) 100%);
+}
+
+/* ===== Brand Header (VIS-compliant) ===== */
+.brand-header {
+  position: absolute; top: 2.4%; left: 5.2%; right: 5.2%; z-index: 20;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; padding-bottom: 10px;
+  border-bottom: 1px solid rgba(245,198,107,.52);
+  pointer-events: none;
+}
+.brand-lockup { width: 30%; min-width: 220px; max-width: 360px; height: 36px; display: flex; align-items: center; }
+.brand-lockup img {
+  max-width: 100%; max-height: 36px; object-fit: contain; object-position: left center;
+  filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);
+}
+.brand-meta {
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+  color: var(--ink); font-family: var(--font-body); font-size: 11px; text-align: right;
+}
+.brand-meta b { color: var(--gold); font-weight: 900; }
+.brand-right-mark { width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 8px 20px rgba(0,0,0,.3)); }
+
+/* ===== Slide Chrome ===== */
+.slide-chrome {
+  position: absolute; left: 5.4%; right: 5.4%; top: 16%; z-index: 10; pointer-events: none;
+}
+.slide-chrome .kicker {
+  color: var(--gold); font-family: var(--font-body);
+  font-size: 11px; font-weight: 900; letter-spacing: .16em; margin-bottom: 8px;
+}
+.slide-chrome h1 {
+  width: min(72%, 800px); font-size: clamp(22px, 3.1vw, 44px);
+  line-height: 1.12; font-weight: 900; color: #fff7e4;
+}
+.slide-chrome p {
+  width: min(58%, 680px); margin-top: 8px;
+  color: var(--muted); font-size: clamp(11px, 1.15vw, 16px); line-height: 1.4;
+}
+.slide.kind-cover .slide-chrome, .slide.kind-thanks .slide-chrome { top: auto; }
+
+/* ===== Slide Footer ===== */
+.slide-footer {
+  position: absolute; left: 5.4%; right: 5.4%; bottom: 2.2%; z-index: 20;
+  display: flex; justify-content: space-between;
+  color: var(--muted); font-family: var(--font-body); font-size: 11px; pointer-events: none;
+}
+
+/* ===== Content Blocks ===== */
+.block { position: absolute; z-index: 5; }
+
+.block-title { display: grid; align-items: start; }
+.block-title p {
+  font-family: var(--font-title); font-weight: 900;
+  font-size: clamp(28px, 5vw, 64px); line-height: 1.05;
+  text-shadow: 0 2px 0 rgba(127,17,24,.75);
+}
+
+.block-subtitle { display: grid; align-items: start; padding-left: 14px; border-left: 4px solid var(--gold); }
+.block-subtitle p { color: var(--muted); font-size: clamp(15px, 1.6vw, 22px); line-height: 1.6; }
+
+.block-body p { color: rgba(255,243,214,.85); font-size: clamp(17px, 1.7vw, 25px); line-height: 1.72; }
+
+.block-list ul {
+  list-style: none; display: grid; gap: 10px; padding: 0;
+  font-size: clamp(18px, 1.9vw, 28px); font-weight: 800; line-height: 1.5;
+}
+.block-list li {
+  padding: 12px 16px; border-left: 4px solid var(--gold);
+  background: rgba(255,247,228,.06); border: 1px solid rgba(245,198,107,.32);
+}
+
+.block-metric {
+  display: grid; align-content: center; justify-items: center; gap: 6px;
+  border: 1px solid rgba(245,198,107,.55);
+  background: rgba(255,247,228,.06);
+  backdrop-filter: blur(12px);
+}
+.block-metric strong {
+  color: var(--gold); font-family: Georgia, var(--font-title);
+  font-size: clamp(32px, 4.2vw, 64px); line-height: 1; font-weight: 900;
+}
+.block-metric span { color: var(--muted); font-size: clamp(13px, 1.2vw, 17px); }
+
+.block-image img {
+  width: 100%; height: 100%; object-fit: cover;
+  border: 3px solid rgba(245,198,107,.3);
+}
+
+/* Flag badge special */
+.block-image img[src*="flag.png"] {
+  object-fit: contain;
+  filter: drop-shadow(0 18px 32px rgba(80,10,18,.5));
+}
+
+.block-timeline ol {
+  list-style: none; display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px; padding: 0; width: 100%;
+}
+.block-timeline .timeline-node {
+  min-height: 84px; display: grid; place-items: center; padding: 12px;
+  text-align: center; border: 1px solid rgba(245,198,107,.32);
+  background: rgba(255,247,228,.06);
+  font-weight: 800; line-height: 1.35; font-size: clamp(14px, 1.3vw, 18px);
+}
+
+.block-card {
+  padding: 22px; display: grid; align-content: center;
+  border: 1px solid rgba(245,198,107,.4);
+  background: rgba(255,247,228,.07);
+  font-weight: 800;
+}
+.block-card p { font-size: clamp(18px, 1.9vw, 28px); line-height: 1.45; white-space: pre-line; }
+
+.chart-wrap { width: 100%; height: 100%; position: relative; }
+.chart-wrap canvas { width: 100% !important; height: 100% !important; }
+
+/* ===== Campaign Ornaments ===== */
+.gold-split {
+  height: 100%; display: grid; gap: 8px; align-content: center;
+}
+.gold-split i {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.campaign-panels {
+  height: 100%; display: grid; gap: 10px;
+}
+.campaign-panels i {
+  border: 1px solid rgba(245,198,107,.3);
+  background: rgba(255,247,228,.08);
+}
+
+.ribbon-gold {
+  position: absolute; left: -12%; bottom: 5%; z-index: 2;
+  height: 16%; width: 74%;
+  background: linear-gradient(90deg, transparent, rgba(245,198,107,.5), rgba(255,243,214,.18), transparent);
+  pointer-events: none; filter: blur(.3px);
+}
+
+.spotlight {
+  position: absolute; right: -10%; top: -15%; z-index: 1;
+  width: 50%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,198,107,.2), transparent 60%);
+  pointer-events: none;
+}
+
+/* ===== Navigation ===== */
+.nav-controls {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 100;
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(20,10,10,.92); backdrop-filter: blur(18px);
+  border: 1px solid rgba(245,198,107,.2); border-radius: 12px; padding: 8px 16px;
+}
+.nav-btn {
+  width: 36px; height: 36px; border: 1px solid rgba(245,198,107,.2);
+  background: rgba(255,243,214,.06); color: #fff3d6;
+  border-radius: 8px; cursor: pointer; display: grid; place-items: center;
+  font-size: 16px; transition: transform .15s, background .15s;
+}
+.nav-btn:hover { transform: translateY(-1px); background: rgba(255,243,214,.15); }
+.nav-info { color: rgba(255,243,214,.75); font-size: 13px; min-width: 60px; text-align: center; }
+.nav-track { width: 120px; height: 4px; border-radius: 2px; background: rgba(255,243,214,.12); overflow: hidden; }
+.nav-track i { display: block; height: 100%; border-radius: inherit; background: var(--gold); transition: width .3s; }
+
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  padding: 8px 14px; border: 1px solid rgba(245,198,107,.2);
+  background: rgba(20,10,10,.85); color: #fff3d6;
+  border-radius: 8px; cursor: pointer; font-size: 13px;
+  backdrop-filter: blur(12px); transition: transform .15s;
+}
+.fullscreen-btn:hover { transform: translateY(-1px); }
+
+@media (max-width: 1320px) { :root { --scale: calc((100vw - 40px) / 1280); } }
+@media (max-height: 760px) { :root { --scale: calc((100vh - 100px) / 720); } }
+@media (max-width: 760px) {
+  .brand-lockup { min-width: 140px; }
+  .brand-meta { font-size: 8px; gap: 4px; }
+  .nav-controls { gap: 8px; padding: 6px 12px; }
+  .nav-track { width: 60px; }
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <section class="slide kind-cover" data-index="0">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>01 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    <div class="ribbon-gold"></div>
+    
+    
+    <div class="block block-title" style="left:7%;top:24%;width:58%;height:20%;" data-animation="heroReveal">
+      <p>学生会主席团竞选答辩</p>
+    </div>
+    <div class="block block-subtitle" style="left:8%;top:54%;width:54%;height:7%;" data-animation="fadeUp">
+      <p>以可靠执行回应每一份信任</p>
+    </div>
+    <div class="block block-image" style="right:6%;top:18%;width:18%;height:22%;" data-animation="scaleIn">
+      <img src="../public/assets/hit-shenzhen/flag.png" alt="">
+    </div>
+    <div class="block" style="left:6%;bottom:15%;width:82%;height:10%;" data-animation="lineSweep">
+      <div class="research-grid"></div>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>01</span></div>
+  </section>
+
+  <section class="slide kind-timeline" data-index="1">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>02 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">TIMELINE</div>
+      <h1>答辩结构</h1>
+      <p>我是谁、做过什么、准备怎么做</p>
+    </div>
+    
+    <div class="block block-timeline" style="left:8%;top:34%;width:82%;height:22%;" data-animation="stagger">
+      <ol><li class="timeline-node">01 个人经历与成长</li>
+<li class="timeline-node">02 核心优势与能力</li>
+<li class="timeline-node">03 问题判断与分析</li>
+<li class="timeline-node">04 任期计划与目标</li>
+<li class="timeline-node">05 承诺与回应机制</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:64%;width:67%;height:8%;" data-animation="fadeUp">
+      <p></p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>02</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="2">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>03 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>个人介绍</h1>
+      <p>长期在一线服务场景中积累组织经验</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>12</strong><span>场大型活动</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>3000+</strong><span>累计服务人次</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;">曾担任学院学生会部长，主导迎新、学术沙龙、志愿服务等活动。熟悉从需求收集、方案制定到现场执行的完整流程。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>03</span></div>
+  </section>
+
+  <section class="slide kind-timeline" data-index="3">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>04 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">TIMELINE</div>
+      <h1>经历与成果</h1>
+      <p>把承诺转化成可验证的结果</p>
+    </div>
+    
+    <div class="block block-timeline" style="left:8%;top:34%;width:82%;height:22%;" data-animation="stagger">
+      <ol><li class="timeline-node">迎新统筹：协调12个部门，服务3000+新生</li>
+<li class="timeline-node">社团联动：搭建跨学院合作平台</li>
+<li class="timeline-node">权益反馈：建立问题响应机制</li>
+<li class="timeline-node">学术活动：组织8场学术沙龙</li>
+<li class="timeline-node">志愿服务：累计服务时长500+小时</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:64%;width:67%;height:8%;" data-animation="fadeUp">
+      <p></p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>04</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="4">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>05 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>问题判断</h1>
+      <p>学生服务要从热闹转向有效</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>活动信息分散，触达效率不足</li>
+<li>权益反馈链条较长，结果不透明</li>
+<li>组织内部经验沉淀不足，新人上手慢</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>05</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="5">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>06 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>任期计划</h1>
+      <p>三件事：透明、连接、成长</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>透明：建立反馈进度看板，让同学看到问题处理状态</li>
+<li>连接：打造跨学院活动日历，打破信息壁垒</li>
+<li>成长：完善学生骨干训练营，培养下一届接班人</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>06</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="6">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>07 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>100 天行动表</h1>
+      <p>用短周期结果建立信任</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>第 1-15 天：走访调研各部门和学院</li>
+<li>第 16-45 天：上线反馈进度看板</li>
+<li>第 46-75 天：启动跨学院活动共创</li>
+<li>第 76-100 天：公开复盘与中期述职</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>07</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="7">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>08 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>我的承诺</h1>
+      <p>不做空泛口号，只做可追踪的服务</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>第一，所有计划有负责人和时间点</li>
+<li>第二，重要反馈有过程记录和结果说明</li>
+<li>第三，组织建设服务于同学，而不是服务于形式</li>
+<li>第四，每月底公开一次进度，接受监督</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>08</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="8">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>09 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>团队建设</h1>
+      <p>打造一支想干事、能干事、干成事的团队</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>执行部：负责活动统筹和现场执行</li>
+<li>联络部：负责跨部门沟通和外部合作</li>
+<li>宣传部：负责信息传播和品牌建设</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>09</span></div>
+  </section>
+
+  <section class="slide kind-thanks" data-index="9">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      </div>
+      <div class="brand-meta">
+        <img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">
+        <span>CAMPAIGN DEFENSE</span>
+        <b>10 / 10</b>
+      </div>
+    </div>
+    
+    <div class="spotlight"></div>
+    <div class="ribbon-gold"></div>
+    
+    
+    <div class="block block-image" style="right:5%;top:16%;width:14%;height:20%;" data-animation="scaleIn">
+      <img src="../public/assets/hit-shenzhen/flag.png" alt="">
+    </div>
+    <div class="block block-title" style="left:10%;top:28%;width:52%;height:18%;" data-animation="heroReveal">
+      <p>请投我一票</p>
+    </div>
+    <div class="block block-subtitle" style="left:11%;top:52%;width:44%;height:6%;" data-animation="fadeUp">
+      <p>我会把信任变成看得见的行动</p>
+    </div>
+    <div class="block" style="left:9%;bottom:14%;width:78%;height:8%;" data-animation="lineSweep">
+      <div class="research-grid"></div>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>10</span></div>
+  </section>
+</div>
+
+<nav class="nav-controls">
+  <button class="nav-btn" id="prevBtn">&#8592;</button>
+  <div class="nav-info" id="navInfo">01 / 10</div>
+  <div class="nav-track"><i id="navTrack"></i></div>
+  <button class="nav-btn" id="nextBtn">&#8594;</button>
+</nav>
+<button class="fullscreen-btn" id="fullscreenBtn">&#9633; 全屏</button>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+  var stage = document.getElementById('stage');
+  var slides = stage.querySelectorAll('.slide');
+  var totalSlides = slides.length;
+  var currentIndex = 0;
+
+  function animateSlide(slide) {
+    var blocks = slide.querySelectorAll('[data-animation]');
+    gsap.killTweensOf(blocks);
+    gsap.set(blocks, { clearProps: 'transform,opacity,clipPath' });
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    blocks.forEach(function(block, i) {
+      var preset = block.dataset.animation;
+      var delay = i * 0.07;
+      switch (preset) {
+        case 'heroReveal': tl.from(block, { y: 42, opacity: 0, duration: 0.72 }, delay); break;
+        case 'scaleIn': tl.from(block, { scale: 0.86, opacity: 0, duration: 0.56 }, delay); break;
+        case 'lineSweep': tl.from(block, { clipPath: 'inset(0 100% 0 0)', opacity: 0.5, duration: 0.74 }, delay); break;
+        case 'parallax': tl.from(block, { x: 34, scale: 1.04, opacity: 0, duration: 0.75 }, delay); break;
+        case 'stagger':
+          tl.from(block, { y: 22, opacity: 0, duration: 0.58 }, delay);
+          tl.from(block.querySelectorAll('li, .timeline-node, .bar'), { y: 16, opacity: 0, stagger: 0.08, duration: 0.45 }, delay + 0.12);
+          break;
+        case 'dataGlow': tl.from(block, { scale: 0.9, opacity: 0, duration: 0.6 }, delay); break;
+        case 'chartRise':
+          tl.from(block, { y: 30, opacity: 0, duration: 0.65 }, delay);
+          tl.from(block.querySelectorAll('.bar'), { scaleY: 0, transformOrigin: 'bottom', stagger: 0.1, duration: 0.5 }, delay + 0.1);
+          break;
+        case 'badgeStamp': tl.from(block, { scale: 0, opacity: 0, duration: 0.55, ease: 'back.out(1.7)' }, delay); break;
+        default: tl.from(block, { y: 20, opacity: 0, duration: 0.5 }, delay);
+      }
+    });
+  }
+
+  function goTo(index) {
+    if (index < 0 || index >= totalSlides) return;
+    slides[currentIndex].classList.remove('active');
+    currentIndex = index;
+    slides[currentIndex].classList.add('active');
+    animateSlide(slides[currentIndex]);
+    document.getElementById('navInfo').textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+    document.getElementById('navTrack').style.width = ((currentIndex + 1) / totalSlides * 100) + '%';
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function() { goTo(currentIndex - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function() { goTo(currentIndex + 1); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goTo(currentIndex + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(currentIndex - 1); }
+    if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    if (e.key === 'End') { e.preventDefault(); goTo(totalSlides - 1); }
+  });
+  stage.addEventListener('click', function(e) {
+    if (e.target.closest('button, a, .nav-controls')) return;
+    goTo(e.clientX > window.innerWidth / 2 ? currentIndex + 1 : currentIndex - 1);
+  });
+  var touchStartX = 0;
+  stage.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+  stage.addEventListener('touchend', function(e) {
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(currentIndex + (diff > 0 ? 1 : -1));
+  });
+  document.getElementById('fullscreenBtn').addEventListener('click', function() {
+    document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  });
+  function updateScale() {
+    var scaleW = (window.innerWidth - 40) / 1280;
+    var scaleH = (window.innerHeight - 100) / 720;
+    document.documentElement.style.setProperty('--scale', Math.min(scaleW, scaleH, 1));
+  }
+  window.addEventListener('resize', updateScale);
+  updateScale();
+  goTo(0);
+})();
+</script>
+</body>
+</html>

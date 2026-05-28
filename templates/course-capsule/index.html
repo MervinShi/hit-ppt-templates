@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程小组 · 胶囊模块 — 哈工大深圳 HTML PPT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS Variables (VIS-compliant) ===== */
+:root {
+  --primary: #005375;
+  --accent: #ff7a3d;
+  --secondary: #70c7b2;
+  --gold: #d7b66f;
+  --ink: #17323b;
+  --paper: #fbf4e6;
+  --muted: #667178;
+  --surface: rgba(255, 255, 255, .88);
+  --font-title: 'Noto Sans SC', 'PingFang SC', 'Helvetica Neue', sans-serif;
+  --font-body: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --slide-w: 1280px;
+  --slide-h: 720px;
+  --scale: 1;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #e8e4db; font-family: var(--font-body); }
+body { display: grid; place-items: center; }
+
+.stage {
+  width: var(--slide-w); height: var(--slide-h);
+  position: relative; overflow: hidden;
+  transform: scale(var(--scale)); transform-origin: center center;
+  box-shadow: 0 30px 120px rgba(0,0,0,.15);
+}
+
+.slide {
+  position: absolute; inset: 0; display: none; overflow: hidden;
+  color: var(--ink); background: var(--paper);
+  font-family: var(--font-title);
+}
+.slide.active { display: block; }
+
+/* Grid background */
+.slide::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(0,83,117,.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(0,83,117,.035) 1px, transparent 1px);
+  background-size: 54px 54px;
+  pointer-events: none;
+}
+
+/* Warm gradient overlay */
+.slide::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255,122,61,.15), transparent 24%),
+    linear-gradient(135deg, rgba(0,83,117,.08), transparent 36%);
+  pointer-events: none;
+}
+
+/* Cover / Thanks special */
+.slide.kind-cover::after,
+.slide.kind-thanks::after {
+  background:
+    linear-gradient(90deg, rgba(251,244,230,.94) 0%, rgba(251,244,230,.72) 42%, rgba(251,244,230,.18) 100%),
+    url('../public/assets/hit-shenzhen/hit-building.png') center/cover no-repeat;
+}
+
+/* ===== Brand Header (VIS-compliant) ===== */
+.brand-header {
+  position: absolute; top: 4.4%; left: 5.2%; right: 5.2%; z-index: 20;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0,83,117,.22);
+  pointer-events: none;
+}
+.brand-lockup { width: 30%; min-width: 220px; max-width: 360px; height: 38px; display: flex; align-items: center; }
+.brand-lockup img { max-width: 100%; max-height: 38px; object-fit: contain; object-position: left center; }
+.brand-meta {
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+  color: var(--ink); font-family: var(--font-body); font-size: 11px; text-align: right;
+}
+.brand-meta b { color: var(--primary); font-weight: 900; }
+
+/* ===== Slide Chrome ===== */
+.slide-chrome {
+  position: absolute; left: 5.4%; right: 5.4%; top: 16%; z-index: 10; pointer-events: none;
+}
+.slide-chrome .kicker {
+  color: var(--primary); font-family: var(--font-body);
+  font-size: 11px; font-weight: 900; letter-spacing: .12em; margin-bottom: 8px;
+}
+.slide-chrome h1 {
+  width: min(72%, 800px); font-size: clamp(22px, 3.1vw, 44px);
+  line-height: 1.12; font-weight: 900;
+}
+.slide-chrome p {
+  width: min(58%, 680px); margin-top: 8px;
+  color: var(--muted); font-size: clamp(11px, 1.15vw, 16px); line-height: 1.4;
+}
+.slide.kind-cover .slide-chrome, .slide.kind-thanks .slide-chrome { top: auto; }
+
+/* ===== Slide Footer ===== */
+.slide-footer {
+  position: absolute; left: 5.4%; right: 5.4%; bottom: 4.2%; z-index: 20;
+  display: flex; justify-content: space-between;
+  color: var(--muted); font-family: var(--font-body); font-size: 11px; pointer-events: none;
+}
+
+/* ===== Content Blocks ===== */
+.block { position: absolute; z-index: 5; }
+
+.block-title { display: grid; align-items: start; }
+.block-title p {
+  font-family: var(--font-title); font-weight: 900;
+  font-size: clamp(28px, 5vw, 68px); line-height: 1.05;
+}
+
+.block-subtitle { display: grid; align-items: start; padding-left: 14px; border-left: 4px solid var(--accent); }
+.block-subtitle p { color: var(--muted); font-size: clamp(15px, 1.6vw, 22px); line-height: 1.6; }
+
+.block-body p { color: rgba(23,50,59,.82); font-size: clamp(17px, 1.7vw, 25px); line-height: 1.72; }
+
+.block-list ul {
+  list-style: none; display: grid; gap: 10px; padding: 0;
+  font-size: clamp(18px, 1.9vw, 28px); font-weight: 800; line-height: 1.5;
+}
+.block-list li {
+  padding: 12px 16px;
+  border-left: 6px solid var(--accent);
+  background: var(--surface);
+  border: 2px solid rgba(23,50,59,.1);
+  border-left: 6px solid var(--accent);
+  border-radius: 6px;
+  box-shadow: 6px 6px 0 rgba(0,83,117,.1);
+}
+
+.block-metric {
+  display: grid; align-content: center; justify-items: center; gap: 6px;
+  border: 2px solid rgba(23,50,59,.1); border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 6px 6px 0 rgba(0,83,117,.1);
+}
+.block-metric strong {
+  color: var(--primary); font-family: Georgia, var(--font-title);
+  font-size: clamp(32px, 4.2vw, 64px); line-height: 1; font-weight: 900;
+}
+.block-metric span { color: var(--muted); font-size: clamp(13px, 1.2vw, 17px); }
+
+.block-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+
+.block-timeline ol {
+  list-style: none; display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px; padding: 0; width: 100%;
+}
+.block-timeline .timeline-node {
+  min-height: 84px; display: grid; place-items: center; padding: 12px;
+  text-align: center; border: 2px solid rgba(23,50,59,.1); border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 6px 6px 0 rgba(0,83,117,.1);
+  font-weight: 800; line-height: 1.35; font-size: clamp(14px, 1.3vw, 18px);
+}
+
+.block-card {
+  padding: 20px; display: grid; align-content: center; border-radius: 12px;
+  border: 2px solid rgba(23,50,59,.08);
+  background: var(--surface);
+  box-shadow: 8px 8px 0 rgba(0,83,117,.08);
+  font-weight: 800;
+}
+.block-card p { font-size: clamp(18px, 1.9vw, 26px); line-height: 1.45; white-space: pre-line; }
+
+.chart-wrap { width: 100%; height: 100%; position: relative; }
+.chart-wrap canvas { width: 100% !important; height: 100% !important; }
+
+/* ===== Course-specific Ornaments ===== */
+.course-ribbons i {
+  position: absolute; height: 18px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--secondary));
+  transform: rotate(-4deg);
+}
+.course-ribbons i:nth-child(1) { left: 0; right: 30%; top: 8%; }
+.course-ribbons i:nth-child(2) { left: 20%; right: 0; top: 40%; opacity: .64; }
+.course-ribbons i:nth-child(3) { left: 8%; right: 18%; top: 72%; opacity: .35; }
+
+.campus-map {
+  border-radius: 8px; border: 1px solid rgba(0,83,117,.25);
+  background:
+    linear-gradient(120deg, transparent 25%, rgba(0,83,117,.12) 26%, transparent 28%),
+    linear-gradient(45deg, transparent 35%, rgba(0,83,117,.2) 36%, transparent 38%),
+    rgba(255,255,255,.6);
+  position: relative;
+}
+.campus-map i, .campus-map b, .campus-map span {
+  position: absolute; border-radius: 50%; background: var(--accent);
+}
+.campus-map i { width: 14px; height: 14px; left: 30%; top: 24%; }
+.campus-map b { width: 20px; height: 20px; right: 26%; top: 50%; background: var(--secondary); }
+.campus-map span { width: 10px; height: 10px; left: 52%; bottom: 22%; }
+
+/* ===== Navigation ===== */
+.nav-controls {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 100;
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(23,50,59,.9); backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.15); border-radius: 12px; padding: 8px 16px;
+}
+.nav-btn {
+  width: 36px; height: 36px; border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.1); color: #fff;
+  border-radius: 8px; cursor: pointer; display: grid; place-items: center;
+  font-size: 16px; transition: transform .15s, background .15s;
+}
+.nav-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,.2); }
+.nav-info { color: rgba(255,255,255,.8); font-size: 13px; min-width: 60px; text-align: center; }
+.nav-track { width: 120px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.15); overflow: hidden; }
+.nav-track i { display: block; height: 100%; border-radius: inherit; background: var(--accent); transition: width .3s; }
+
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  padding: 8px 14px; border: 1px solid rgba(0,0,0,.1);
+  background: rgba(23,50,59,.85); color: #fff;
+  border-radius: 8px; cursor: pointer; font-size: 13px;
+  backdrop-filter: blur(12px); transition: transform .15s;
+}
+.fullscreen-btn:hover { transform: translateY(-1px); }
+
+@media (max-width: 1320px) { :root { --scale: calc((100vw - 40px) / 1280); } }
+@media (max-height: 760px) { :root { --scale: calc((100vh - 100px) / 720); } }
+@media (max-width: 760px) {
+  .brand-lockup { min-width: 140px; }
+  .brand-meta { font-size: 8px; gap: 4px; }
+  .nav-controls { gap: 8px; padding: 6px 12px; }
+  .nav-track { width: 60px; }
+}
+
+/* ===== Variant: 课程小组 · 胶囊模块 ===== */
+:root {
+  --paper: #f5f0e8;
+  --ink: #17323b;
+  --surface: rgba(255,255,255,.9);
+  --muted: #667178;
+  --accent: #2754ff;
+  --gold: #d7b66f;
+}
+
+/* Background override */
+.slide { background: #f5f0e8; }
+.slide::after { background: radial-gradient(circle at 80% 20%, rgba(39,84,255,.12), transparent 24%); }
+.slide.kind-cover::after, .slide.kind-thanks::after {
+  background: linear-gradient(90deg, rgba(245,240,232,.94) 0%, rgba(245,240,232,.72) 42%, rgba(245,240,232,.18) 100%);
+}
+
+/* Metric accent */
+.block-metric strong { color: #2754ff; }
+
+/* Brand header border */
+.brand-header { border-bottom-color: rgba(39,84,255,.1); }
+
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <!-- Cover -->
+  <section class="slide kind-cover active" data-index="0">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>01 / 10</b></div>
+    </div>
+
+    <div class="block block-title" style="left:8%;top:22%;width:55%;height:18%;" data-animation="heroReveal">
+      <p><!-- TITLE_PLACEHOLDER --></p>
+    </div>
+    <div class="block block-subtitle" style="left:9%;top:50%;width:50%;height:7%;" data-animation="fadeUp">
+      <p><!-- SUBTITLE_PLACEHOLDER --></p>
+    </div>
+    <div class="block block-image" style="right:8%;top:20%;width:26%;height:26%;" data-animation="scaleIn">
+      <img src="../public/assets/hit-shenzhen/hit-building.png" alt="">
+    </div>
+    <div class="block" style="left:12%;bottom:18%;width:72%;height:12%;" data-animation="stagger">
+      <div class="course-ribbons"><i></i><i></i><i></i></div>
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>01</span></div>
+  </section>
+
+  <!-- Agenda -->
+  <section class="slide kind-agenda" data-index="1">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>02 / 10</b></div>
+    </div>
+
+    <div class="slide-chrome">
+      <div class="kicker">AGENDA</div>
+      <h1><!-- AGENDA_TITLE --></h1>
+      <p><!-- AGENDA_SUBTITLE --></p>
+    </div>
+
+    <div class="block block-list" style="left:12%;top:30%;width:42%;height:48%;" data-animation="stagger">
+      <ul><!-- AGENDA_ITEMS --></ul>
+    </div>
+    <div class="block block-metric" style="right:12%;top:30%;width:20%;height:16%;" data-animation="dataGlow">
+      <strong><!-- AGENDA_M1 --></strong><span><!-- AGENDA_M1_LABEL --></span>
+    </div>
+    <div class="block block-metric" style="right:12%;top:50%;width:20%;height:16%;" data-animation="dataGlow">
+      <strong><!-- AGENDA_M2 --></strong><span><!-- AGENDA_M2_LABEL --></span>
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>02</span></div>
+  </section>
+
+  <!-- Problem -->
+  <section class="slide kind-problem" data-index="2">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>03 / 10</b></div>
+    </div>
+
+    <div class="slide-chrome">
+      <div class="kicker">PROBLEM</div>
+      <h1><!-- PROBLEM_TITLE --></h1>
+      <p><!-- PROBLEM_SUBTITLE --></p>
+    </div>
+
+    <div class="block block-body" style="left:10%;top:32%;width:44%;height:28%;" data-animation="fadeUp">
+      <p><!-- PROBLEM_BODY --></p>
+    </div>
+    <div class="block" style="right:10%;top:28%;width:26%;height:34%;" data-animation="scaleIn">
+      <div class="campus-map"><i></i><b></b><span></span></div>
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>03</span></div>
+  </section>
+
+  <!-- Persona / User Profiles -->
+  <section class="slide kind-persona" data-index="3">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>04 / 10</b></div>
+    </div>
+
+    <div class="slide-chrome">
+      <div class="kicker">USER PROFILES</div>
+      <h1><!-- PERSONA_TITLE --></h1>
+      <p><!-- PERSONA_SUBTITLE --></p>
+    </div>
+
+    <div class="block block-card" style="left:8%;top:32%;width:24%;height:26%;" data-animation="scaleIn">
+      <p><!-- PERSONA_A --></p>
+    </div>
+    <div class="block block-card" style="left:36%;top:32%;width:24%;height:26%;" data-animation="scaleIn">
+      <p><!-- PERSONA_B --></p>
+    </div>
+    <div class="block block-card" style="left:64%;top:32%;width:24%;height:26%;" data-animation="scaleIn">
+      <p><!-- PERSONA_C --></p>
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>04</span></div>
+  </section>
+
+  <!-- Solution -->
+  <section class="slide kind-solution" data-index="4">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>05 / 10</b></div>
+    </div>
+
+    <div class="slide-chrome">
+      <div class="kicker">SOLUTION</div>
+      <h1><!-- SOLUTION_TITLE --></h1>
+      <p><!-- SOLUTION_SUBTITLE --></p>
+    </div>
+
+    <div class="block block-timeline" style="left:8%;top:32%;width:82%;height:20%;" data-animation="stagger">
+      <ol><!-- SOLUTION_FLOW --></ol>
+    </div>
+    <div class="block block-body" style="left:12%;top:58%;width:70%;height:14%;" data-animation="fadeUp">
+      <p><!-- SOLUTION_BODY --></p>
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>05</span></div>
+  </section>
+
+  <!-- Prototype -->
+  <section class="slide kind-prototype" data-index="5">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>06 / 10</b></div>
+    </div>
+
+    <div class="slide-chrome">
+      <div class="kicker">PROTOTYPE</div>
+      <h1><!-- PROTO_TITLE --></h1>
+      <p><!-- PROTO_SUBTITLE --></p>
+    </div>
+
+    <div class="block block-list" style="left:10%;top:32%;width:34%;height:34%;" data-animation="stagger">
+      <ul><!-- PROTO_POINTS --></ul>
+    </div>
+    <div class="block block-image" style="right:8%;top:28%;width:32%;height:44%;" data-animation="parallax">
+      <img src="../public/assets/hit-shenzhen/campus-mark.jpg" alt="">
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>06</span></div>
+  </section>
+
+  <!-- Feedback / Data -->
+  <section class="slide kind-feedback" data-index="6">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>07 / 10</b></div>
+    </div>
+
+    <div class="slide-chrome">
+      <div class="kicker">FEEDBACK &amp; DATA</div>
+      <h1><!-- FEEDBACK_TITLE --></h1>
+      <p><!-- FEEDBACK_SUBTITLE --></p>
+    </div>
+
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong><!-- FB_M1 --></strong><span><!-- FB_M1_LABEL --></span>
+    </div>
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong><!-- FB_M2 --></strong><span><!-- FB_M2_LABEL --></span>
+    </div>
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong><!-- FB_M3 --></strong><span><!-- FB_M3_LABEL --></span>
+    </div>
+    <div class="block" style="left:12%;top:60%;width:72%;height:16%;" data-animation="chartRise">
+      <div class="chart-wrap"><canvas id="feedbackChart"></canvas></div>
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>07</span></div>
+  </section>
+
+  <!-- Team -->
+  <section class="slide kind-team" data-index="7">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>08 / 10</b></div>
+    </div>
+
+    <div class="slide-chrome">
+      <div class="kicker">TEAM</div>
+      <h1><!-- TEAM_TITLE --></h1>
+      <p><!-- TEAM_SUBTITLE --></p>
+    </div>
+
+    <div class="block block-timeline" style="left:9%;top:34%;width:80%;height:22%;" data-animation="stagger">
+      <ol><!-- TEAM_ROLES --></ol>
+    </div>
+    <div class="block block-subtitle" style="left:18%;top:64%;width:60%;height:8%;" data-animation="fadeUp">
+      <p><!-- TEAM_NOTE --></p>
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>08</span></div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="slide kind-timeline" data-index="8">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>09 / 10</b></div>
+    </div>
+
+    <div class="slide-chrome">
+      <div class="kicker">PROJECT TIMELINE</div>
+      <h1><!-- TL_TITLE --></h1>
+      <p><!-- TL_SUBTITLE --></p>
+    </div>
+
+    <div class="block block-timeline" style="left:8%;top:36%;width:82%;height:24%;" data-animation="stagger">
+      <ol><!-- TL_ITEMS --></ol>
+    </div>
+    <div class="block block-body" style="left:14%;top:68%;width:66%;height:8%;" data-animation="fadeUp">
+      <p style="font-size:14px;"><!-- TL_NOTE --></p>
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>09</span></div>
+  </section>
+
+  <!-- Thanks -->
+  <section class="slide kind-thanks" data-index="9">
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-meta"><span>COURSE PROJECT</span><b>10 / 10</b></div>
+    </div>
+
+    <div class="block block-image" style="right:5%;top:14%;width:40%;height:50%;" data-animation="parallax">
+      <img src="../public/assets/hit-shenzhen/hit-building.png" alt="">
+    </div>
+    <div class="block block-title" style="left:9%;top:28%;width:34%;height:14%;" data-animation="heroReveal">
+      <p><!-- THANKS_TITLE --></p>
+    </div>
+    <div class="block block-subtitle" style="left:10%;top:50%;width:38%;height:6%;" data-animation="fadeUp">
+      <p><!-- THANKS_SUBTITLE --></p>
+    </div>
+
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>10</span></div>
+  </section>
+
+</div><!-- /stage -->
+
+<nav class="nav-controls">
+  <button class="nav-btn" id="prevBtn">&#8592;</button>
+  <div class="nav-info" id="navInfo">01 / 10</div>
+  <div class="nav-track"><i id="navTrack"></i></div>
+  <button class="nav-btn" id="nextBtn">&#8594;</button>
+</nav>
+<button class="fullscreen-btn" id="fullscreenBtn">&#9633; 全屏</button>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+  const stage = document.getElementById('stage');
+  const slides = stage.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  let currentIndex = 0;
+  let chartInstances = [];
+
+  function animateSlide(slide) {
+    const blocks = slide.querySelectorAll('[data-animation]');
+    gsap.killTweensOf(blocks);
+    gsap.set(blocks, { clearProps: 'transform,opacity,clipPath' });
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    blocks.forEach(function(block, i) {
+      const preset = block.dataset.animation;
+      const delay = i * 0.07;
+      switch (preset) {
+        case 'heroReveal': tl.from(block, { y: 42, opacity: 0, duration: 0.72 }, delay); break;
+        case 'scaleIn': tl.from(block, { scale: 0.86, opacity: 0, duration: 0.56 }, delay); break;
+        case 'lineSweep': tl.from(block, { clipPath: 'inset(0 100% 0 0)', opacity: 0.5, duration: 0.74 }, delay); break;
+        case 'parallax': tl.from(block, { x: 34, scale: 1.04, opacity: 0, duration: 0.75 }, delay); break;
+        case 'stagger':
+          tl.from(block, { y: 22, opacity: 0, duration: 0.58 }, delay);
+          tl.from(block.querySelectorAll('li, .timeline-node'), { y: 16, opacity: 0, stagger: 0.08, duration: 0.45 }, delay + 0.12);
+          break;
+        case 'dataGlow': tl.from(block, { scale: 0.9, opacity: 0, duration: 0.6 }, delay); break;
+        case 'chartRise':
+          tl.from(block, { y: 30, opacity: 0, duration: 0.65 }, delay);
+          break;
+        default: tl.from(block, { y: 20, opacity: 0, duration: 0.5 }, delay);
+      }
+    });
+
+    // Initialize charts on data slides
+    initCharts(slide);
+  }
+
+  function initCharts(slide) {
+    // Clean up previous chart instances
+    chartInstances.forEach(function(c) { try { c.destroy(); } catch(e) {} });
+    chartInstances = [];
+
+    const canvas = slide.querySelector('canvas');
+    if (!canvas || !window.Chart) return;
+
+    const ctx = canvas.getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['指标A', '指标B', '指标C', '指标D', '指标E'],
+        datasets: [{
+          label: '数据',
+          data: [38, 68, 50, 82, 58],
+          backgroundColor: ['rgba(0,83,117,.7)', 'rgba(255,122,61,.7)', 'rgba(112,199,178,.7)', 'rgba(0,83,117,.5)', 'rgba(255,122,61,.5)'],
+          borderColor: ['#005375', '#ff7a3d', '#70c7b2', '#005375', '#ff7a3d'],
+          borderWidth: 1,
+          borderRadius: 8,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,.06)' }, ticks: { color: '#667178' } },
+          x: { grid: { display: false }, ticks: { color: '#667178' } }
+        }
+      }
+    });
+    chartInstances.push(chart);
+  }
+
+  function goTo(index) {
+    if (index < 0 || index >= totalSlides) return;
+    slides[currentIndex].classList.remove('active');
+    currentIndex = index;
+    slides[currentIndex].classList.add('active');
+    animateSlide(slides[currentIndex]);
+    updateNav();
+  }
+
+  function updateNav() {
+    document.getElementById('navInfo').textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+    document.getElementById('navTrack').style.width = ((currentIndex + 1) / totalSlides * 100) + '%';
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function() { goTo(currentIndex - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function() { goTo(currentIndex + 1); });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goTo(currentIndex + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(currentIndex - 1); }
+    if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    if (e.key === 'End') { e.preventDefault(); goTo(totalSlides - 1); }
+  });
+
+  stage.addEventListener('click', function(e) {
+    if (e.target.closest('button, a, .nav-controls')) return;
+    goTo(e.clientX > window.innerWidth / 2 ? currentIndex + 1 : currentIndex - 1);
+  });
+
+  let touchStartX = 0;
+  stage.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+  stage.addEventListener('touchend', function(e) {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(currentIndex + (diff > 0 ? 1 : -1));
+  });
+
+  document.getElementById('fullscreenBtn').addEventListener('click', function() {
+    document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  });
+
+  function updateScale() {
+    const scaleW = (window.innerWidth - 40) / 1280;
+    const scaleH = (window.innerHeight - 100) / 720;
+    document.documentElement.style.setProperty('--scale', Math.min(scaleW, scaleH, 1));
+  }
+  window.addEventListener('resize', updateScale);
+  updateScale();
+
+  goTo(0);
+})();
+</script>
+</body>
+</html>

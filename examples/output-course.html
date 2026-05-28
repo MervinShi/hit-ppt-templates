@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园低碳出行服务设计 — 哈工大深圳 HTML PPT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS Variables (VIS-compliant) ===== */
+:root {
+  --primary: #005375;
+  --accent: #ff7a3d;
+  --secondary: #70c7b2;
+  --gold: #d7b66f;
+  --ink: #17323b;
+  --paper: #fbf4e6;
+  --muted: #667178;
+  --surface: rgba(255, 255, 255, .88);
+  --font-title: 'Noto Sans SC', 'PingFang SC', 'Helvetica Neue', sans-serif;
+  --font-body: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --slide-w: 1280px;
+  --slide-h: 720px;
+  --scale: 1;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #e8e4db; font-family: var(--font-body); }
+body { display: grid; place-items: center; }
+
+.stage {
+  width: var(--slide-w); height: var(--slide-h);
+  position: relative; overflow: hidden;
+  transform: scale(var(--scale)); transform-origin: center center;
+  box-shadow: 0 30px 120px rgba(0,0,0,.15);
+}
+
+.slide {
+  position: absolute; inset: 0; display: none; overflow: hidden;
+  color: var(--ink); background: var(--paper);
+  font-family: var(--font-title);
+}
+.slide.active { display: block; }
+
+/* Grid background */
+.slide::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(0,83,117,.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(0,83,117,.035) 1px, transparent 1px);
+  background-size: 54px 54px;
+  pointer-events: none;
+}
+
+/* Warm gradient overlay */
+.slide::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255,122,61,.15), transparent 24%),
+    linear-gradient(135deg, rgba(0,83,117,.08), transparent 36%);
+  pointer-events: none;
+}
+
+/* Cover / Thanks special */
+.slide.kind-cover::after,
+.slide.kind-thanks::after {
+  background:
+    linear-gradient(90deg, rgba(251,244,230,.94) 0%, rgba(251,244,230,.72) 42%, rgba(251,244,230,.18) 100%),
+    url('../public/assets/hit-shenzhen/hit-building.png') center/cover no-repeat;
+}
+
+/* ===== Brand Header (VIS-compliant) ===== */
+.brand-header {
+  position: absolute; top: 4.4%; left: 5.2%; right: 5.2%; z-index: 20;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0,83,117,.22);
+  pointer-events: none;
+}
+.brand-lockup { width: 30%; min-width: 220px; max-width: 360px; height: 38px; display: flex; align-items: center; }
+.brand-lockup img { max-width: 100%; max-height: 38px; object-fit: contain; object-position: left center; }
+.brand-meta {
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+  color: var(--ink); font-family: var(--font-body); font-size: 11px; text-align: right;
+}
+.brand-meta b { color: var(--primary); font-weight: 900; }
+
+/* ===== Slide Chrome ===== */
+.slide-chrome {
+  position: absolute; left: 5.4%; right: 5.4%; top: 16%; z-index: 10; pointer-events: none;
+}
+.slide-chrome .kicker {
+  color: var(--primary); font-family: var(--font-body);
+  font-size: 11px; font-weight: 900; letter-spacing: .12em; margin-bottom: 8px;
+}
+.slide-chrome h1 {
+  width: min(72%, 800px); font-size: clamp(22px, 3.1vw, 44px);
+  line-height: 1.12; font-weight: 900;
+}
+.slide-chrome p {
+  width: min(58%, 680px); margin-top: 8px;
+  color: var(--muted); font-size: clamp(11px, 1.15vw, 16px); line-height: 1.4;
+}
+.slide.kind-cover .slide-chrome, .slide.kind-thanks .slide-chrome { top: auto; }
+
+/* ===== Slide Footer ===== */
+.slide-footer {
+  position: absolute; left: 5.4%; right: 5.4%; bottom: 4.2%; z-index: 20;
+  display: flex; justify-content: space-between;
+  color: var(--muted); font-family: var(--font-body); font-size: 11px; pointer-events: none;
+}
+
+/* ===== Content Blocks ===== */
+.block { position: absolute; z-index: 5; }
+
+.block-title { display: grid; align-items: start; }
+.block-title p {
+  font-family: var(--font-title); font-weight: 900;
+  font-size: clamp(28px, 5vw, 68px); line-height: 1.05;
+}
+
+.block-subtitle { display: grid; align-items: start; padding-left: 14px; border-left: 4px solid var(--accent); }
+.block-subtitle p { color: var(--muted); font-size: clamp(15px, 1.6vw, 22px); line-height: 1.6; }
+
+.block-body p { color: rgba(23,50,59,.82); font-size: clamp(17px, 1.7vw, 25px); line-height: 1.72; }
+
+.block-list ul {
+  list-style: none; display: grid; gap: 10px; padding: 0;
+  font-size: clamp(18px, 1.9vw, 28px); font-weight: 800; line-height: 1.5;
+}
+.block-list li {
+  padding: 12px 16px;
+  border-left: 6px solid var(--accent);
+  background: var(--surface);
+  border: 2px solid rgba(23,50,59,.1);
+  border-left: 6px solid var(--accent);
+  border-radius: 6px;
+  box-shadow: 6px 6px 0 rgba(0,83,117,.1);
+}
+
+.block-metric {
+  display: grid; align-content: center; justify-items: center; gap: 6px;
+  border: 2px solid rgba(23,50,59,.1); border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 6px 6px 0 rgba(0,83,117,.1);
+}
+.block-metric strong {
+  color: var(--primary); font-family: Georgia, var(--font-title);
+  font-size: clamp(32px, 4.2vw, 64px); line-height: 1; font-weight: 900;
+}
+.block-metric span { color: var(--muted); font-size: clamp(13px, 1.2vw, 17px); }
+
+.block-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+
+.block-timeline ol {
+  list-style: none; display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px; padding: 0; width: 100%;
+}
+.block-timeline .timeline-node {
+  min-height: 84px; display: grid; place-items: center; padding: 12px;
+  text-align: center; border: 2px solid rgba(23,50,59,.1); border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 6px 6px 0 rgba(0,83,117,.1);
+  font-weight: 800; line-height: 1.35; font-size: clamp(14px, 1.3vw, 18px);
+}
+
+.block-card {
+  padding: 20px; display: grid; align-content: center; border-radius: 12px;
+  border: 2px solid rgba(23,50,59,.08);
+  background: var(--surface);
+  box-shadow: 8px 8px 0 rgba(0,83,117,.08);
+  font-weight: 800;
+}
+.block-card p { font-size: clamp(18px, 1.9vw, 26px); line-height: 1.45; white-space: pre-line; }
+
+.chart-wrap { width: 100%; height: 100%; position: relative; }
+.chart-wrap canvas { width: 100% !important; height: 100% !important; }
+
+/* ===== Course-specific Ornaments ===== */
+.course-ribbons i {
+  position: absolute; height: 18px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--secondary));
+  transform: rotate(-4deg);
+}
+.course-ribbons i:nth-child(1) { left: 0; right: 30%; top: 8%; }
+.course-ribbons i:nth-child(2) { left: 20%; right: 0; top: 40%; opacity: .64; }
+.course-ribbons i:nth-child(3) { left: 8%; right: 18%; top: 72%; opacity: .35; }
+
+.campus-map {
+  border-radius: 8px; border: 1px solid rgba(0,83,117,.25);
+  background:
+    linear-gradient(120deg, transparent 25%, rgba(0,83,117,.12) 26%, transparent 28%),
+    linear-gradient(45deg, transparent 35%, rgba(0,83,117,.2) 36%, transparent 38%),
+    rgba(255,255,255,.6);
+  position: relative;
+}
+.campus-map i, .campus-map b, .campus-map span {
+  position: absolute; border-radius: 50%; background: var(--accent);
+}
+.campus-map i { width: 14px; height: 14px; left: 30%; top: 24%; }
+.campus-map b { width: 20px; height: 20px; right: 26%; top: 50%; background: var(--secondary); }
+.campus-map span { width: 10px; height: 10px; left: 52%; bottom: 22%; }
+
+/* ===== Navigation ===== */
+.nav-controls {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 100;
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(23,50,59,.9); backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.15); border-radius: 12px; padding: 8px 16px;
+}
+.nav-btn {
+  width: 36px; height: 36px; border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.1); color: #fff;
+  border-radius: 8px; cursor: pointer; display: grid; place-items: center;
+  font-size: 16px; transition: transform .15s, background .15s;
+}
+.nav-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,.2); }
+.nav-info { color: rgba(255,255,255,.8); font-size: 13px; min-width: 60px; text-align: center; }
+.nav-track { width: 120px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.15); overflow: hidden; }
+.nav-track i { display: block; height: 100%; border-radius: inherit; background: var(--accent); transition: width .3s; }
+
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  padding: 8px 14px; border: 1px solid rgba(0,0,0,.1);
+  background: rgba(23,50,59,.85); color: #fff;
+  border-radius: 8px; cursor: pointer; font-size: 13px;
+  backdrop-filter: blur(12px); transition: transform .15s;
+}
+.fullscreen-btn:hover { transform: translateY(-1px); }
+
+@media (max-width: 1320px) { :root { --scale: calc((100vw - 40px) / 1280); } }
+@media (max-height: 760px) { :root { --scale: calc((100vh - 100px) / 720); } }
+@media (max-width: 760px) {
+  .brand-lockup { min-width: 140px; }
+  .brand-meta { font-size: 8px; gap: 4px; }
+  .nav-controls { gap: 8px; padding: 6px 12px; }
+  .nav-track { width: 60px; }
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <section class="slide kind-cover" data-index="0">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>01 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="block block-title" style="left:7%;top:24%;width:58%;height:20%;" data-animation="heroReveal">
+      <p>校园低碳出行服务设计</p>
+    </div>
+    <div class="block block-subtitle" style="left:8%;top:54%;width:54%;height:7%;" data-animation="fadeUp">
+      <p>课程小组汇报 · 第 6 组</p>
+    </div>
+    <div class="block block-image" style="right:6%;top:18%;width:18%;height:22%;" data-animation="scaleIn">
+      <img src="../public/assets/hit-shenzhen/hit-emblem-black.png" alt="">
+    </div>
+    <div class="block" style="left:6%;bottom:15%;width:82%;height:10%;" data-animation="lineSweep">
+      <div class="research-grid"></div>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>01</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="1">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>02 / 10</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>今天讲什么</h1>
+      <p>问题、方案、验证、反思</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>42</strong><span>份问卷</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>8</strong><span>位深访用户</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;"></p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>02</span></div>
+  </section>
+
+  <section class="slide kind-background" data-index="2">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>03 / 10</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">BACKGROUND</div>
+      <h1>问题发现</h1>
+      <p>短距离出行频繁，但体验并不连续</p>
+    </div>
+    
+    <div class="block block-body" style="left:8%;top:32%;width:47%;height:28%;" data-animation="fadeUp">
+      <p>同学们在宿舍、教学楼、实验室之间频繁移动。高峰时段等车不确定、步行路线绕行、共享单车分布不均，是反馈最集中的三个问题。</p>
+    </div>
+    
+    
+    <div class="block" style="left:9%;bottom:18%;width:76%;height:14%;" data-animation="lineSweep">
+      <div class="signal-wave"><i style="height:34%"></i><i style="height:72%"></i><i style="height:52%"></i><i style="height:88%"></i><i style="height:45%"></i></div>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>03</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="3">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>04 / 10</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>用户画像</h1>
+      <p>把抽象需求变成可以设计的场景</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>赶课型：时间敏感，需要知道最快路线</li>
+<li>实验室型：夜间往返，希望路线更安全</li>
+<li>社交型：多人同行，偏好低成本方案</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>04</span></div>
+  </section>
+
+  <section class="slide kind-timeline" data-index="4">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>05 / 10</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">TIMELINE</div>
+      <h1>方案设计</h1>
+      <p>路线推荐、车辆热力、碳积分形成闭环</p>
+    </div>
+    
+    <div class="block block-timeline" style="left:8%;top:34%;width:82%;height:22%;" data-animation="stagger">
+      <ol><li class="timeline-node">打开小程序</li>
+<li class="timeline-node">选择目的地</li>
+<li class="timeline-node">查看路线</li>
+<li class="timeline-node">低碳打卡</li>
+<li class="timeline-node">积分兑换</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:64%;width:67%;height:8%;" data-animation="fadeUp">
+      <p>核心不是再做一个地图，而是围绕校园场景减少决策成本，并用轻量激励提升低碳出行参与度。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>05</span></div>
+  </section>
+
+  <section class="slide kind-figure" data-index="5">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>06 / 10</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">FIGURE</div>
+      <h1>原型展示</h1>
+      <p>右侧替换为 Figma 截图或实拍素材</p>
+    </div>
+    
+    <div class="block block-list" style="left:9%;top:34%;width:32%;height:30%;" data-animation="stagger">
+      <ul><li>A. 首页突出最近目的地</li>
+<li>B. 热力图只展示可行动信息</li>
+<li>C. 结算页强调本次节碳量</li></ul>
+    </div>
+    <div class="block block-image" style="right:8%;top:30%;width:38%;height:42%;" data-animation="parallax">
+      <img src="hit-shenzhen/campus-mark.jpg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>06</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="6">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>07 / 10</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>测试反馈</h1>
+      <p>同学更关心准确性，其次才是积分激励</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>76%</strong><span>希望显示拥堵/排队</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>68%</strong><span>愿意使用低碳积分</span>
+    </div>
+
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>2.1min</strong><span>平均决策节省</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;"></p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>07</span></div>
+  </section>
+
+  <section class="slide kind-timeline" data-index="7">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>08 / 10</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">TIMELINE</div>
+      <h1>小组分工</h1>
+      <p>每个人负责一条明确产出链</p>
+    </div>
+    
+    <div class="block block-timeline" style="left:8%;top:34%;width:82%;height:22%;" data-animation="stagger">
+      <ol><li class="timeline-node">调研与用户访谈</li>
+<li class="timeline-node">数据整理与分析</li>
+<li class="timeline-node">交互原型设计</li>
+<li class="timeline-node">视觉设计与规范</li>
+<li class="timeline-node">汇报整合与演示</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:64%;width:67%;height:8%;" data-animation="fadeUp">
+      <p></p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>08</span></div>
+  </section>
+
+  <section class="slide kind-timeline" data-index="8">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>09 / 10</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">TIMELINE</div>
+      <h1>项目进度</h1>
+      <p>八周完成从调研到展示</p>
+    </div>
+    
+    <div class="block block-timeline" style="left:8%;top:34%;width:82%;height:22%;" data-animation="stagger">
+      <ol><li class="timeline-node">第1-2周：用户调研</li>
+<li class="timeline-node">第3-4周：需求与方案</li>
+<li class="timeline-node">第5-6周：原型设计</li>
+<li class="timeline-node">第7周：测试迭代</li>
+<li class="timeline-node">第8周：汇报准备</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:64%;width:67%;height:8%;" data-animation="fadeUp">
+      <p></p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>09</span></div>
+  </section>
+
+  <section class="slide kind-thanks" data-index="9">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>10 / 10</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="block block-image" style="right:5%;top:16%;width:14%;height:20%;" data-animation="scaleIn">
+      <img src="../public/assets/hit-shenzhen/hit-emblem-black.png" alt="">
+    </div>
+    <div class="block block-title" style="left:10%;top:28%;width:52%;height:18%;" data-animation="heroReveal">
+      <p>谢谢观看</p>
+    </div>
+    <div class="block block-subtitle" style="left:11%;top:52%;width:44%;height:6%;" data-animation="fadeUp">
+      <p>欢迎老师和同学提问</p>
+    </div>
+    <div class="block" style="left:9%;bottom:14%;width:78%;height:8%;" data-animation="lineSweep">
+      <div class="research-grid"></div>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>10</span></div>
+  </section>
+</div>
+
+<nav class="nav-controls">
+  <button class="nav-btn" id="prevBtn">&#8592;</button>
+  <div class="nav-info" id="navInfo">01 / 10</div>
+  <div class="nav-track"><i id="navTrack"></i></div>
+  <button class="nav-btn" id="nextBtn">&#8594;</button>
+</nav>
+<button class="fullscreen-btn" id="fullscreenBtn">&#9633; 全屏</button>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+  var stage = document.getElementById('stage');
+  var slides = stage.querySelectorAll('.slide');
+  var totalSlides = slides.length;
+  var currentIndex = 0;
+
+  function animateSlide(slide) {
+    var blocks = slide.querySelectorAll('[data-animation]');
+    gsap.killTweensOf(blocks);
+    gsap.set(blocks, { clearProps: 'transform,opacity,clipPath' });
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    blocks.forEach(function(block, i) {
+      var preset = block.dataset.animation;
+      var delay = i * 0.07;
+      switch (preset) {
+        case 'heroReveal': tl.from(block, { y: 42, opacity: 0, duration: 0.72 }, delay); break;
+        case 'scaleIn': tl.from(block, { scale: 0.86, opacity: 0, duration: 0.56 }, delay); break;
+        case 'lineSweep': tl.from(block, { clipPath: 'inset(0 100% 0 0)', opacity: 0.5, duration: 0.74 }, delay); break;
+        case 'parallax': tl.from(block, { x: 34, scale: 1.04, opacity: 0, duration: 0.75 }, delay); break;
+        case 'stagger':
+          tl.from(block, { y: 22, opacity: 0, duration: 0.58 }, delay);
+          tl.from(block.querySelectorAll('li, .timeline-node, .bar'), { y: 16, opacity: 0, stagger: 0.08, duration: 0.45 }, delay + 0.12);
+          break;
+        case 'dataGlow': tl.from(block, { scale: 0.9, opacity: 0, duration: 0.6 }, delay); break;
+        case 'chartRise':
+          tl.from(block, { y: 30, opacity: 0, duration: 0.65 }, delay);
+          tl.from(block.querySelectorAll('.bar'), { scaleY: 0, transformOrigin: 'bottom', stagger: 0.1, duration: 0.5 }, delay + 0.1);
+          break;
+        case 'badgeStamp': tl.from(block, { scale: 0, opacity: 0, duration: 0.55, ease: 'back.out(1.7)' }, delay); break;
+        default: tl.from(block, { y: 20, opacity: 0, duration: 0.5 }, delay);
+      }
+    });
+  }
+
+  function goTo(index) {
+    if (index < 0 || index >= totalSlides) return;
+    slides[currentIndex].classList.remove('active');
+    currentIndex = index;
+    slides[currentIndex].classList.add('active');
+    animateSlide(slides[currentIndex]);
+    document.getElementById('navInfo').textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+    document.getElementById('navTrack').style.width = ((currentIndex + 1) / totalSlides * 100) + '%';
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function() { goTo(currentIndex - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function() { goTo(currentIndex + 1); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goTo(currentIndex + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(currentIndex - 1); }
+    if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    if (e.key === 'End') { e.preventDefault(); goTo(totalSlides - 1); }
+  });
+  stage.addEventListener('click', function(e) {
+    if (e.target.closest('button, a, .nav-controls')) return;
+    goTo(e.clientX > window.innerWidth / 2 ? currentIndex + 1 : currentIndex - 1);
+  });
+  var touchStartX = 0;
+  stage.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+  stage.addEventListener('touchend', function(e) {
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(currentIndex + (diff > 0 ? 1 : -1));
+  });
+  document.getElementById('fullscreenBtn').addEventListener('click', function() {
+    document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  });
+  function updateScale() {
+    var scaleW = (window.innerWidth - 40) / 1280;
+    var scaleH = (window.innerHeight - 100) / 720;
+    document.documentElement.style.setProperty('--scale', Math.min(scaleW, scaleH, 1));
+  }
+  window.addEventListener('resize', updateScale);
+  updateScale();
+  goTo(0);
+})();
+</script>
+</body>
+</html>
