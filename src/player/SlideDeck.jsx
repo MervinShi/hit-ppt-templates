@@ -75,7 +75,7 @@ export function SlideDeck({
           <div className="slide-chrome" data-block data-animation="fadeIn">
             <div className="brand-header">
               <div className="brand-lockup">
-                <img className={`brand-logo mark-${deck.theme.brandMode || "blue"}`} src={deck.theme.brandLogo || "./assets/hit-shenzhen/hit-logo.png"} alt="哈尔滨工业大学（深圳）" />
+                <img className={`brand-logo mark-${deck.theme.brandMode || "blue"}`} src={deck.theme.brandLogo || "./assets/hit-shenzhen/hit-logo-blue.png"} alt="哈尔滨工业大学（深圳）" />
               </div>
               <div className="brand-meta">
                 {deck.theme.rightMark && <img className="brand-right-mark" src={deck.theme.rightMark} alt="" />}

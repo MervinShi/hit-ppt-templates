@@ -1,12 +1,65 @@
-# 哈工大深圳 HTML PPT 模板库
+# HIT Shenzhen HTML PPT Template Library
 
-纯静态 HTML 幻灯片模板库，支持 AI Agent 自动生成哈工大品牌视觉合规的演示文稿。GSAP 动画 + Chart.js 数据可视化 + VIS 手册严格合规。
+> Pure static HTML slide templates for HIT Shenzhen students and AI-assisted presentation generation.
+> Brand-compliant with HIT Visual Identity System. GSAP animations + Chart.js data visualization.
+>
+> 哈工大深圳 HTML 幻灯片模板库 — 支持 AI Agent 自动生成，严格遵循哈工大 VIS 手册。
 
-## 快速开始
+[![Templates](https://img.shields.io/badge/templates-9-blue)](https://github.com/MervinShi/hit-ppt-templates)
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+[![HIT Shenzhen](https://img.shields.io/badge/HIT-Shenzhen-005375)](https://www.hitsz.edu.cn)
 
-### 1. 直接使用模板
+---
 
-打开任意模板文件即可演示：
+## Template Previews / 模板预览
+
+### Academic & Research / 科研学术
+
+| [![academic-tech-dark](docs/previews/academic-tech-dark.png)](templates/academic-tech-dark/index.html) | [![academic-data-light](docs/previews/academic-data-light.png)](templates/academic-data-light/index.html) | [![academic-minimal](docs/previews/academic-minimal.png)](templates/academic-minimal/index.html) |
+|:--:|:--:|:--:|
+| **工大蓝 · 深色科技** | **工大蓝 · 数据浅色** | **工大蓝 · 极简严谨** |
+| Dark Tech Stage | Data Light Panel | Minimal Editorial |
+| [Open →](templates/academic-tech-dark/index.html) | [Open →](templates/academic-data-light/index.html) | [Open →](templates/academic-minimal/index.html) |
+
+### Course & Group Projects / 课程小组
+
+| [![course-bright](docs/previews/course-bright.png)](templates/course-bright/index.html) | [![course-capsule](docs/previews/course-capsule.png)](templates/course-capsule/index.html) | [![course-modern](docs/previews/course-modern.png)](templates/course-modern/index.html) |
+|:--:|:--:|:--:|
+| **课程小组 · 明亮协作** | **课程小组 · 胶囊模块** | **课程小组 · 现代极简** |
+| Bright Collaborative | Capsule Modular | Modern Minimal |
+| [Open →](templates/course-bright/index.html) | [Open →](templates/course-capsule/index.html) | [Open →](templates/course-modern/index.html) |
+
+### Campaign & Election / 竞选答辩
+
+| [![campaign-red-gold](docs/previews/campaign-red-gold.png)](templates/campaign-red-gold/index.html) | [![campaign-formal](docs/previews/campaign-formal.png)](templates/campaign-formal/index.html) | [![campaign-manifesto](docs/previews/campaign-manifesto.png)](templates/campaign-manifesto/index.html) |
+|:--:|:--:|:--:|
+| **竞选答辩 · 经典红金** | **竞选答辩 · 正式象牙白** | **竞选答辩 · 宣言力量感** |
+| Classic Red & Gold | Formal Ivory White | Bold Manifesto |
+| [Open →](templates/campaign-red-gold/index.html) | [Open →](templates/campaign-formal/index.html) | [Open →](templates/campaign-manifesto/index.html) |
+
+---
+
+## What is this? / 这是什么？
+
+A collection of **9 pure static HTML slide templates** designed for HIT Shenzhen students and faculty. Each template is a self-contained HTML file — no build step, no framework, just open in your browser and present.
+
+适合哈工大深圳校区的 **9 套纯静态 HTML 幻灯片模板**。每个模板都是独立的 HTML 文件，无需构建，打开浏览器即可演示。
+
+- **3 academic templates** — thesis defense, group meeting, conference talk
+- **3 course templates** — group project, design course, competition
+- **3 campaign templates** — student union election, league committee, leadership campaign
+
+All templates follow the [HIT Visual Identity System](https://www.hit.edu.cn) standards: official colors, emblem safe zones, header lockups, and scene-appropriate styling.
+
+全部模板严格遵循《哈尔滨工业大学视觉识别系统手册》：标准色、校徽安全区、页眉规范、场景化配色。
+
+---
+
+## Quick Start / 快速开始
+
+### 1. Open & Present / 直接演示
+
+Open any template in your browser and navigate with keyboard:
 
 ```bash
 open templates/academic-tech-dark/index.html
@@ -14,9 +67,14 @@ open templates/course-bright/index.html
 open templates/campaign-red-gold/index.html
 ```
 
-键盘操作：← → 翻页 | Home/End 首尾页 | 点击画面左右区域翻页 | 右上角全屏按钮
+| Key | Action |
+|-----|--------|
+| ← → | Previous / Next slide |
+| Home / End | First / Last slide |
+| Click left/right | Navigate slides |
+| Top-right button | Fullscreen |
 
-### 2. 用 Markdown 生成 PPT
+### 2. Generate from Markdown / Markdown 生成 PPT
 
 ```bash
 node scripts/generate.cjs \
@@ -25,102 +83,150 @@ node scripts/generate.cjs \
   --output my-deck.html
 ```
 
-Markdown 格式参见 `examples/` 目录下的示例文件。用 `---` 分隔页面。
+Separate slides with `---` in your markdown file. See `examples/` for sample content.
 
-### 3. 在 React 设计器中编辑
+用 `---` 分隔页面，参考 `examples/` 目录下的示例文件。
+
+### 3. React Designer / React 设计器
 
 ```bash
 npm install
 npm run dev
 ```
 
-访问本地服务后可选择模板预览或编辑。编辑模式支持拖拽调整元素、修改主题色，修改自动保存到浏览器本地。
+Edit templates visually with drag-and-drop, theme customization, and live preview. Changes are saved to browser localStorage.
 
-## 模板列表（9 套）
+可视化编辑模板，支持拖拽调整、主题色修改，实时预览。
 
-| 模板 | 分类 | 风格 | 配色 |
-|------|------|------|------|
-| `academic-tech-dark` | 科研学术 | 深色科技舞台 | 工大蓝 + 青色数据光 + 金色细线 |
-| `academic-data-light` | 科研学术 | 数据浅色面板 | 白底 + 工大蓝 + 青色强调 |
-| `academic-minimal` | 科研学术 | 极简严谨 | 纯白 + 工大蓝标题 + 金色细线 |
-| `course-bright` | 课程小组 | 明亮协作 | 暖纸 + 工大蓝 + 蓝橙/蓝绿 |
-| `course-capsule` | 课程小组 | 胶囊模块 | 暖纸 + 蓝紫 + 卡片阴影 |
-| `course-modern` | 课程小组 | 现代极简 | 纯白 + 蓝绿 + 网格布局 |
-| `campaign-red-gold` | 竞选答辩 | 经典红金 | 庆典红 + 金色 + 象牙白 |
-| `campaign-formal` | 竞选答辩 | 正式象牙白 | 白色基调 + 红色强调 + 金色边框 |
-| `campaign-manifesto` | 竞选答辩 | 宣言力量感 | 深红底 + 金色光芒 + 大字标题 |
+---
 
-完整元数据见 `index.json`。
+## Template Details / 模板详情
 
-## 项目结构
+| # | Slug | Name / 名称 | Category | Scheme | Primary Color | Pages |
+|---|------|-------------|----------|--------|---------------|-------|
+| 1 | `academic-tech-dark` | 工大蓝 · 深色科技 | Academic | Dark | `#005375` | 10 |
+| 2 | `academic-data-light` | 工大蓝 · 数据浅色 | Academic | Light | `#005375` | 10 |
+| 3 | `academic-minimal` | 工大蓝 · 极简严谨 | Academic | Light | `#005375` | 10 |
+| 4 | `course-bright` | 课程小组 · 明亮协作 | Course | Light | `#005375` | 10 |
+| 5 | `course-capsule` | 课程小组 · 胶囊模块 | Course | Light | `#005375` | 10 |
+| 6 | `course-modern` | 课程小组 · 现代极简 | Course | Light | `#005375` | 10 |
+| 7 | `campaign-red-gold` | 竞选答辩 · 经典红金 | Campaign | Dark | `#A72126` | 10 |
+| 8 | `campaign-formal` | 竞选答辩 · 正式象牙白 | Campaign | Light | `#A72126` | 10 |
+| 9 | `campaign-manifesto` | 竞选答辩 · 宣言力量感 | Campaign | Dark | `#A72126` | 10 |
+
+### Page Types / 页面类型
+
+Each template includes **10 pre-built page layouts** tailored to its scenario:
+
+**Academic**: Cover, Agenda, Background, Framework, Data, Figure, Results, Timeline, Summary, Thanks  
+**Course**: Cover, Agenda, Problem, Persona, Solution, Prototype, Feedback, Team, Timeline, Thanks  
+**Campaign**: Cover, Agenda, Profile, Achievements, Pain Points, Plan, Timeline, Promise, Team, Thanks
+
+### GSAP Animations / 动画预设
+
+10 animation presets orchestrated by reading order:
+
+| Preset | Effect / 效果 | Best for / 适用 |
+|--------|---------------|-----------------|
+| `heroReveal` | Rise from below | Cover titles |
+| `lineSweep` | Sweeping line reveal | Decorative lines |
+| `scaleIn` | Scale + bounce | Emblems, images |
+| `stagger` | Sequential bounce-in | Lists, timelines |
+| `dataGlow` | Glow pop-in | Data metric cards |
+| `parallax` | Pan + micro-zoom | Figures |
+| `badgeStamp` | Press-in stamp | League emblems |
+| `goldSweep` | Gold sweep | Campaign highlights |
+| `chartRise` | Rise from bottom | Bar charts |
+| `fadeUp` | Fade + rise | General content |
+
+### Charts / 图表
+
+Powered by **Chart.js 4** CDN. Supports bar, line, radar, and doughnut charts. Falls back to CSS metric cards when data is insufficient.
+
+使用 **Chart.js 4** CDN，支持柱状图、折线图、雷达图、环形图。数据不足时自动降级为 CSS 指标卡。
+
+### Fonts / 字体
+
+| Role | Font |
+|------|------|
+| Headings (Academic/Campaign) | Noto Serif SC |
+| Headings (Course) | Noto Sans SC |
+| Body | PingFang SC / Noto Sans SC |
+| Data | JetBrains Mono |
+| Manifesto | LXGW WenKai |
+
+Loaded via Google Fonts CDN with self-hosted fallback.
+
+---
+
+## VIS Compliance / VIS 合规
+
+Strictly follows the **HIT Visual Identity System Manual**:
+
+- **Official Blue**: `#005375` (RGB 0/83/117)
+- **Ceremonial Red**: `#A72126` (RGB 167/33/38) — campaign/election only
+- **Emblem safe zone**: ≥ 1/4 emblem height clearance
+- **Header spec**: emblem + name lockup (left), category + league badge + page number (right)
+- **Red restriction**: ceremonial/celebration contexts only
+- **Decorations must not obstruct brand zones**
+
+---
+
+## Project Structure / 项目结构
 
 ```
-├── AGENTS.md                     # AI Agent 使用手册
-├── index.json                    # 模板元数据索引
-├── skill/hit-ppt.md              # Skill 定义（跨 Agent）
-├── templates/                    # 纯静态 HTML 模板
+├── templates/                  # 9 standalone HTML templates
 │   ├── academic-tech-dark/
+│   ├── academic-data-light/
+│   ├── academic-minimal/
 │   ├── course-bright/
+│   ├── course-capsule/
+│   ├── course-modern/
 │   ├── campaign-red-gold/
-│   └── ...（9 套）
+│   ├── campaign-formal/
+│   └── campaign-manifesto/
 ├── scripts/
-│   ├── generate.cjs              # Markdown → HTML 生成器
-│   └── create-variants.cjs       # 模板变体创建脚本
-├── examples/                     # 示例内容文件
-├── designer/                     # React 模板设计器
-│   └── src/                      # 可视化编辑、预览源码
-└── public/assets/                # 校徽、校名、背景素材
+│   ├── generate.cjs            # Markdown → HTML generator
+│   ├── create-brand-assets.cjs # Brand asset creation
+│   ├── apply-template-assets.cjs
+│   └── generate-previews.cjs   # Preview screenshot generator
+├── examples/                   # Sample markdown content
+├── src/                        # React template designer
+│   ├── main.jsx
+│   ├── player/SlideDeck.jsx
+│   ├── generator/markdownDeck.js
+│   ├── templates/templates.js
+│   └── core/
+├── public/assets/              # Emblems, logos, backgrounds
+│   ├── hit-shenzhen/           # Brand assets (5 colors × N types)
+│   ├── generated/              # Generated SVG backgrounds
+│   └── ppt-media/              # Presentation media resources
+├── docs/previews/              # Template preview screenshots
+├── skill/SKILL.md              # Installable AI skill
+├── index.json                  # Template metadata index
+└── package.json
 ```
 
-## VIS 合规
+---
 
-严格遵循《哈尔滨工业大学视觉识别系统手册》：
+## AI Agent Integration / AI 智能体集成
 
-- **标准色**：工大蓝 `#005375`（RGB 0/83/117）、庆典红 `#A72126`（RGB 167/33/38）
-- **校徽安全区**：周围最小间距 ≥ 校徽高度 1/4
-- **页眉规范**：左上校徽+校名 lockup，右上类别+团徽（竞选）+页码
-- **红色限制**：仅竞选/庆典场景使用
-- **装饰不可遮挡品牌区**
+This project includes an installable **Claude Code Skill** (`skill/SKILL.md`) that enables AI agents to:
 
-## GSAP 动画
+1. Match templates to user scenarios (defense, campaign, course, etc.)
+2. Plan slide content structure
+3. Generate brand-compliant HTML presentations
 
-10 种动画预设，按阅读顺序编排：
+包含可安装的 **Claude Code Skill**，AI Agent 可以自动匹配模板、规划内容并生成合规的 HTML 演示文稿。
 
-| 预设 | 效果 | 适用场景 |
-|------|------|---------|
-| `heroReveal` | 从下方升起 | 封面标题 |
-| `lineSweep` | 扫描线展开 | 装饰线 |
-| `scaleIn` | 缩放弹入 | 校徽、图片 |
-| `stagger` | 逐条弹入 | 列表、时间线 |
-| `dataGlow` | 发光弹出 | 数据指标卡 |
-| `parallax` | 平移+微缩放 | 配图 |
-| `badgeStamp` | 按压弹出 | 团徽章印 |
-| `goldSweep` | 金色扫过 | 竞选强调 |
-| `chartRise` | 底部升起 | 柱状图 |
-| `fadeUp` | 淡入升起 | 通用内容 |
+---
 
-## 图表
+## License / 许可证
 
-使用 Chart.js 4 CDN，支持柱状图、折线图、雷达图、环形图。数据不足时自动降级为 CSS 指标卡。
+MIT — Harbin Institute of Technology, Shenzhen / 哈尔滨工业大学（深圳）
 
-## 字体
+---
 
-- **标题**：Noto Serif SC（学术/竞选）/ Noto Sans SC（课程）
-- **正文**：PingFang SC / Noto Sans SC
-- **数据**：JetBrains Mono
-- **宣言**：LXGW WenKai（竞选模板）
-
-通过 Google Fonts CDN 加载，自托管字体备选。
-
-## Skill 安装
-
-```bash
-# Claude Code / Codex CLI
-npx skills add https://github.com/your-org/hit-ppt-templates
-```
-
-安装后可使用 `/hit-ppt` 命令一键生成 PPT。
-
-## License
-
-MIT — 哈尔滨工业大学（深圳）
+<p align="center">
+  <sub>Made with ❤️ at HIT Shenzhen</sub>
+</p>

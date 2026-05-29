@@ -1,5 +1,10 @@
+import { brandAssetsForTemplate } from "../core/deckCore.js";
+
 const asset = (name) => `./assets/hit-shenzhen/${name}`;
 const generated = (name) => `./assets/generated/${name}`;
+const academicBrand = brandAssetsForTemplate("academic-tech-dark");
+const courseBrand = brandAssetsForTemplate("course-bright");
+const campaignBrand = brandAssetsForTemplate("campaign-red-gold");
 
 function textBlock(id, text, x, y, width, height, role = "body", animation = "fadeUp") {
   return {
@@ -87,15 +92,15 @@ export const templates = [
       paper: "#005375",
       muted: "#a9d7f5",
       surface: "rgba(234, 247, 255, .12)",
-      background: generated("academic-hit-blue-bg.png"),
+      background: generated("academic-tech-dark-bg.svg"),
       hero: asset("hit-building.png"),
-      brandLogo: asset("hit-logo.png"),
-      brandMode: "blue",
+      brandLogo: academicBrand.logo,
+      brandMode: academicBrand.mode,
       font: "Noto Serif SC, Songti SC, Georgia, serif",
     },
     slides: [
       slide("cover", "多模态传感数据驱动的城市交通预测研究", "博士/硕士研究汇报 · 2026", [
-        imageBlock("cover-emblem", asset("hit-emblem-black.png"), 74, 17, 13, 18, "scaleIn"),
+        imageBlock("cover-emblem", academicBrand.emblem, 74, 17, 13, 18, "scaleIn"),
         textBlock("cover-title", "多模态传感数据驱动的城市交通预测研究", 7, 24, 60, 18, "title", "heroReveal"),
         textBlock("cover-meta", "汇报人：张同学  指导教师：李教授  计算学部", 8, 64, 54, 6, "subtitle", "fadeUp"),
         decorationBlock("cover-grid", "research-grid", 4, 74, 88, 9, "lineSweep"),
@@ -133,7 +138,7 @@ export const templates = [
         textBlock("sum-list", "· 提出面向多源传感器的时空融合预测框架\n· 在主要路网指标上优于传统基线\n· 后续重点关注解释性、鲁棒性和轻量部署", 12, 20, 72, 34, "list", "stagger"),
       ]),
       slide("thanks", "感谢聆听", "欢迎各位老师批评指正", [
-        imageBlock("thanks-emblem", asset("hit-emblem-black.png"), 71, 17, 13, 18, "scaleIn"),
+        imageBlock("thanks-emblem", academicBrand.emblem, 71, 17, 13, 18, "scaleIn"),
         textBlock("thanks-contact", "Q&A\nzhang@example.edu.cn", 10, 28, 52, 22, "title", "heroReveal"),
         decorationBlock("thanks-line", "research-grid", 8, 66, 78, 10, "lineSweep"),
       ]),
@@ -157,10 +162,10 @@ export const templates = [
       paper: "#fbf4e6",
       muted: "#667178",
       surface: "rgba(255, 255, 255, .88)",
-      background: generated("course-campus-board-bg.png"),
+      background: generated("course-bright-bg.svg"),
       hero: asset("hit-building.png"),
-      brandLogo: asset("hit-logo.png"),
-      brandMode: "blue",
+      brandLogo: courseBrand.logo,
+      brandMode: courseBrand.mode,
       font: "Noto Sans SC, PingFang SC, Helvetica Neue, sans-serif",
     },
     slides: [
@@ -227,10 +232,10 @@ export const templates = [
       paper: "#A72126",
       muted: "#f1d39c",
       surface: "rgba(255, 243, 214, .18)",
-      background: generated("campaign-red-ivory-bg.png"),
+      background: generated("campaign-red-gold-bg.svg"),
       hero: asset("hit-building.png"),
-      brandLogo: asset("hit-logo.png"),
-      brandMode: "ivory",
+      brandLogo: campaignBrand.logo,
+      brandMode: campaignBrand.mode,
       rightMark: asset("flag.png"),
       font: "Noto Serif SC, STSong, Georgia, serif",
     },

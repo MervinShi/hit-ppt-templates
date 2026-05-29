@@ -238,6 +238,84 @@ body { display: grid; place-items: center; }
   .nav-controls { gap: 8px; padding: 6px 12px; }
   .nav-track { width: 60px; }
 }
+
+
+
+
+
+
+
+/* ===== Applied brand assets and architectural background: course-bright ===== */
+:root {
+  --template-bg-image: url('../../public/assets/generated/course-bright-bg.svg');
+  --template-motto-image: url('../../public/assets/hit-shenzhen/hit-motto-blue.png');
+  --template-building-image: url('../../public/assets/hit-shenzhen/hit-building-watermark-blue.png');
+  --template-gear-image: url('../../public/assets/ppt-media/image25.png');
+}
+.slide {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 88%, transparent), color-mix(in srgb, var(--paper) 48%, transparent) 46%, transparent),
+    var(--template-motto-image),
+    var(--template-gear-image),
+    var(--template-building-image),
+    var(--template-bg-image) !important;
+  background-size:
+    cover,
+    31% auto,
+    29% auto,
+    56% auto,
+    cover !important;
+  background-position:
+    center,
+    7% 78%,
+    95% 23%,
+    88% 63%,
+    center !important;
+  background-repeat: no-repeat !important;
+}
+.slide.kind-cover::after,
+.slide.kind-thanks::after {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 86%, transparent), color-mix(in srgb, var(--paper) 42%, transparent) 54%, transparent),
+    var(--template-motto-image),
+    var(--template-gear-image),
+    var(--template-building-image),
+    var(--template-bg-image) !important;
+  background-size:
+    cover,
+    31% auto,
+    31% auto,
+    58% auto,
+    cover !important;
+  background-position:
+    center,
+    7% 78%,
+    95% 24%,
+    88% 63%,
+    center !important;
+  background-repeat: no-repeat !important;
+}
+.brand-header {
+  position: absolute !important;
+  top: 4.4% !important;
+  left: 5.2% !important;
+  right: 5.2% !important;
+  z-index: 20;
+  background: rgba(255,255,255,.72);
+}
+.brand-meta {
+  max-width: 42%;
+  min-width: max-content;
+  white-space: nowrap;
+  overflow: visible;
+}
+.brand-lockup img {
+  filter: none !important;
+}
+.brand-right-mark {
+  z-index: 21;
+}
+
 </style>
 </head>
 <body>
@@ -247,7 +325,7 @@ body { display: grid; place-items: center; }
   <!-- Cover -->
   <section class="slide kind-cover active" data-index="0">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>01 / 10</b></div>
     </div>
 
@@ -270,7 +348,7 @@ body { display: grid; place-items: center; }
   <!-- Agenda -->
   <section class="slide kind-agenda" data-index="1">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>02 / 10</b></div>
     </div>
 
@@ -296,7 +374,7 @@ body { display: grid; place-items: center; }
   <!-- Problem -->
   <section class="slide kind-problem" data-index="2">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>03 / 10</b></div>
     </div>
 
@@ -319,7 +397,7 @@ body { display: grid; place-items: center; }
   <!-- Persona / User Profiles -->
   <section class="slide kind-persona" data-index="3">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>04 / 10</b></div>
     </div>
 
@@ -345,7 +423,7 @@ body { display: grid; place-items: center; }
   <!-- Solution -->
   <section class="slide kind-solution" data-index="4">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>05 / 10</b></div>
     </div>
 
@@ -368,7 +446,7 @@ body { display: grid; place-items: center; }
   <!-- Prototype -->
   <section class="slide kind-prototype" data-index="5">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>06 / 10</b></div>
     </div>
 
@@ -391,7 +469,7 @@ body { display: grid; place-items: center; }
   <!-- Feedback / Data -->
   <section class="slide kind-feedback" data-index="6">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>07 / 10</b></div>
     </div>
 
@@ -420,7 +498,7 @@ body { display: grid; place-items: center; }
   <!-- Team -->
   <section class="slide kind-team" data-index="7">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>08 / 10</b></div>
     </div>
 
@@ -443,7 +521,7 @@ body { display: grid; place-items: center; }
   <!-- Timeline -->
   <section class="slide kind-timeline" data-index="8">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>09 / 10</b></div>
     </div>
 
@@ -466,7 +544,7 @@ body { display: grid; place-items: center; }
   <!-- Thanks -->
   <section class="slide kind-thanks" data-index="9">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
       <div class="brand-meta"><span>COURSE PROJECT</span><b>10 / 10</b></div>
     </div>
 

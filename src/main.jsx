@@ -154,7 +154,7 @@ function TemplateLibrary({ onOpen }) {
     <main className="library-page">
       <section className="library-hero">
         <div>
-          <img className="hero-logo" src="./assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学深圳校区" />
+          <img className="hero-logo" src="./assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学深圳校区" />
           <p className="kicker">DESIGNED HTML DECK SYSTEM</p>
           <h1>哈工大深圳汇报 PPT 模板库</h1>
           <p className="hero-copy">按真实演示场景重做的三套视觉系统：学术论文、课程小组、竞选答辩。每套模板都有独立的版式语法、品牌用法和 GSAP 叙事动效。</p>
@@ -218,7 +218,7 @@ function MiniSlidePreview({ template, slideIndex }) {
   return (
     <div className={`mini-slide theme-${template.id} kind-${slide.kind}`}>
       <div className="mini-backdrop" />
-      <img className="mini-logo" src="./assets/hit-shenzhen/hit-emblem-black.png" alt="" />
+      <img className="mini-logo" src={template.theme.brandLogo || "./assets/hit-shenzhen/hit-logo-blue.png"} alt="" />
       <span className="mini-category">{template.category}</span>
       <strong>{slide.kind === "cover" ? slide.title : slide.title}</strong>
       <p>{slide.subtitle}</p>

@@ -1,3 +1,10 @@
+import {
+  parseMarkdown,
+  defaultHeroForTemplate,
+  defaultEmblemForTemplate,
+  templateFamily,
+} from "../core/deckCore.js";
+
 function textBlock(id, text, x, y, width, height, role = "body", animation = "fadeUp") {
   return {
     id,
@@ -54,18 +61,11 @@ function decorationBlock(id, variant, x, y, width, height) {
   };
 }
 
-const imagePattern = /!\[[^\]]*\]\(([^)]+)\)/g;
-const singleImagePattern = /!\[[^\]]*\]\(([^)]+)\)/;
-
 export function generateDeckFromMarkdown(template, markdown) {
-  const sections = markdown
-    .split(/\n-{3,}\n/g)
-    .map((part) => part.trim())
-    .filter(Boolean);
+  const parsedSlides = parseMarkdown(markdown);
+  if (!parsedSlides) return null;
 
-  if (!sections.length) return null;
-
-  const slides = sections.map((section, index) => buildSlide(template.id, section, index, sections.length));
+  const slides = parsedSlides.map((slide) => buildSlide(template.id, slide));
   return {
     ...template,
     id: template.id,
@@ -75,94 +75,31 @@ export function generateDeckFromMarkdown(template, markdown) {
   };
 }
 
-function buildSlide(templateId, section, index, total) {
-  const lines = section.split("\n").map((line) => line.trim()).filter(Boolean);
-  const headingIndex = lines.findIndex((line) => /^#{1,3}\s+/.test(line));
-  const title = headingIndex >= 0 ? lines[headingIndex].replace(/^#{1,3}\s+/, "") : `第 ${index + 1} 页`;
-  const subtitle = findMeta(lines, "副标题") || findMeta(lines, "subtitle") || inferSubtitle(lines, title);
-  const images = [...section.matchAll(imagePattern)].map((match) => normalizeAssetPath(match[1]));
-  const table = extractTable(lines);
-  const metrics = extractMetrics(lines);
-  const bullets = lines
-    .filter((line) => /^[-*]\s+/.test(line) || /^(\d+)[.)、]\s+/.test(line))
-    .map((line) => line.replace(/^[-*]\s+/, "").replace(/^(\d+)[.)、]\s+/, ""));
-  const body = lines
-    .filter((line) => !/^#{1,3}\s+/.test(line))
-    .filter((line) => !line.includes("|"))
-    .filter((line) => !singleImagePattern.test(line))
-    .filter((line) => !/^[-*]\s+/.test(line))
-    .filter((line) => !/^(\d+)[.)、]\s+/.test(line))
-    .filter((line) => !/^(副标题|subtitle|metric|指标)[:：]/i.test(line))
-    .join("\n");
-
-  const kind = pickKind(index, total, images, table, metrics, bullets);
+function buildSlide(templateId, slide) {
+  const { kind, title, subtitle, body, images, table, metrics, bullets } = slide;
   const blocks = layoutBlocks(templateId, kind, { title, body, images, table, metrics, bullets });
 
   return { kind, title, subtitle, blocks };
 }
 
-function findMeta(lines, key) {
-  const matched = lines.find((line) => line.toLowerCase().startsWith(`${key.toLowerCase()}：`) || line.toLowerCase().startsWith(`${key.toLowerCase()}:`));
-  return matched ? matched.replace(new RegExp(`^${key}[:：]\\s*`, "i"), "") : "";
-}
-
-function inferSubtitle(lines, title) {
-  const text = lines.find((line) => !/^#{1,3}\s+/.test(line) && !line.includes("|") && !line.startsWith("!") && !/^[-*]\s+/.test(line));
-  return text && text !== title ? text.slice(0, 34) : "";
-}
-
-function normalizeAssetPath(src) {
-  if (/^(https?:|\.\/|\/)/.test(src)) return src;
-  return `./assets/${src}`;
-}
-
-function extractTable(lines) {
-  const tableLines = lines.filter((line) => line.includes("|"));
-  if (tableLines.length < 2) return null;
-  return tableLines
-    .filter((line) => !/^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?$/.test(line))
-    .map((line) => line.split("|").map((cell) => cell.trim()).filter(Boolean))
-    .filter((row) => row.length);
-}
-
-function extractMetrics(lines) {
-  return lines
-    .filter((line) => /^(metric|指标)[:：]/i.test(line))
-    .map((line) => line.replace(/^(metric|指标)[:：]\s*/i, ""))
-    .map((line) => {
-      const [value, label = "指标"] = line.split(/[|｜]/).map((part) => part.trim());
-      return { value, label };
-    })
-    .filter((item) => item.value);
-}
-
-function pickKind(index, total, images, table, metrics, bullets) {
-  if (index === 0) return "cover";
-  if (index === total - 1) return "thanks";
-  if (metrics.length || table) return "results";
-  if (images.length >= 3) return "gallery";
-  if (images.length) return "figure";
-  if (bullets.length >= 4) return "timeline";
-  return "background";
-}
-
 function layoutBlocks(templateId, kind, content) {
   if (kind === "cover") return coverLayout(templateId, content);
   if (kind === "thanks") return thanksLayout(templateId, content);
-  if (kind === "results") return dataLayout(content);
+  if (kind === "data" || kind === "results") return dataLayout(content);
   if (kind === "gallery") return galleryLayout(content);
   if (kind === "figure") return figureLayout(content);
   if (kind === "timeline") return timelineLayout(content);
+  if (kind === "summary") return summaryLayout(content);
   return bodyLayout(content);
 }
 
 function coverLayout(templateId, { title, body, images }) {
-  const heroImage = images[0] || (templateId === "campaign" ? "./assets/hit-shenzhen/flag.png" : "./assets/hit-shenzhen/hit-building.png");
+  const heroImage = images[0] || defaultHeroForTemplate(templateId);
   return [
     textBlock("generated-cover-title", title, 7, 24, 58, 22, "title", "heroReveal"),
     textBlock("generated-cover-meta", body || "汇报人 / 单位 / 日期", 8, 61, 54, 7, "subtitle"),
     imageBlock("generated-cover-image", heroImage, 69, 20, 18, 20, "scaleIn"),
-    decorationBlock("generated-cover-rule", templateId === "campaign" ? "gold-split" : "research-grid", 6, 73, 82, 9),
+    decorationBlock("generated-cover-rule", templateFamily(templateId) === "campaign" ? "gold-split" : "research-grid", 6, 73, 82, 9),
   ];
 }
 
@@ -216,11 +153,17 @@ function timelineLayout({ bullets, body }) {
   ];
 }
 
+function summaryLayout({ bullets, body }) {
+  return [
+    textBlock("generated-summary-list", bullets.join("\n") || body || "总结要点一\n总结要点二\n总结要点三", 12, 24, 72, 34, "list", "stagger"),
+  ];
+}
+
 function thanksLayout(templateId, { title, body, images }) {
   return [
-    imageBlock("generated-thanks-mark", images[0] || (templateId === "campaign" ? "./assets/hit-shenzhen/flag.png" : "./assets/hit-shenzhen/hit-emblem-black.png"), 70, 18, 13, 18, "scaleIn"),
+    imageBlock("generated-thanks-mark", images[0] || defaultEmblemForTemplate(templateId), 70, 18, 13, 18, "scaleIn"),
     textBlock("generated-thanks-title", title || "谢谢聆听", 10, 28, 55, 15, "title", "heroReveal"),
     textBlock("generated-thanks-copy", body || "欢迎批评指正", 11, 51, 44, 6, "subtitle"),
-    decorationBlock("generated-thanks-rule", templateId === "campaign" ? "gold-split" : "research-grid", 9, 66, 78, 9),
+    decorationBlock("generated-thanks-rule", templateFamily(templateId) === "campaign" ? "gold-split" : "research-grid", 9, 66, 78, 9),
   ];
 }

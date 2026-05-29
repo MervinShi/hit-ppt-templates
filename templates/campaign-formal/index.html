@@ -281,6 +281,84 @@ body { display: grid; place-items: center; }
 /* Brand header border */
 .brand-header { border-bottom-color: rgba(167,33,38,.15); }
 
+
+
+
+
+
+
+
+/* ===== Applied brand assets and architectural background: campaign-formal ===== */
+:root {
+  --template-bg-image: url('../../public/assets/generated/campaign-formal-bg.svg');
+  --template-motto-image: url('../../public/assets/hit-shenzhen/hit-motto-red.png');
+  --template-building-image: url('../../public/assets/hit-shenzhen/hit-building-watermark-red.png');
+  --template-gear-image: url('../../public/assets/ppt-media/image25.png');
+}
+.slide {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 88%, transparent), color-mix(in srgb, var(--paper) 48%, transparent) 46%, transparent),
+    var(--template-motto-image),
+    var(--template-gear-image),
+    var(--template-building-image),
+    var(--template-bg-image) !important;
+  background-size:
+    cover,
+    31% auto,
+    29% auto,
+    56% auto,
+    cover !important;
+  background-position:
+    center,
+    7% 78%,
+    95% 23%,
+    88% 63%,
+    center !important;
+  background-repeat: no-repeat !important;
+}
+.slide.kind-cover::after,
+.slide.kind-thanks::after {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 86%, transparent), color-mix(in srgb, var(--paper) 42%, transparent) 54%, transparent),
+    var(--template-motto-image),
+    var(--template-gear-image),
+    var(--template-building-image),
+    var(--template-bg-image) !important;
+  background-size:
+    cover,
+    31% auto,
+    31% auto,
+    58% auto,
+    cover !important;
+  background-position:
+    center,
+    7% 78%,
+    95% 24%,
+    88% 63%,
+    center !important;
+  background-repeat: no-repeat !important;
+}
+.brand-header {
+  position: absolute !important;
+  top: 4.4% !important;
+  left: 5.2% !important;
+  right: 5.2% !important;
+  z-index: 20;
+  background: rgba(255,255,255,.72);
+}
+.brand-meta {
+  max-width: 42%;
+  min-width: max-content;
+  white-space: nowrap;
+  overflow: visible;
+}
+.brand-lockup img {
+  filter: none !important;
+}
+.brand-right-mark {
+  z-index: 21;
+}
+
 </style>
 </head>
 <body>
@@ -291,7 +369,7 @@ body { display: grid; place-items: center; }
   <section class="slide kind-cover active" data-index="0">
     <div class="brand-header">
       <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）">
+        <img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt="哈尔滨工业大学（深圳）">
       </div>
       <div class="brand-meta">
         <img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt="">
@@ -321,7 +399,7 @@ body { display: grid; place-items: center; }
   <!-- Agenda -->
   <section class="slide kind-agenda" data-index="1">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt=""></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt=""></div>
       <div class="brand-meta"><img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt=""><span>CAMPAIGN</span><b>02 / 10</b></div>
     </div>
     <div class="spotlight"></div>
@@ -345,7 +423,7 @@ body { display: grid; place-items: center; }
   <!-- Profile -->
   <section class="slide kind-profile" data-index="2">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt=""></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt=""></div>
       <div class="brand-meta"><img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt=""><span>CAMPAIGN</span><b>03 / 10</b></div>
     </div>
     <div class="ribbon-gold"></div>
@@ -372,7 +450,7 @@ body { display: grid; place-items: center; }
   <!-- Achievements -->
   <section class="slide kind-achievements" data-index="3">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt=""></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt=""></div>
       <div class="brand-meta"><img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt=""><span>CAMPAIGN</span><b>04 / 10</b></div>
     </div>
 
@@ -395,7 +473,7 @@ body { display: grid; place-items: center; }
   <!-- Pain Points / Analysis -->
   <section class="slide kind-pain" data-index="4">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt=""></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt=""></div>
       <div class="brand-meta"><img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt=""><span>CAMPAIGN</span><b>05 / 10</b></div>
     </div>
     <div class="spotlight"></div>
@@ -419,7 +497,7 @@ body { display: grid; place-items: center; }
   <!-- Plan -->
   <section class="slide kind-plan" data-index="5">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt=""></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt=""></div>
       <div class="brand-meta"><img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt=""><span>CAMPAIGN</span><b>06 / 10</b></div>
     </div>
     <div class="ribbon-gold"></div>
@@ -446,7 +524,7 @@ body { display: grid; place-items: center; }
   <!-- Timeline / Action Plan -->
   <section class="slide kind-timeline" data-index="6">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt=""></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt=""></div>
       <div class="brand-meta"><img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt=""><span>CAMPAIGN</span><b>07 / 10</b></div>
     </div>
 
@@ -469,7 +547,7 @@ body { display: grid; place-items: center; }
   <!-- Promise / Manifesto -->
   <section class="slide kind-promise" data-index="7">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt=""></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt=""></div>
       <div class="brand-meta"><img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt=""><span>CAMPAIGN</span><b>08 / 10</b></div>
     </div>
     <div class="spotlight"></div>
@@ -491,7 +569,7 @@ body { display: grid; place-items: center; }
   <!-- Team / Organization -->
   <section class="slide kind-team" data-index="8">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt=""></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt=""></div>
       <div class="brand-meta"><img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt=""><span>CAMPAIGN</span><b>09 / 10</b></div>
     </div>
 
@@ -517,7 +595,7 @@ body { display: grid; place-items: center; }
   <!-- Thanks / Vote -->
   <section class="slide kind-thanks" data-index="9">
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo.png" alt=""></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-red.png" alt=""></div>
       <div class="brand-meta"><img class="brand-right-mark" src="../../public/assets/hit-shenzhen/flag.png" alt=""><span>CAMPAIGN</span><b>10 / 10</b></div>
     </div>
     <div class="spotlight"></div>

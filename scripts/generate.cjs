@@ -15,6 +15,23 @@
 const fs = require('fs');
 const path = require('path');
 
+let parseMarkdown;
+let brandAssetsForTemplate;
+let defaultHeroForTemplate;
+let defaultEmblemForTemplate;
+let templateFamily;
+
+async function loadDeckCore() {
+  if (parseMarkdown) return;
+  ({
+    parseMarkdown,
+    brandAssetsForTemplate,
+    defaultHeroForTemplate,
+    defaultEmblemForTemplate,
+    templateFamily,
+  } = await import('../src/core/deckCore.js'));
+}
+
 // ===== Template Configuration =====
 const TEMPLATE_DIR = path.resolve(__dirname, '..', 'templates');
 
@@ -119,119 +136,17 @@ const LAYOUTS = {
   },
 };
 
-// ===== Content Parser =====
-function parseMarkdown(markdown) {
-  const sections = markdown
-    .split(/\n-{3,}\n/g)
-    .map(s => s.trim())
-    .filter(Boolean);
-
-  if (!sections.length) return null;
-
-  return sections.map((section, index) => parseSection(section, index, sections.length));
-}
-
-function parseSection(section, index, total) {
-  const lines = section.split('\n').map(l => l.trim()).filter(Boolean);
-
-  // Extract heading
-  const headingIdx = lines.findIndex(l => /^#{1,3}\s+/.test(l));
-  const title = headingIdx >= 0
-    ? lines[headingIdx].replace(/^#{1,3}\s+/, '')
-    : `第 ${index + 1} 页`;
-
-  // Extract subtitle
-  const subtitle = findMeta(lines, '副标题') || findMeta(lines, 'subtitle') || '';
-
-  // Extract images
-  const imagePattern = /!\[[^\]]*\]\(([^)]+)\)/g;
-  const images = [...section.matchAll(imagePattern)].map(m => m[1]);
-
-  // Extract metrics
-  const metrics = extractMetrics(lines);
-
-  // Extract table
-  const table = extractTable(lines);
-
-  // Extract bullets
-  const bullets = lines
-    .filter(l => /^[-*]\s+/.test(l) || /^(\d+)[.)、]\s+/.test(l))
-    .map(l => l.replace(/^[-*]\s+/, '').replace(/^(\d+)[.)、]\s+/, ''));
-
-  // Extract body text
-  const bodyLines = lines.filter(l => {
-    if (/^#{1,3}\s+/.test(l)) return false;
-    if (l.includes('|')) return false;
-    if (/^!\[/.test(l)) return false;
-    if (/^[-*]\s+/.test(l)) return false;
-    if (/^(\d+)[.)、]\s+/.test(l)) return false;
-    if (/^(副标题|subtitle|metric|指标)[:：]/i.test(l)) return false;
-    return true;
-  });
-
-  const body = bodyLines.join('\n');
-
-  // Detect kind
-  const kind = detectKind(index, total, images, metrics, table, bullets);
-
-  return { kind, title, subtitle, body, images, metrics, table, bullets };
-}
-
-function findMeta(lines, key) {
-  const matched = lines.find(l => {
-    const lower = l.toLowerCase();
-    return lower.startsWith(`${key.toLowerCase()}：`) || lower.startsWith(`${key.toLowerCase()}:`);
-  });
-  return matched ? matched.replace(new RegExp(`^${key}[:：]\\s*`, 'i'), '') : '';
-}
-
-function extractMetrics(lines) {
-  return lines
-    .filter(l => /^(metric|指标)[:：]/i.test(l))
-    .map(l => l.replace(/^(metric|指标)[:：]\s*/i, ''))
-    .map(l => {
-      const [value, label = '指标'] = l.split(/[|｜]/).map(p => p.trim());
-      return { value, label };
-    })
-    .filter(m => m.value);
-}
-
-function extractTable(lines) {
-  const tableLines = lines.filter(l => l.includes('|'));
-  if (tableLines.length < 2) return null;
-  return tableLines
-    .filter(l => !/^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?$/.test(l))
-    .map(l => l.split('|').map(c => c.trim()).filter(Boolean))
-    .filter(r => r.length);
-}
-
-function detectKind(index, total, images, metrics, table, bullets) {
-  if (index === 0) return 'cover';
-  if (index === total - 1) return 'thanks';
-  if (metrics.length || table) return 'data';
-  if (images.length >= 3) return 'gallery';
-  if (images.length) return 'figure';
-  if (bullets.length >= 5) return 'timeline';
-  if (bullets.length >= 3) return 'summary';
-  return 'background';
-}
-
 // ===== HTML Generator =====
 function generateSlideHTML(slide, templateSlug, index, total) {
   const { kind, title, subtitle, body, images, metrics, bullets } = slide;
 
-  // Default hero image per category
-  const isAcademic = templateSlug.startsWith('academic');
-  const isCourse = templateSlug.startsWith('course');
-  const isCampaign = templateSlug.startsWith('campaign');
-
-  const defaultHero = isCampaign
-    ? '../public/assets/hit-shenzhen/flag.png'
-    : '../public/assets/hit-shenzhen/hit-building.png';
-
-  const defaultEmblem = isCampaign
-    ? '../public/assets/hit-shenzhen/flag.png'
-    : '../public/assets/hit-shenzhen/hit-emblem-black.png';
+  const family = templateFamily(templateSlug);
+  const isAcademic = family === 'academic';
+  const isCourse = family === 'course';
+  const isCampaign = family === 'campaign';
+  const defaultHero = defaultHeroForTemplate(templateSlug);
+  const defaultEmblem = defaultEmblemForTemplate(templateSlug);
+  const brandAssets = brandAssetsForTemplate(templateSlug);
 
   const categoryLabel = isAcademic ? 'ACADEMIC DEFENSE'
     : isCourse ? 'COURSE PROJECT'
@@ -243,10 +158,10 @@ function generateSlideHTML(slide, templateSlug, index, total) {
   // Brand header
   const headerHTML = `
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../public/assets/hit-shenzhen/hit-logo.png" alt="哈尔滨工业大学（深圳）"${isCourse ? '' : ' style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);"'}>
+      <div class="brand-lockup"><img src="${brandAssets.logo}" alt="哈尔滨工业大学（深圳）">
       </div>
       <div class="brand-meta">
-        ${isCampaign ? '<img class="brand-right-mark" src="../public/assets/hit-shenzhen/flag.png" alt="">' : ''}
+        ${isCampaign ? '<img class="brand-right-mark" src="./assets/hit-shenzhen/flag.png" alt="">' : ''}
         <span>${categoryLabel}</span>
         <b>${slideNum} / ${totalNum}</b>
       </div>
@@ -319,7 +234,7 @@ function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem)
       <ul>${bullets.map(b => `<li>${escapeHTML(b)}</li>`).join('\n')}</ul>
     </div>
     <div class="block block-image" style="right:10%;top:30%;width:20%;height:24%;" data-animation="scaleIn">
-      <img src="../public/assets/hit-shenzhen/campus-mark.jpg" alt="">
+      <img src="./assets/hit-shenzhen/campus-mark.jpg" alt="">
     </div>
     <div class="block" style="left:60%;top:26%;width:3px;height:44%;" data-animation="lineSweep">
       <div class="vert-axis"></div>
@@ -374,7 +289,7 @@ function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem)
       <ul>${bullets.slice(0, 5).map(b => `<li>${escapeHTML(b)}</li>`).join('\n')}</ul>
     </div>
     <div class="block block-image" style="right:8%;top:30%;width:38%;height:42%;" data-animation="parallax">
-      <img src="${escapeAttr(images[0] || '../public/assets/hit-shenzhen/campus-mark.jpg')}" alt="">
+      <img src="${escapeAttr(images[0] || './assets/hit-shenzhen/campus-mark.jpg')}" alt="">
     </div>`;
 
     case 'timeline':
@@ -476,8 +391,20 @@ function escapeAttr(str) {
   return String(str).replace(/"/g, '&quot;');
 }
 
+function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return;
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const from = path.join(src, entry.name);
+    const to = path.join(dest, entry.name);
+    if (entry.isDirectory()) copyDir(from, to);
+    else fs.copyFileSync(from, to);
+  }
+}
+
 // ===== Main =====
-function generate(args) {
+async function generate(args) {
+  await loadDeckCore();
   const { template, content, output, title } = args;
 
   // Load template CSS
@@ -517,7 +444,7 @@ function generate(args) {
       { kind: 'background', title: '背景', subtitle: '', body: '请在此补充研究背景和问题定义。', images: [], metrics: [], bullets: ['关键挑战一', '关键挑战二'] },
       { kind: 'framework', title: '方法', subtitle: '', body: '请在此描述方法框架。', images: [], metrics: [], bullets: ['步骤一', '步骤二', '步骤三'] },
       { kind: 'data', title: '数据', subtitle: '', body: '', images: [], metrics: [{ value: '86%', label: '完成度' }, { value: '24', label: '样本量' }, { value: '3.2x', label: '提升' }], bullets: [] },
-      { kind: 'figure', title: '展示', subtitle: '', body: '', images: ['../public/assets/hit-shenzhen/campus-mark.jpg'], metrics: [], bullets: ['要点一', '要点二', '要点三'] },
+      { kind: 'figure', title: '展示', subtitle: '', body: '', images: ['./assets/hit-shenzhen/campus-mark.jpg'], metrics: [], bullets: ['要点一', '要点二', '要点三'] },
       { kind: 'timeline', title: '规划', subtitle: '', body: '按计划推进各项工作。', images: [], metrics: [], bullets: ['第一阶段', '第二阶段', '第三阶段', '第四阶段'] },
       { kind: 'summary', title: '总结', subtitle: '', body: '', images: [], metrics: [], bullets: ['结论一', '结论二', '结论三'] },
       { kind: 'thanks', title: '谢谢聆听', subtitle: '欢迎批评指正', body: '', images: [], metrics: [], bullets: [] },
@@ -532,7 +459,9 @@ function generate(args) {
 
   // Extract the style block from the template
   const styleMatch = templateHTML.match(/<style>([\s\S]*?)<\/style>/);
-  const styleBlock = styleMatch ? styleMatch[1] : '';
+  const styleBlock = (styleMatch ? styleMatch[1] : '')
+    .replaceAll('../../public/assets/', './assets/')
+    .replaceAll('../public/assets/', './assets/');
 
   // Build the output HTML
   const outputHTML = `<!DOCTYPE html>
@@ -641,6 +570,7 @@ function generate(args) {
 
   // Write output
   const outputPath = path.resolve(output || 'output.html');
+  copyDir(path.resolve(__dirname, '..', 'public', 'assets'), path.join(path.dirname(outputPath), 'assets'));
   fs.writeFileSync(outputPath, outputHTML, 'utf-8');
   console.log(`Generated: ${outputPath}`);
   console.log(`  Template: ${template}`);
@@ -661,7 +591,10 @@ if (require.main === module) {
     }
   }
 
-  generate(args);
+  generate(args).catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
 }
 
-module.exports = { generate, parseMarkdown, generateSlideHTML };
+module.exports = { generate, generateSlideHTML, loadDeckCore };
