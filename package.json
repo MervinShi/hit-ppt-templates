@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "generate": "node scripts/generate.cjs",
+    "assets": "node scripts/create-brand-assets.cjs && node scripts/apply-template-assets.cjs",
+    "previews": "node scripts/generate-previews.cjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.0.4",

@@ -3,6 +3,8 @@
 > 哈工大深圳校区纯静态 HTML 幻灯片模板库，支持 AI Agent 自动生成，严格遵循哈工大 VIS 手册。
 > GSAP 动画 + Chart.js 数据可视化。
 
+[English](./README.md) · [模板索引](./index.json) · [优化实施手册](./docs/IMPLEMENTATION_MANUAL.md)
+
 [![Templates](https://img.shields.io/badge/templates-9-blue)](https://github.com/MervinShi/hit-ppt-templates)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![HIT Shenzhen](https://img.shields.io/badge/HIT-Shenzhen-005375)](https://www.hitsz.edu.cn)
@@ -40,9 +42,18 @@
 
 - **3 套学术模板** — 论文答辩、开题报告、课题组汇报、学术会议
 - **3 套课程模板** — 课程展示、小组作业、创新实践、竞赛答辩
-- **3 套竞选模板** — 学生会竞选、团委答辩、正式竞聘
+- **3 套竞选模板** — 学生会竞选、团委答辩、评优评先答辩
 
 全部模板严格遵循《哈尔滨工业大学视觉识别系统手册》：标准色、校徽安全区、页眉规范、场景化配色。
+
+项目按 [docs/IMPLEMENTATION_MANUAL.md](./docs/IMPLEMENTATION_MANUAL.md) 中的框架持续演进：
+
+```text
+演示目的 + 观众
+  → 内容逻辑
+    → 页面结构
+      → 视觉语言
+```
 
 ---
 
@@ -68,7 +79,7 @@ open templates/campaign-red-gold/index.html
 ### 2. Markdown 生成 PPT
 
 ```bash
-node scripts/generate.cjs \
+npm run generate -- \
   --template academic-tech-dark \
   --content examples/sample-academic.md \
   --output my-deck.html
@@ -201,6 +212,18 @@ npm run dev
 1. 根据用户场景自动匹配模板（答辩、竞选、课程等）
 2. 规划幻灯片内容结构
 3. 生成符合哈工大品牌规范的 HTML 演示文稿
+
+---
+
+## 后续路线
+
+当前版本提供 9 套模板和 10 种核心页面类型。v2 方案会继续按实施手册推进：
+
+- 学术/课程模板扩展到 24 页；
+- 竞选模板扩展到 25 页；
+- 增加章节过渡页、章节导航和进度指示；
+- 增加逻辑图、流程图、对比页、引用页、SWOT 页；
+- 建立完整预览截图回归流程。
 
 ---
 
