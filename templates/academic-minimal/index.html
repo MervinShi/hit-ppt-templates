@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>工大蓝 · 极简严谨 — 哈工大深圳 HTML PPT</title>
+<title>多模态传感数据驱动的城市交通预测研究 — 哈工大深圳 HTML PPT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -390,61 +390,195 @@ body { display: grid; place-items: center; }
   z-index: 21;
 }
 
+
+
+
+/* ===== Advanced generated layouts shared by expanded templates ===== */
+.block-section-index {
+  display: grid;
+  align-items: center;
+  border-left: 6px solid var(--gold, var(--accent));
+  padding-left: 18px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+.block-section-index p { font-size: clamp(16px, 1.8vw, 24px); }
+.campus-window img {
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .22));
+}
+.logic-center {
+  text-align: center;
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
+}
+.logic-node p,
+.swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
+.block-flow ol {
+  list-style: none;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+.flow-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 96px;
+  padding: 14px;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  font-size: clamp(13px, 1.25vw, 17px);
+  font-weight: 850;
+  line-height: 1.35;
+}
+.flow-node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: var(--gold, var(--accent));
+}
+.block-compare {
+  padding: 20px 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+.block-compare.is-accent {
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  background: color-mix(in srgb, var(--gold, var(--accent)) 10%, transparent);
+}
+.block-compare h3 {
+  margin: 0 0 14px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-size: 15px;
+  letter-spacing: .08em;
+}
+.block-compare ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  padding: 0;
+}
+.block-compare li {
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+  font-size: clamp(14px, 1.25vw, 18px);
+  line-height: 1.45;
+}
+.swot-card {
+  grid-template-columns: 54px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+.swot-card b {
+  color: var(--gold, var(--accent));
+  font-family: Georgia, var(--font-title);
+  font-size: clamp(30px, 4vw, 54px);
+}
+.quote-mark {
+  color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  font-family: Georgia, serif;
+  font-size: 120px;
+  line-height: .8;
+}
+.slide.kind-transition {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
+    var(--template-photo-strip, var(--template-building-image)),
+    var(--template-bg-image) !important;
+  background-size: cover, 48% auto, cover !important;
+  background-position: center, 98% 58%, center !important;
+  background-repeat: no-repeat !important;
+}
+.slide.kind-figure,
+.slide.kind-gallery {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 90%, transparent), color-mix(in srgb, var(--paper) 62%, transparent) 48%, transparent),
+    var(--template-campus-clean, var(--template-bg-image)) !important;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+}
+@media print {
+  html, body { overflow: visible; background: #fff; }
+  body { display: block; }
+  .stage { width: 100%; height: auto; transform: none; box-shadow: none; }
+  .slide { position: relative; display: block !important; page-break-after: always; width: 100vw; height: 56.25vw; }
+  .nav-controls, .fullscreen-btn { display: none !important; }
+}
 </style>
 </head>
 <body>
-
 <div class="stage" id="stage">
-
-  <!-- ===== Slide 1: Cover ===== -->
-  <section class="slide kind-cover active" data-index="0">
+  <section class="slide kind-cover" data-index="0">
+    
     <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
       </div>
       <div class="brand-meta">
+        
         <span>ACADEMIC DEFENSE</span>
-        <b>01 / 10</b>
+        <b>01 / 24</b>
       </div>
     </div>
+    
     <div class="ornament-ring"></div>
     <div class="ornament-ribbon"></div>
     <div class="ornament-badge"></div>
-
+    
+    
     <div class="block block-title" style="left:7%;top:24%;width:58%;height:20%;" data-animation="heroReveal">
-      <p><!-- TITLE_PLACEHOLDER --></p>
+      <p>多模态传感数据驱动的城市交通预测研究</p>
     </div>
     <div class="block block-subtitle" style="left:8%;top:54%;width:54%;height:7%;" data-animation="fadeUp">
-      <p><!-- SUBTITLE_PLACEHOLDER --></p>
+      <p>博士/硕士研究汇报 · 哈尔滨工业大学（深圳）</p>
     </div>
     <div class="block block-image" style="right:6%;top:18%;width:18%;height:22%;" data-animation="scaleIn">
-      <img src="../../public/assets/hit-shenzhen/hit-emblem-blue.png" alt="">
+      <img src="../../public/assets/hit-shenzhen/hit-emblem-ivory.png" alt="">
     </div>
     <div class="block" style="left:6%;bottom:15%;width:82%;height:10%;" data-animation="lineSweep">
       <div class="research-grid"></div>
     </div>
-
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>01</span></div>
   </section>
 
-  <!-- ===== Slide 2: Agenda ===== -->
   <section class="slide kind-agenda" data-index="1">
+    
     <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
       </div>
-      <div class="brand-meta"><span>ACADEMIC DEFENSE</span><b>02 / 10</b></div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>02 / 24</b>
+      </div>
     </div>
+    
     <div class="ornament-ring"></div>
-
+    
+    
+    
     <div class="slide-chrome">
       <div class="kicker">CONTENTS</div>
-      <h1><!-- AGENDA_TITLE --></h1>
-      <p><!-- AGENDA_SUBTITLE --></p>
+      <h1>目录</h1>
+      <p>从问题定义到实验验证的完整研究链路</p>
     </div>
-
+    
     <div class="block block-list" style="left:13%;top:30%;width:42%;height:48%;" data-animation="stagger">
-      <ul><!-- AGENDA_ITEMS --></ul>
+      <ul><li>研究背景与问题定义</li>
+<li>数据体系与方法框架</li>
+<li>实验设置与结果分析</li>
+<li>结论、局限与后续计划</li></ul>
     </div>
     <div class="block block-image" style="right:10%;top:30%;width:20%;height:24%;" data-animation="scaleIn">
       <img src="../../public/assets/hit-shenzhen/campus-mark.jpg" alt="">
@@ -452,301 +586,942 @@ body { display: grid; place-items: center; }
     <div class="block" style="left:60%;top:26%;width:3px;height:44%;" data-animation="lineSweep">
       <div class="vert-axis"></div>
     </div>
-
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>02</span></div>
   </section>
 
-  <!-- ===== Slide 3: Background ===== -->
-  <section class="slide kind-background" data-index="2">
+  <section class="slide kind-transition" data-index="2">
+    
     <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
       </div>
-      <div class="brand-meta"><span>ACADEMIC DEFENSE</span><b>03 / 10</b></div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>03 / 24</b>
+      </div>
     </div>
+    
+    
     <div class="ornament-ribbon"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">SECTION</div>
+      <h1>第一章 研究背景</h1>
+      <p>01 / Background</p>
+    </div>
+    
+    <div class="block block-section-index" style="left:8%;top:22%;width:22%;height:8%;" data-animation="lineSweep">
+      <p>01 / Background</p>
+    </div>
+    <div class="block block-title" style="left:8%;top:34%;width:60%;height:18%;" data-animation="heroReveal">
+      <p>第一章 研究背景</p>
+    </div>
+    <div class="block block-body" style="left:10%;top:62%;width:48%;height:10%;" data-animation="fadeUp">
+      <p>从真实交通网络的复杂性出发，明确预测任务、数据边界与研究价值。</p>
+    </div>
+    <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>03</span></div>
+  </section>
 
+  <section class="slide kind-background" data-index="3">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>04 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="ornament-ribbon"></div>
+    
+    
     <div class="slide-chrome">
       <div class="kicker">BACKGROUND</div>
-      <h1><!-- BG_TITLE --></h1>
-      <p><!-- BG_SUBTITLE --></p>
+      <h1>城市路网预测的现实约束</h1>
+      <p>多源数据让短时预测更接近真实运行状态</p>
     </div>
-
+    
     <div class="block block-body" style="left:8%;top:32%;width:47%;height:28%;" data-animation="fadeUp">
-      <p><!-- BG_BODY --></p>
+      <p>城市交通状态同时受到路网结构、出行需求、天气事件和突发拥堵影响。单一传感源通常只覆盖局部状态，难以稳定捕捉高峰期的快速波动。</p>
     </div>
+    
     <div class="block block-metric" style="right:8%;top:30%;width:22%;height:16%;" data-animation="dataGlow">
-      <strong><!-- METRIC1_VALUE --></strong>
-      <span><!-- METRIC1_LABEL --></span>
+      <strong>37%</strong><span>高峰误差上升</span>
     </div>
+    
     <div class="block block-metric" style="right:8%;top:50%;width:22%;height:16%;" data-animation="dataGlow">
-      <strong><!-- METRIC2_VALUE --></strong>
-      <span><!-- METRIC2_LABEL --></span>
+      <strong>5min</strong><span>预测时间粒度</span>
     </div>
     <div class="block" style="left:9%;bottom:18%;width:76%;height:14%;" data-animation="lineSweep">
       <div class="signal-wave"><i style="height:34%"></i><i style="height:72%"></i><i style="height:52%"></i><i style="height:88%"></i><i style="height:45%"></i></div>
     </div>
-
-    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>03</span></div>
-  </section>
-
-  <!-- ===== Slide 4: Framework ===== -->
-  <section class="slide kind-framework" data-index="3">
-    <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
-      </div>
-      <div class="brand-meta"><span>ACADEMIC DEFENSE</span><b>04 / 10</b></div>
-    </div>
-    <div class="ornament-ring"></div>
-
-    <div class="slide-chrome">
-      <div class="kicker">FRAMEWORK</div>
-      <h1><!-- FW_TITLE --></h1>
-      <p><!-- FW_SUBTITLE --></p>
-    </div>
-
-    <div class="block block-timeline" style="left:8%;top:32%;width:82%;height:18%;" data-animation="stagger">
-      <ol><!-- FW_STEPS --></ol>
-    </div>
-    <div class="block block-body" style="left:11%;top:56%;width:70%;height:14%;" data-animation="fadeUp">
-      <p><!-- FW_BODY --></p>
-    </div>
-
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>04</span></div>
   </section>
 
-  <!-- ===== Slide 5: Data ===== -->
   <section class="slide kind-data" data-index="4">
+    
     <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
       </div>
-      <div class="brand-meta"><span>ACADEMIC DEFENSE</span><b>05 / 10</b></div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>05 / 24</b>
+      </div>
     </div>
+    
+    
+    
     <div class="ornament-badge"></div>
-
+    
     <div class="slide-chrome">
-      <div class="kicker">DATA &amp; METRICS</div>
-      <h1><!-- DATA_TITLE --></h1>
-      <p><!-- DATA_SUBTITLE --></p>
+      <div class="kicker">DATA & METRICS</div>
+      <h1>数据来源与观测尺度</h1>
+      <p>传感器、视频检测、轨迹数据形成互补视角</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>128</strong><span>路网节点</span>
     </div>
 
-    <div class="block block-metric" style="left:8%;top:30%;width:23%;height:18%;" data-animation="dataGlow">
-      <strong><!-- DATA_M1_VALUE --></strong><span><!-- DATA_M1_LABEL --></span>
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>4.8M</strong><span>轨迹记录</span>
     </div>
-    <div class="block block-metric" style="left:34%;top:30%;width:23%;height:18%;" data-animation="dataGlow">
-      <strong><!-- DATA_M2_VALUE --></strong><span><!-- DATA_M2_LABEL --></span>
-    </div>
-    <div class="block block-metric" style="left:60%;top:30%;width:23%;height:18%;" data-animation="dataGlow">
-      <strong><!-- DATA_M3_VALUE --></strong><span><!-- DATA_M3_LABEL --></span>
+
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>92%</strong><span>有效覆盖率</span>
     </div>
     <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
       <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
     </div>
     <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
-      <p style="font-size:13px;text-align:center;"><!-- DATA_NOTE --></p>
+      <p style="font-size:13px;text-align:center;">不同数据源在空间覆盖、采样频率和噪声形态上差异明显，需要先建立统一的时空索引。</p>
     </div>
-
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>05</span></div>
   </section>
 
-  <!-- ===== Slide 6: Figure ===== -->
-  <section class="slide kind-figure" data-index="5">
+  <section class="slide kind-logic-chart" data-index="5">
+    
     <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
       </div>
-      <div class="brand-meta"><span>ACADEMIC DEFENSE</span><b>06 / 10</b></div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>06 / 24</b>
+      </div>
     </div>
-
+    
+    <div class="ornament-ring"></div>
+    
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">FIGURE</div>
-      <h1><!-- FIG_TITLE --></h1>
-      <p><!-- FIG_SUBTITLE --></p>
+      <div class="kicker">LOGIC MAP</div>
+      <h1>关键科学问题</h1>
+      <p>预测精度、可信度与可解释性需要同步解决</p>
+    </div>
+    
+    <div class="block block-card logic-center" style="left:35%;top:35%;width:30%;height:18%;" data-animation="scaleIn">
+      <p>关键科学问题</p>
+    </div>
+    
+    <div class="block block-card logic-node" style="left:8%;top:30%;width:22%;height:13%;" data-animation="stagger">
+      <p>跨模态特征如何对齐</p>
     </div>
 
-    <div class="block block-list" style="left:9%;top:34%;width:32%;height:30%;" data-animation="stagger">
-      <ul><!-- FIG_POINTS --></ul>
-    </div>
-    <div class="block block-image" style="right:8%;top:30%;width:38%;height:42%;" data-animation="parallax">
-      <img src="../../public/assets/hit-shenzhen/campus-mark.jpg" alt="">
+    <div class="block block-card logic-node" style="right:8%;top:30%;width:22%;height:13%;" data-animation="stagger">
+      <p>图结构依赖如何编码</p>
     </div>
 
+    <div class="block block-card logic-node" style="left:8%;top:53%;width:22%;height:13%;" data-animation="stagger">
+      <p>异常拥堵如何被识别</p>
+    </div>
+
+    <div class="block block-card logic-node" style="right:8%;top:53%;width:22%;height:13%;" data-animation="stagger">
+      <p>预测置信度如何表达</p>
+    </div>
+
+    <div class="block block-card logic-node" style="left:32%;top:64%;width:16%;height:10%;" data-animation="stagger">
+      <p>模型轻量化如何部署</p>
+    </div>
+
+    <div class="block block-card logic-node" style="right:32%;top:64%;width:16%;height:10%;" data-animation="stagger">
+      <p>决策反馈如何闭环</p>
+    </div>
+    <div class="block block-subtitle" style="left:28%;top:55%;width:44%;height:6%;" data-animation="fadeUp">
+      <p>研究目标不是单纯降低误差，而是构建能够支撑调度决策的可信预测系统。</p>
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>06</span></div>
   </section>
 
-  <!-- ===== Slide 7: Results ===== -->
-  <section class="slide kind-results" data-index="6">
+  <section class="slide kind-compare" data-index="6">
+    
     <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
       </div>
-      <div class="brand-meta"><span>ACADEMIC DEFENSE</span><b>07 / 10</b></div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>07 / 24</b>
+      </div>
     </div>
-    <div class="ornament-ribbon"></div>
-
+    
+    
+    
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">RESULTS</div>
-      <h1><!-- RES_TITLE --></h1>
-      <p><!-- RES_SUBTITLE --></p>
+      <div class="kicker">COMPARISON</div>
+      <h1>相关工作对比</h1>
+      <p>从统计模型到深度时空图网络</p>
     </div>
-
-    <div class="block block-metric" style="left:8%;top:32%;width:24%;height:20%;" data-animation="dataGlow">
-      <strong><!-- RES_M1_VALUE --></strong><span><!-- RES_M1_LABEL --></span>
+    
+    <div class="block block-compare" style="left:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>对照维度</h3>
+      <ul><li>ARIMA / SVR：解释性较好但难以捕捉非线性</li>
+<li>LSTM / TCN：能处理序列但缺少路网拓扑</li></ul>
     </div>
-    <div class="block block-metric" style="left:36%;top:32%;width:24%;height:20%;" data-animation="dataGlow">
-      <strong><!-- RES_M2_VALUE --></strong><span><!-- RES_M2_LABEL --></span>
+    <div class="block block-compare is-accent" style="right:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>本文方案</h3>
+      <ul><li>STGCN / DCRNN：图结构能力强但依赖单源数据</li>
+<li>Ours：多模态门控 + 区间预测 + 异常约束</li></ul>
     </div>
-    <div class="block block-metric" style="left:64%;top:32%;width:24%;height:20%;" data-animation="dataGlow">
-      <strong><!-- RES_M3_VALUE --></strong><span><!-- RES_M3_LABEL --></span>
+    <div class="block block-subtitle" style="left:20%;top:70%;width:60%;height:6%;" data-animation="fadeUp">
+      <p>本文方案在时空建模、模态融合和不确定性估计之间做平衡。</p>
     </div>
-    <div class="block" style="left:10%;bottom:16%;width:76%;height:16%;" data-animation="chartRise">
-      <div class="chart-wrap"><canvas id="resultsChart"></canvas></div>
-    </div>
-
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>07</span></div>
   </section>
 
-  <!-- ===== Slide 8: Timeline ===== -->
-  <section class="slide kind-timeline" data-index="7">
+  <section class="slide kind-transition" data-index="7">
+    
     <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
       </div>
-      <div class="brand-meta"><span>ACADEMIC DEFENSE</span><b>08 / 10</b></div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>08 / 24</b>
+      </div>
     </div>
-    <div class="ornament-ring"></div>
-    <div class="ornament-badge"></div>
-
+    
+    
+    <div class="ornament-ribbon"></div>
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">TIMELINE</div>
-      <h1><!-- TL_TITLE --></h1>
-      <p><!-- TL_SUBTITLE --></p>
+      <div class="kicker">SECTION</div>
+      <h1>第二章 方法框架</h1>
+      <p>02 / Methodology</p>
     </div>
-
-    <div class="block block-timeline" style="left:8%;top:34%;width:82%;height:22%;" data-animation="stagger">
-      <ol><!-- TL_ITEMS --></ol>
+    
+    <div class="block block-section-index" style="left:8%;top:22%;width:22%;height:8%;" data-animation="lineSweep">
+      <p>02 / Methodology</p>
     </div>
-    <div class="block block-subtitle" style="left:14%;top:64%;width:67%;height:8%;" data-animation="fadeUp">
-      <p><!-- TL_NOTE --></p>
+    <div class="block block-title" style="left:8%;top:34%;width:60%;height:18%;" data-animation="heroReveal">
+      <p>第二章 方法框架</p>
     </div>
-
+    <div class="block block-body" style="left:10%;top:62%;width:48%;height:10%;" data-animation="fadeUp">
+      <p>围绕数据对齐、图结构编码、模态门控与预测输出，构建可复用的算法框架。</p>
+    </div>
+    <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>08</span></div>
   </section>
 
-  <!-- ===== Slide 9: Summary ===== -->
-  <section class="slide kind-summary" data-index="8">
+  <section class="slide kind-flow" data-index="8">
+    
     <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
       </div>
-      <div class="brand-meta"><span>ACADEMIC DEFENSE</span><b>09 / 10</b></div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>09 / 24</b>
+      </div>
     </div>
-
+    
+    
+    
+    <div class="ornament-badge"></div>
+    
     <div class="slide-chrome">
-      <div class="kicker">CONCLUSIONS</div>
-      <h1><!-- SUM_TITLE --></h1>
-      <p><!-- SUM_SUBTITLE --></p>
+      <div class="kicker">PROCESS FLOW</div>
+      <h1>总体技术路线</h1>
+      <p>清洗、建图、对齐、融合、预测、评估</p>
     </div>
-
-    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
-      <ul><!-- SUM_POINTS --></ul>
+    
+    <div class="block block-flow" style="left:7%;top:34%;width:86%;height:24%;" data-animation="stagger">
+      <ol><li class="flow-node">原始数据清洗</li>
+<li class="flow-node">路网拓扑建图</li>
+<li class="flow-node">时间窗对齐</li>
+<li class="flow-node">跨模态注意力</li>
+<li class="flow-node">预测头与区间估计</li>
+<li class="flow-node">实验评估与误差诊断</li></ol>
     </div>
-
+    <div class="block block-subtitle" style="left:14%;top:66%;width:70%;height:8%;" data-animation="fadeUp">
+      <p>技术路线将数据工程与模型训练拆成可验证的六个阶段，降低复杂系统的一次性失败风险。</p>
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>09</span></div>
   </section>
 
-  <!-- ===== Slide 10: Thanks ===== -->
-  <section class="slide kind-thanks" data-index="9">
+  <section class="slide kind-logic-chart" data-index="9">
+    
     <div class="brand-header">
-      <div class="brand-lockup">
-        <img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）" style="filter: brightness(0) invert(1) sepia(.35) saturate(1.2) hue-rotate(350deg);">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
       </div>
-      <div class="brand-meta"><span>ACADEMIC DEFENSE</span><b>10 / 10</b></div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>10 / 24</b>
+      </div>
     </div>
+    
+    <div class="ornament-ring"></div>
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">LOGIC MAP</div>
+      <h1>模型结构</h1>
+      <p>时空图网络 + 跨模态注意力 + 不确定性估计</p>
+    </div>
+    
+    <div class="block block-card logic-center" style="left:35%;top:35%;width:30%;height:18%;" data-animation="scaleIn">
+      <p>模型结构</p>
+    </div>
+    
+    <div class="block block-card logic-node" style="left:8%;top:30%;width:22%;height:13%;" data-animation="stagger">
+      <p>Graph Encoder</p>
+    </div>
+
+    <div class="block block-card logic-node" style="right:8%;top:30%;width:22%;height:13%;" data-animation="stagger">
+      <p>Temporal Block</p>
+    </div>
+
+    <div class="block block-card logic-node" style="left:8%;top:53%;width:22%;height:13%;" data-animation="stagger">
+      <p>Modal Gate</p>
+    </div>
+
+    <div class="block block-card logic-node" style="right:8%;top:53%;width:22%;height:13%;" data-animation="stagger">
+      <p>Uncertainty Head</p>
+    </div>
+
+    <div class="block block-card logic-node" style="left:32%;top:64%;width:16%;height:10%;" data-animation="stagger">
+      <p>Residual Constraint</p>
+    </div>
+
+    <div class="block block-card logic-node" style="right:32%;top:64%;width:16%;height:10%;" data-animation="stagger">
+      <p>Decision Interface</p>
+    </div>
+    <div class="block block-subtitle" style="left:28%;top:55%;width:44%;height:6%;" data-animation="fadeUp">
+      <p>模型在图结构中编码邻接关系，通过模态门控动态选择可信信号，并同步输出点预测与区间预测。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>10</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="10">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>11 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="ornament-badge"></div>
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>核心模块：模态门控</h1>
+      <p>根据场景自动分配不同数据源权重</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>0.71</strong><span>轨迹权重</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>0.18</strong><span>视频权重</span>
+    </div>
+
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>0.11</strong><span>传感器权重</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;">门控模块在异常时段降低噪声源权重，在稳定时段保留多源互补信息。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>11</span></div>
+  </section>
+
+  <section class="slide kind-background" data-index="11">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>12 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="ornament-ribbon"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">BACKGROUND</div>
+      <h1>实现与训练配置</h1>
+      <p>保证实验可复现，参数选择保持克制</p>
+    </div>
+    
+    <div class="block block-body" style="left:8%;top:32%;width:47%;height:28%;" data-animation="fadeUp">
+      <p>训练采用滑动时间窗构造样本，使用 AdamW 优化器与早停策略。所有实验固定随机种子，并记录训练日志、数据版本与模型检查点。</p>
+    </div>
+    
+    <div class="block block-metric" style="right:8%;top:30%;width:22%;height:16%;" data-animation="dataGlow">
+      <strong>24</strong><span>历史步长</span>
+    </div>
+    
+    <div class="block block-metric" style="right:8%;top:50%;width:22%;height:16%;" data-animation="dataGlow">
+      <strong>12</strong><span>预测步长</span>
+    </div>
+    <div class="block" style="left:9%;bottom:18%;width:76%;height:14%;" data-animation="lineSweep">
+      <div class="signal-wave"><i style="height:34%"></i><i style="height:72%"></i><i style="height:52%"></i><i style="height:88%"></i><i style="height:45%"></i></div>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>12</span></div>
+  </section>
+
+  <section class="slide kind-transition" data-index="12">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>13 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="ornament-ribbon"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">SECTION</div>
+      <h1>第三章 实验验证</h1>
+      <p>03 / Experiments</p>
+    </div>
+    
+    <div class="block block-section-index" style="left:8%;top:22%;width:22%;height:8%;" data-animation="lineSweep">
+      <p>03 / Experiments</p>
+    </div>
+    <div class="block block-title" style="left:8%;top:34%;width:60%;height:18%;" data-animation="heroReveal">
+      <p>第三章 实验验证</p>
+    </div>
+    <div class="block block-body" style="left:10%;top:62%;width:48%;height:10%;" data-animation="fadeUp">
+      <p>通过多基线、多指标、多场景验证模型有效性，并用消融实验解释性能来源。</p>
+    </div>
+    <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>13</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="13">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>14 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="ornament-badge"></div>
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>实验数据集划分</h1>
+      <p>按时间顺序拆分训练、验证与测试集合</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>8 周</strong><span>训练集</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>2 周</strong><span>验证集</span>
+    </div>
+
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>2 周</strong><span>测试集</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;">采用连续 12 周路网数据，前 8 周训练，后 2 周验证，最后 2 周测试，避免随机拆分带来的信息泄漏。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>14</span></div>
+  </section>
+
+  <section class="slide kind-results" data-index="14">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>15 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="ornament-ribbon"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">RESULTS</div>
+      <h1>主实验结果</h1>
+      <p>主要指标较基线模型保持稳定提升</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>12.8%</strong><span>MAE 下降</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>18.4%</strong><span>RMSE 下降</span>
+    </div>
+
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>9.7%</strong><span>MAPE 下降</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;">在 MAE、RMSE 和 MAPE 三个指标上，本文模型均优于对照方法，尤其在晚高峰时段提升更明显。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>15</span></div>
+  </section>
+
+  <section class="slide kind-figure" data-index="15">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>16 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">FIGURE</div>
+      <h1>结果曲线与误差分布</h1>
+      <p>预留实验曲线、热力图或仿真截图</p>
+    </div>
+    
+    <div class="block block-list" style="left:9%;top:34%;width:32%;height:30%;" data-animation="stagger">
+      <ul><li>蓝色曲线代表真实交通速度</li>
+<li>青色曲线代表模型预测均值</li>
+<li>阴影区域代表 90% 预测置信区间</li></ul>
+    </div>
+    <div class="block block-image" style="right:8%;top:30%;width:38%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-campus-window.svg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>16</span></div>
+  </section>
+
+  <section class="slide kind-compare" data-index="16">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>17 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">COMPARISON</div>
+      <h1>消融实验</h1>
+      <p>验证图结构、模态融合与置信约束的贡献</p>
+    </div>
+    
+    <div class="block block-compare" style="left:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>对照维度</h3>
+      <ul><li>完整模型：MAE 4.12</li>
+<li>去除图结构：MAE 4.86</li></ul>
+    </div>
+    <div class="block block-compare is-accent" style="right:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>本文方案</h3>
+      <ul><li>去除模态门控：MAE 5.03</li>
+<li>去除区间约束：覆盖率下降 11.4%</li></ul>
+    </div>
+    <div class="block block-subtitle" style="left:20%;top:70%;width:60%;height:6%;" data-animation="fadeUp">
+      <p>消融结果表明，去除任一关键模块都会造成指标回落，其中模态门控对异常场景最敏感。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>17</span></div>
+  </section>
+
+  <section class="slide kind-transition" data-index="17">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>18 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="ornament-ribbon"></div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">SECTION</div>
+      <h1>第四章 分析与展望</h1>
+      <p>04 / Discussion</p>
+    </div>
+    
+    <div class="block block-section-index" style="left:8%;top:22%;width:22%;height:8%;" data-animation="lineSweep">
+      <p>04 / Discussion</p>
+    </div>
+    <div class="block block-title" style="left:8%;top:34%;width:60%;height:18%;" data-animation="heroReveal">
+      <p>第四章 分析与展望</p>
+    </div>
+    <div class="block block-body" style="left:10%;top:62%;width:48%;height:10%;" data-animation="fadeUp">
+      <p>进一步讨论模型的适用边界、工程价值和后续可以推进的研究问题。</p>
+    </div>
+    <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>18</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="18">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>19 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="ornament-badge"></div>
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>鲁棒性分析</h1>
+      <p>在传感器缺失、异常天气和节假日场景下验证稳定性</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>91%</strong><span>正常日覆盖率</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>84%</strong><span>雨天覆盖率</span>
+    </div>
+
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>76%</strong><span>节假日覆盖率</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;">模型在低缺失率下保持较好性能，但在连续缺失和突发事件组合场景中仍存在误差放大。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>19</span></div>
+  </section>
+
+  <section class="slide kind-figure" data-index="19">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>20 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">FIGURE</div>
+      <h1>典型案例</h1>
+      <p>拥堵传播从局部节点扩散到邻接路段</p>
+    </div>
+    
+    <div class="block block-list" style="left:9%;top:34%;width:32%;height:30%;" data-animation="stagger">
+      <ul><li>案例 A：主干路事故造成局部拥堵</li>
+<li>案例 B：校园周边晚高峰产生周期性波动</li>
+<li>案例 C：雨天低速区间明显扩大</li></ul>
+    </div>
+    <div class="block block-image" style="right:8%;top:30%;width:38%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>20</span></div>
+  </section>
+
+  <section class="slide kind-flow" data-index="20">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>21 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="ornament-badge"></div>
+    
+    <div class="slide-chrome">
+      <div class="kicker">PROCESS FLOW</div>
+      <h1>工程部署路径</h1>
+      <p>从离线验证到在线辅助决策</p>
+    </div>
+    
+    <div class="block block-flow" style="left:7%;top:34%;width:86%;height:24%;" data-animation="stagger">
+      <ol><li class="flow-node">离线批处理</li>
+<li class="flow-node">每日模型评估</li>
+<li class="flow-node">在线流式推理</li>
+<li class="flow-node">态势看板展示</li>
+<li class="flow-node">调度策略建议</li>
+<li class="flow-node">反馈样本回流</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:66%;width:70%;height:8%;" data-animation="fadeUp">
+      <p>部署路径以小范围灰度验证为起点，先服务交通态势展示，再逐步接入调度建议。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>21</span></div>
+  </section>
+
+  <section class="slide kind-swot" data-index="21">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>22 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">SWOT</div>
+      <h1>局限与风险</h1>
+      <p>明确模型不能覆盖的边界，避免过度承诺</p>
+    </div>
+    
+    <div class="block block-card swot-card" style="left:8%;top:28%;width:39%;height:18%;" data-animation="scaleIn">
+      <b>S</b><p>优势：多源融合提升复杂场景表达能力</p>
+    </div>
+
+    <div class="block block-card swot-card" style="right:8%;top:28%;width:39%;height:18%;" data-animation="scaleIn">
+      <b>W</b><p>劣势：对高质量标注与稳定数据链路有依赖</p>
+    </div>
+
+    <div class="block block-card swot-card" style="left:8%;top:52%;width:39%;height:18%;" data-animation="scaleIn">
+      <b>O</b><p>机会：可扩展到园区出行、公交调度和道路安全</p>
+    </div>
+
+    <div class="block block-card swot-card" style="right:8%;top:52%;width:39%;height:18%;" data-animation="scaleIn">
+      <b>T</b><p>威胁：极端事件下仍需要规则系统兜底</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>22</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="22">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>23 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>总结</h1>
+      <p>模型、数据和部署三条线同步收束</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>提出面向多源传感器的时空融合预测框架</li>
+<li>在主要路网指标上优于传统基线与单源深度模型</li>
+<li>区间预测增强了结果可信度和调度可解释性</li>
+<li>后续重点关注跨城市迁移、在线学习与轻量部署</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>23</span></div>
+  </section>
+
+  <section class="slide kind-thanks" data-index="23">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>ACADEMIC DEFENSE</span>
+        <b>24 / 24</b>
+      </div>
+    </div>
+    
     <div class="ornament-ring"></div>
     <div class="ornament-ribbon"></div>
-
+    <div class="ornament-badge"></div>
+    
+    
     <div class="block block-image" style="right:5%;top:16%;width:14%;height:20%;" data-animation="scaleIn">
-      <img src="../../public/assets/hit-shenzhen/hit-emblem-blue.png" alt="">
+      <img src="../../public/assets/hit-shenzhen/hit-motto-ivory.png" alt="">
     </div>
     <div class="block block-title" style="left:10%;top:28%;width:52%;height:18%;" data-animation="heroReveal">
-      <p><!-- THANKS_TITLE --></p>
+      <p>感谢聆听</p>
     </div>
     <div class="block block-subtitle" style="left:11%;top:52%;width:44%;height:6%;" data-animation="fadeUp">
-      <p><!-- THANKS_SUBTITLE --></p>
+      <p>欢迎各位老师批评指正</p>
     </div>
     <div class="block" style="left:9%;bottom:14%;width:78%;height:8%;" data-animation="lineSweep">
       <div class="research-grid"></div>
     </div>
-
-    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>10</span></div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>24</span></div>
   </section>
+</div>
 
-</div><!-- /stage -->
-
-<!-- Navigation Controls -->
 <nav class="nav-controls">
-  <button class="nav-btn" id="prevBtn" aria-label="上一页">&#8592;</button>
-  <div class="nav-info" id="navInfo">01 / 10</div>
+  <button class="nav-btn" id="prevBtn">&#8592;</button>
+  <div class="nav-info" id="navInfo">01 / 24</div>
   <div class="nav-track"><i id="navTrack"></i></div>
-  <button class="nav-btn" id="nextBtn" aria-label="下一页">&#8594;</button>
+  <button class="nav-btn" id="nextBtn">&#8594;</button>
 </nav>
 <button class="fullscreen-btn" id="fullscreenBtn">&#9633; 全屏</button>
 
-<!-- GSAP -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script>
-// ===== GSAP Slide Animation Engine =====
 (function() {
-  const stage = document.getElementById('stage');
-  const slides = stage.querySelectorAll('.slide');
-  const totalSlides = slides.length;
-  let currentIndex = 0;
+  var stage = document.getElementById('stage');
+  var slides = stage.querySelectorAll('.slide');
+  var totalSlides = slides.length;
+  var currentIndex = 0;
 
   function animateSlide(slide) {
-    const blocks = slide.querySelectorAll('[data-animation]');
+    var blocks = slide.querySelectorAll('[data-animation]');
     gsap.killTweensOf(blocks);
     gsap.set(blocks, { clearProps: 'transform,opacity,clipPath' });
-
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     blocks.forEach(function(block, i) {
-      const preset = block.dataset.animation;
-      const delay = i * 0.07;
-
+      var preset = block.dataset.animation;
+      var delay = i * 0.07;
       switch (preset) {
-        case 'heroReveal':
-          tl.from(block, { y: 42, opacity: 0, duration: 0.72 }, delay);
-          break;
-        case 'scaleIn':
-          tl.from(block, { scale: 0.86, opacity: 0, duration: 0.56 }, delay);
-          break;
-        case 'lineSweep':
-          tl.from(block, { clipPath: 'inset(0 100% 0 0)', opacity: 0.5, duration: 0.74 }, delay);
-          break;
-        case 'parallax':
-          tl.from(block, { x: 34, scale: 1.04, opacity: 0, duration: 0.75 }, delay);
-          break;
+        case 'heroReveal': tl.from(block, { y: 42, opacity: 0, duration: 0.72 }, delay); break;
+        case 'scaleIn': tl.from(block, { scale: 0.86, opacity: 0, duration: 0.56 }, delay); break;
+        case 'lineSweep': tl.from(block, { clipPath: 'inset(0 100% 0 0)', opacity: 0.5, duration: 0.74 }, delay); break;
+        case 'parallax': tl.from(block, { x: 34, scale: 1.04, opacity: 0, duration: 0.75 }, delay); break;
         case 'stagger':
           tl.from(block, { y: 22, opacity: 0, duration: 0.58 }, delay);
-          tl.from(block.querySelectorAll('li, .timeline-node, .bar'),
-            { y: 16, opacity: 0, stagger: 0.08, duration: 0.45 }, delay + 0.12);
+          tl.from(block.querySelectorAll('li, .timeline-node, .bar'), { y: 16, opacity: 0, stagger: 0.08, duration: 0.45 }, delay + 0.12);
           break;
-        case 'dataGlow':
-          tl.from(block, { scale: 0.9, opacity: 0, duration: 0.6 }, delay);
-          break;
+        case 'dataGlow': tl.from(block, { scale: 0.9, opacity: 0, duration: 0.6 }, delay); break;
         case 'chartRise':
           tl.from(block, { y: 30, opacity: 0, duration: 0.65 }, delay);
-          tl.from(block.querySelectorAll('.bar'),
-            { scaleY: 0, transformOrigin: 'bottom', stagger: 0.1, duration: 0.5 }, delay + 0.1);
+          tl.from(block.querySelectorAll('.bar'), { scaleY: 0, transformOrigin: 'bottom', stagger: 0.1, duration: 0.5 }, delay + 0.1);
           break;
-        case 'badgeStamp':
-          tl.from(block, { scale: 0, opacity: 0, duration: 0.5, ease: 'back.out(1.7)' }, delay);
-          break;
-        default: // fadeUp
-          tl.from(block, { y: 20, opacity: 0, duration: 0.5 }, delay);
+        case 'badgeStamp': tl.from(block, { scale: 0, opacity: 0, duration: 0.55, ease: 'back.out(1.7)' }, delay); break;
+        default: tl.from(block, { y: 20, opacity: 0, duration: 0.5 }, delay);
       }
     });
   }
@@ -757,66 +1532,38 @@ body { display: grid; place-items: center; }
     currentIndex = index;
     slides[currentIndex].classList.add('active');
     animateSlide(slides[currentIndex]);
-    updateNav();
-  }
-
-  function updateNav() {
-    document.getElementById('navInfo').textContent =
-      String(currentIndex + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+    document.getElementById('navInfo').textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
     document.getElementById('navTrack').style.width = ((currentIndex + 1) / totalSlides * 100) + '%';
   }
 
-  // Button navigation
   document.getElementById('prevBtn').addEventListener('click', function() { goTo(currentIndex - 1); });
   document.getElementById('nextBtn').addEventListener('click', function() { goTo(currentIndex + 1); });
-
-  // Keyboard navigation
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
-      e.preventDefault(); goTo(currentIndex + 1);
-    }
-    if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-      e.preventDefault(); goTo(currentIndex - 1);
-    }
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goTo(currentIndex + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(currentIndex - 1); }
     if (e.key === 'Home') { e.preventDefault(); goTo(0); }
     if (e.key === 'End') { e.preventDefault(); goTo(totalSlides - 1); }
   });
-
-  // Click navigation (left half = prev, right half = next)
   stage.addEventListener('click', function(e) {
     if (e.target.closest('button, a, .nav-controls')) return;
-    if (e.clientX > window.innerWidth / 2) goTo(currentIndex + 1);
-    else goTo(currentIndex - 1);
+    goTo(e.clientX > window.innerWidth / 2 ? currentIndex + 1 : currentIndex - 1);
   });
-
-  // Touch swipe
-  let touchStartX = 0;
+  var touchStartX = 0;
   stage.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
   stage.addEventListener('touchend', function(e) {
-    const diff = touchStartX - e.changedTouches[0].clientX;
+    var diff = touchStartX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 50) goTo(currentIndex + (diff > 0 ? 1 : -1));
   });
-
-  // Fullscreen
   document.getElementById('fullscreenBtn').addEventListener('click', function() {
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-    } else {
-      document.documentElement.requestFullscreen();
-    }
+    document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   });
-
-  // Responsive scaling
   function updateScale() {
-    const sw = 1280, sh = 720;
-    const scaleW = (window.innerWidth - 40) / sw;
-    const scaleH = (window.innerHeight - 100) / sh;
+    var scaleW = (window.innerWidth - 40) / 1280;
+    var scaleH = (window.innerHeight - 100) / 720;
     document.documentElement.style.setProperty('--scale', Math.min(scaleW, scaleH, 1));
   }
   window.addEventListener('resize', updateScale);
   updateScale();
-
-  // Initialize first slide
   goTo(0);
 })();
 </script>

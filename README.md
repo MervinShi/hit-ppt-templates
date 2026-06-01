@@ -211,14 +211,13 @@ All templates are indexed in [index.json](./index.json). Each item contains:
 
 ## Roadmap
 
-The current release provides 9 templates with 10 core slide types. The v2 implementation plan in [docs/IMPLEMENTATION_MANUAL.md](./docs/IMPLEMENTATION_MANUAL.md) expands the system toward:
+The current release provides 9 expanded templates: academic and course decks contain 24 slides, while campaign decks contain 25 slides. The v2 implementation now includes chapter transitions, logic charts, flow diagrams, comparison pages, quote cards, SWOT pages, campus-background decoration, and a generated 40-icon SVG set.
 
-- 24-page academic and course decks;
-- 25-page campaign decks;
-- transition slides and chapter navigation;
-- logic charts, flow diagrams, comparison pages, quote cards, SWOT pages;
-- richer icon and diagram assets;
-- full preview-regression workflow.
+Next work:
+
+- deeper per-template visual tuning after real user content;
+- broader mobile/tablet visual regression;
+- optional PDF/PPTX export research.
 
 ---
 

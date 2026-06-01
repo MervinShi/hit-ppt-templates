@@ -59,8 +59,11 @@ Use `index.json` as the source of truth. The library currently has 9 templates:
 Every template should have:
 - a standalone `templates/{slug}/index.html`;
 - metadata in `index.json`;
-- an architectural background in `public/assets/generated/{slug}-bg.svg`;
+- an architectural/campus background in `public/assets/generated/`;
 - transparent brand assets selected in `logo_asset` and `emblem_asset`.
+- academic/course templates: 24 slides.
+- campaign templates: 25 slides.
+- advanced page types: `transition`, `logic-chart`, `flow`, `compare`, `gallery`, `quote`, `swot`.
 
 ## Visual Identity Rules
 
@@ -75,13 +78,13 @@ Follow the HIT Visual Identity System:
 ## Deck Planning Defaults
 
 Academic default:
-cover, agenda, background, framework, data, figure, results, timeline, summary, thanks.
+cover, agenda, transition, background, data, logic-chart, compare, flow, figure, results, swot, summary, thanks. Use 24 slides for full decks.
 
 Course default:
-cover, agenda, problem, persona, solution, prototype, feedback, team, timeline, thanks.
+cover, agenda, transition, background, flow, compare, logic-chart, data, figure, gallery, timeline, swot, summary, thanks. Use 24 slides for full decks.
 
 Campaign default:
-cover, agenda, profile, achievements, pain, plan, timeline, promise, team, thanks.
+cover, agenda, transition, background, quote, logic-chart, timeline, data, gallery, compare, swot, flow, figure, summary, thanks. Use 25 slides for full decks.
 
 ## Quality Bar
 
@@ -89,6 +92,7 @@ Before delivery:
 
 - Build or run generation successfully.
 - Ensure generated HTML has a same-directory `assets/` folder.
+- If generating into `templates/{slug}/index.html`, pass `--assetPrefix ../../public/assets` to reuse repository assets without copying them.
 - Verify logo/name are visible and unobstructed.
 - Check slide text does not overlap the brand header.
 - Prefer charts, metrics, images, and timelines over dense paragraphs.

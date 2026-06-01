@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>课程小组 · 现代极简 — 哈工大深圳 HTML PPT</title>
+<title>校园低碳出行服务设计 — 哈工大深圳 HTML PPT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ===== CSS Variables (VIS-compliant) ===== */
 :root {
@@ -340,256 +340,1117 @@ body { display: grid; place-items: center; }
   z-index: 21;
 }
 
+
+
+
+/* ===== Advanced generated layouts shared by expanded templates ===== */
+.block-section-index {
+  display: grid;
+  align-items: center;
+  border-left: 6px solid var(--gold, var(--accent));
+  padding-left: 18px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+.block-section-index p { font-size: clamp(16px, 1.8vw, 24px); }
+.campus-window img {
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .22));
+}
+.logic-center {
+  text-align: center;
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
+}
+.logic-node p,
+.swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
+.block-flow ol {
+  list-style: none;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+.flow-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 96px;
+  padding: 14px;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  font-size: clamp(13px, 1.25vw, 17px);
+  font-weight: 850;
+  line-height: 1.35;
+}
+.flow-node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: var(--gold, var(--accent));
+}
+.block-compare {
+  padding: 20px 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+.block-compare.is-accent {
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  background: color-mix(in srgb, var(--gold, var(--accent)) 10%, transparent);
+}
+.block-compare h3 {
+  margin: 0 0 14px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-size: 15px;
+  letter-spacing: .08em;
+}
+.block-compare ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  padding: 0;
+}
+.block-compare li {
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+  font-size: clamp(14px, 1.25vw, 18px);
+  line-height: 1.45;
+}
+.swot-card {
+  grid-template-columns: 54px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+.swot-card b {
+  color: var(--gold, var(--accent));
+  font-family: Georgia, var(--font-title);
+  font-size: clamp(30px, 4vw, 54px);
+}
+.quote-mark {
+  color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  font-family: Georgia, serif;
+  font-size: 120px;
+  line-height: .8;
+}
+.slide.kind-transition {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
+    var(--template-photo-strip, var(--template-building-image)),
+    var(--template-bg-image) !important;
+  background-size: cover, 48% auto, cover !important;
+  background-position: center, 98% 58%, center !important;
+  background-repeat: no-repeat !important;
+}
+.slide.kind-figure,
+.slide.kind-gallery {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 90%, transparent), color-mix(in srgb, var(--paper) 62%, transparent) 48%, transparent),
+    var(--template-campus-clean, var(--template-bg-image)) !important;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+}
+@media print {
+  html, body { overflow: visible; background: #fff; }
+  body { display: block; }
+  .stage { width: 100%; height: auto; transform: none; box-shadow: none; }
+  .slide { position: relative; display: block !important; page-break-after: always; width: 100vw; height: 56.25vw; }
+  .nav-controls, .fullscreen-btn { display: none !important; }
+}
+
+
+
+/* ===== Advanced generated layouts shared by expanded templates ===== */
+.block-section-index {
+  display: grid;
+  align-items: center;
+  border-left: 6px solid var(--gold, var(--accent));
+  padding-left: 18px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+.block-section-index p { font-size: clamp(16px, 1.8vw, 24px); }
+.campus-window img {
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .22));
+}
+.logic-center {
+  text-align: center;
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
+}
+.logic-node p,
+.swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
+.block-flow ol {
+  list-style: none;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+.flow-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 96px;
+  padding: 14px;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  font-size: clamp(13px, 1.25vw, 17px);
+  font-weight: 850;
+  line-height: 1.35;
+}
+.flow-node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: var(--gold, var(--accent));
+}
+.block-compare {
+  padding: 20px 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+.block-compare.is-accent {
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  background: color-mix(in srgb, var(--gold, var(--accent)) 10%, transparent);
+}
+.block-compare h3 {
+  margin: 0 0 14px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-size: 15px;
+  letter-spacing: .08em;
+}
+.block-compare ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  padding: 0;
+}
+.block-compare li {
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+  font-size: clamp(14px, 1.25vw, 18px);
+  line-height: 1.45;
+}
+.swot-card {
+  grid-template-columns: 54px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+.swot-card b {
+  color: var(--gold, var(--accent));
+  font-family: Georgia, var(--font-title);
+  font-size: clamp(30px, 4vw, 54px);
+}
+.quote-mark {
+  color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  font-family: Georgia, serif;
+  font-size: 120px;
+  line-height: .8;
+}
+.slide.kind-transition {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
+    var(--template-photo-strip, var(--template-building-image)),
+    var(--template-bg-image) !important;
+  background-size: cover, 48% auto, cover !important;
+  background-position: center, 98% 58%, center !important;
+  background-repeat: no-repeat !important;
+}
+.slide.kind-figure,
+.slide.kind-gallery {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 90%, transparent), color-mix(in srgb, var(--paper) 62%, transparent) 48%, transparent),
+    var(--template-campus-clean, var(--template-bg-image)) !important;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+}
+@media print {
+  html, body { overflow: visible; background: #fff; }
+  body { display: block; }
+  .stage { width: 100%; height: auto; transform: none; box-shadow: none; }
+  .slide { position: relative; display: block !important; page-break-after: always; width: 100vw; height: 56.25vw; }
+  .nav-controls, .fullscreen-btn { display: none !important; }
+}
 </style>
 </head>
 <body>
-
 <div class="stage" id="stage">
-
-  <!-- Cover -->
-  <section class="slide kind-cover active" data-index="0">
+  <section class="slide kind-cover" data-index="0">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>01 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>01 / 24</b>
+      </div>
     </div>
-
-    <div class="block block-title" style="left:8%;top:22%;width:55%;height:18%;" data-animation="heroReveal">
-      <p><!-- TITLE_PLACEHOLDER --></p>
+    
+    
+    
+    <div class="block block-title" style="left:7%;top:24%;width:58%;height:20%;" data-animation="heroReveal">
+      <p>校园低碳出行服务设计</p>
     </div>
-    <div class="block block-subtitle" style="left:9%;top:50%;width:50%;height:7%;" data-animation="fadeUp">
-      <p><!-- SUBTITLE_PLACEHOLDER --></p>
+    <div class="block block-subtitle" style="left:8%;top:54%;width:54%;height:7%;" data-animation="fadeUp">
+      <p>课程小组汇报 · 第 6 组 · 哈尔滨工业大学（深圳）</p>
     </div>
-    <div class="block block-image" style="right:8%;top:20%;width:26%;height:26%;" data-animation="scaleIn">
+    <div class="block block-image" style="right:6%;top:18%;width:18%;height:22%;" data-animation="scaleIn">
       <img src="../../public/assets/hit-shenzhen/hit-building.png" alt="">
     </div>
-    <div class="block" style="left:12%;bottom:18%;width:72%;height:12%;" data-animation="stagger">
-      <div class="course-ribbons"><i></i><i></i><i></i></div>
+    <div class="block" style="left:6%;bottom:15%;width:82%;height:10%;" data-animation="lineSweep">
+      <div class="research-grid"></div>
     </div>
-
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>01</span></div>
   </section>
 
-  <!-- Agenda -->
   <section class="slide kind-agenda" data-index="1">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>02 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>02 / 24</b>
+      </div>
     </div>
-
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">AGENDA</div>
-      <h1><!-- AGENDA_TITLE --></h1>
-      <p><!-- AGENDA_SUBTITLE --></p>
+      <div class="kicker">CONTENTS</div>
+      <h1>今天讲什么</h1>
+      <p>问题、洞察、方案、验证、复盘</p>
     </div>
-
-    <div class="block block-list" style="left:12%;top:30%;width:42%;height:48%;" data-animation="stagger">
-      <ul><!-- AGENDA_ITEMS --></ul>
+    
+    <div class="block block-list" style="left:13%;top:30%;width:42%;height:48%;" data-animation="stagger">
+      <ul><li>项目背景与用户问题</li>
+<li>调研洞察与需求定义</li>
+<li>方案设计与原型演示</li>
+<li>测试反馈与迭代计划</li></ul>
     </div>
-    <div class="block block-metric" style="right:12%;top:30%;width:20%;height:16%;" data-animation="dataGlow">
-      <strong><!-- AGENDA_M1 --></strong><span><!-- AGENDA_M1_LABEL --></span>
+    <div class="block block-image" style="right:10%;top:30%;width:20%;height:24%;" data-animation="scaleIn">
+      <img src="../../public/assets/hit-shenzhen/campus-mark.jpg" alt="">
     </div>
-    <div class="block block-metric" style="right:12%;top:50%;width:20%;height:16%;" data-animation="dataGlow">
-      <strong><!-- AGENDA_M2 --></strong><span><!-- AGENDA_M2_LABEL --></span>
+    <div class="block" style="left:60%;top:26%;width:3px;height:44%;" data-animation="lineSweep">
+      <div class="vert-axis"></div>
     </div>
-
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>02</span></div>
   </section>
 
-  <!-- Problem -->
-  <section class="slide kind-problem" data-index="2">
+  <section class="slide kind-transition" data-index="2">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>03 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>03 / 24</b>
+      </div>
     </div>
-
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">PROBLEM</div>
-      <h1><!-- PROBLEM_TITLE --></h1>
-      <p><!-- PROBLEM_SUBTITLE --></p>
+      <div class="kicker">SECTION</div>
+      <h1>第一章 项目背景</h1>
+      <p>01 / Context</p>
     </div>
-
-    <div class="block block-body" style="left:10%;top:32%;width:44%;height:28%;" data-animation="fadeUp">
-      <p><!-- PROBLEM_BODY --></p>
+    
+    <div class="block block-section-index" style="left:8%;top:22%;width:22%;height:8%;" data-animation="lineSweep">
+      <p>01 / Context</p>
     </div>
-    <div class="block" style="right:10%;top:28%;width:26%;height:34%;" data-animation="scaleIn">
-      <div class="campus-map"><i></i><b></b><span></span></div>
+    <div class="block block-title" style="left:8%;top:34%;width:60%;height:18%;" data-animation="heroReveal">
+      <p>第一章 项目背景</p>
     </div>
-
+    <div class="block block-body" style="left:10%;top:62%;width:48%;height:10%;" data-animation="fadeUp">
+      <p>从校园真实出行场景出发，找到低碳服务设计的切入点。</p>
+    </div>
+    <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>03</span></div>
   </section>
 
-  <!-- Persona / User Profiles -->
-  <section class="slide kind-persona" data-index="3">
+  <section class="slide kind-background" data-index="3">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>04 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>04 / 24</b>
+      </div>
     </div>
-
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">USER PROFILES</div>
-      <h1><!-- PERSONA_TITLE --></h1>
-      <p><!-- PERSONA_SUBTITLE --></p>
+      <div class="kicker">BACKGROUND</div>
+      <h1>校园出行场景</h1>
+      <p>短距离、高频次、时间敏感</p>
     </div>
-
-    <div class="block block-card" style="left:8%;top:32%;width:24%;height:26%;" data-animation="scaleIn">
-      <p><!-- PERSONA_A --></p>
+    
+    <div class="block block-body" style="left:8%;top:32%;width:47%;height:28%;" data-animation="fadeUp">
+      <p>宿舍、教学楼、实验室、食堂之间形成高频短距离移动。高峰期等车不确定、步行路线绕行、共享单车分布不均，是调研中反复出现的问题。</p>
     </div>
-    <div class="block block-card" style="left:36%;top:32%;width:24%;height:26%;" data-animation="scaleIn">
-      <p><!-- PERSONA_B --></p>
+    
+    <div class="block block-metric" style="right:8%;top:30%;width:22%;height:16%;" data-animation="dataGlow">
+      <strong>42</strong><span>有效问卷</span>
     </div>
-    <div class="block block-card" style="left:64%;top:32%;width:24%;height:26%;" data-animation="scaleIn">
-      <p><!-- PERSONA_C --></p>
+    
+    <div class="block block-metric" style="right:8%;top:50%;width:22%;height:16%;" data-animation="dataGlow">
+      <strong>8</strong><span>深访用户</span>
     </div>
-
+    <div class="block" style="left:9%;bottom:18%;width:76%;height:14%;" data-animation="lineSweep">
+      <div class="signal-wave"><i style="height:34%"></i><i style="height:72%"></i><i style="height:52%"></i><i style="height:88%"></i><i style="height:45%"></i></div>
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>04</span></div>
   </section>
 
-  <!-- Solution -->
-  <section class="slide kind-solution" data-index="4">
+  <section class="slide kind-flow" data-index="4">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>05 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>05 / 24</b>
+      </div>
     </div>
-
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">SOLUTION</div>
-      <h1><!-- SOLUTION_TITLE --></h1>
-      <p><!-- SOLUTION_SUBTITLE --></p>
+      <div class="kicker">PROCESS FLOW</div>
+      <h1>用户旅程拆解</h1>
+      <p>把“赶时间”拆成可设计的触点</p>
     </div>
-
-    <div class="block block-timeline" style="left:8%;top:32%;width:82%;height:20%;" data-animation="stagger">
-      <ol><!-- SOLUTION_FLOW --></ol>
+    
+    <div class="block block-flow" style="left:7%;top:34%;width:86%;height:24%;" data-animation="stagger">
+      <ol><li class="flow-node">确认课程/实验安排</li>
+<li class="flow-node">选择目的地</li>
+<li class="flow-node">判断最快路径</li>
+<li class="flow-node">寻找可用车辆</li>
+<li class="flow-node">到达并记录节碳量</li>
+<li class="flow-node">分享或兑换积分</li></ol>
     </div>
-    <div class="block block-body" style="left:12%;top:58%;width:70%;height:14%;" data-animation="fadeUp">
-      <p><!-- SOLUTION_BODY --></p>
+    <div class="block block-subtitle" style="left:14%;top:66%;width:70%;height:8%;" data-animation="fadeUp">
+      <p>从出门前的路线判断到抵达后的反馈记录，每个触点都可能降低决策成本。</p>
     </div>
-
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>05</span></div>
   </section>
 
-  <!-- Prototype -->
-  <section class="slide kind-prototype" data-index="5">
+  <section class="slide kind-compare" data-index="5">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>06 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>06 / 24</b>
+      </div>
     </div>
-
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">PROTOTYPE</div>
-      <h1><!-- PROTO_TITLE --></h1>
-      <p><!-- PROTO_SUBTITLE --></p>
+      <div class="kicker">COMPARISON</div>
+      <h1>现有方案对比</h1>
+      <p>通用地图、校车信息、共享单车各有短板</p>
     </div>
-
-    <div class="block block-list" style="left:10%;top:32%;width:34%;height:34%;" data-animation="stagger">
-      <ul><!-- PROTO_POINTS --></ul>
+    
+    <div class="block block-compare" style="left:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>对照维度</h3>
+      <ul><li>通用地图：覆盖广但不理解校园细节</li>
+<li>校车信息：准确但服务范围有限</li></ul>
     </div>
-    <div class="block block-image" style="right:8%;top:28%;width:32%;height:44%;" data-animation="parallax">
-      <img src="../../public/assets/hit-shenzhen/campus-mark.jpg" alt="">
+    <div class="block block-compare is-accent" style="right:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>本文方案</h3>
+      <ul><li>共享单车：灵活但车辆分布不稳定</li>
+<li>本方案：路线推荐 + 热力提醒 + 低碳激励</li></ul>
     </div>
-
+    <div class="block block-subtitle" style="left:20%;top:70%;width:60%;height:6%;" data-animation="fadeUp">
+      <p>我们的定位不是再做一张地图，而是做面向校园情境的低成本决策工具。</p>
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>06</span></div>
   </section>
 
-  <!-- Feedback / Data -->
-  <section class="slide kind-feedback" data-index="6">
+  <section class="slide kind-logic-chart" data-index="6">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>07 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>07 / 24</b>
+      </div>
     </div>
-
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">FEEDBACK &amp; DATA</div>
-      <h1><!-- FEEDBACK_TITLE --></h1>
-      <p><!-- FEEDBACK_SUBTITLE --></p>
+      <div class="kicker">LOGIC MAP</div>
+      <h1>核心问题定义</h1>
+      <p>让同学在 30 秒内决定怎么走</p>
+    </div>
+    
+    <div class="block block-card logic-center" style="left:35%;top:35%;width:30%;height:18%;" data-animation="scaleIn">
+      <p>核心问题定义</p>
+    </div>
+    
+    <div class="block block-card logic-node" style="left:8%;top:30%;width:22%;height:13%;" data-animation="stagger">
+      <p>时间成本</p>
     </div>
 
-    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
-      <strong><!-- FB_M1 --></strong><span><!-- FB_M1_LABEL --></span>
-    </div>
-    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
-      <strong><!-- FB_M2 --></strong><span><!-- FB_M2_LABEL --></span>
-    </div>
-    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
-      <strong><!-- FB_M3 --></strong><span><!-- FB_M3_LABEL --></span>
-    </div>
-    <div class="block" style="left:12%;top:60%;width:72%;height:16%;" data-animation="chartRise">
-      <div class="chart-wrap"><canvas id="feedbackChart"></canvas></div>
+    <div class="block block-card logic-node" style="right:8%;top:30%;width:22%;height:13%;" data-animation="stagger">
+      <p>路线确定性</p>
     </div>
 
+    <div class="block block-card logic-node" style="left:8%;top:53%;width:22%;height:13%;" data-animation="stagger">
+      <p>车辆可得性</p>
+    </div>
+
+    <div class="block block-card logic-node" style="right:8%;top:53%;width:22%;height:13%;" data-animation="stagger">
+      <p>安全感</p>
+    </div>
+
+    <div class="block block-card logic-node" style="left:32%;top:64%;width:16%;height:10%;" data-animation="stagger">
+      <p>节碳反馈</p>
+    </div>
+
+    <div class="block block-card logic-node" style="right:32%;top:64%;width:16%;height:10%;" data-animation="stagger">
+      <p>小组协作</p>
+    </div>
+    <div class="block block-subtitle" style="left:28%;top:55%;width:44%;height:6%;" data-animation="fadeUp">
+      <p>项目将“更绿色”转化为“更省心、更确定、更有反馈”的体验目标。</p>
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>07</span></div>
   </section>
 
-  <!-- Team -->
-  <section class="slide kind-team" data-index="7">
+  <section class="slide kind-transition" data-index="7">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>08 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>08 / 24</b>
+      </div>
     </div>
-
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">TEAM</div>
-      <h1><!-- TEAM_TITLE --></h1>
-      <p><!-- TEAM_SUBTITLE --></p>
+      <div class="kicker">SECTION</div>
+      <h1>第二章 调研洞察</h1>
+      <p>02 / Research</p>
     </div>
-
-    <div class="block block-timeline" style="left:9%;top:34%;width:80%;height:22%;" data-animation="stagger">
-      <ol><!-- TEAM_ROLES --></ol>
+    
+    <div class="block block-section-index" style="left:8%;top:22%;width:22%;height:8%;" data-animation="lineSweep">
+      <p>02 / Research</p>
     </div>
-    <div class="block block-subtitle" style="left:18%;top:64%;width:60%;height:8%;" data-animation="fadeUp">
-      <p><!-- TEAM_NOTE --></p>
+    <div class="block block-title" style="left:8%;top:34%;width:60%;height:18%;" data-animation="heroReveal">
+      <p>第二章 调研洞察</p>
     </div>
-
+    <div class="block block-body" style="left:10%;top:62%;width:48%;height:10%;" data-animation="fadeUp">
+      <p>通过问卷、访谈和观察记录，建立需求优先级。</p>
+    </div>
+    <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>08</span></div>
   </section>
 
-  <!-- Timeline -->
-  <section class="slide kind-timeline" data-index="8">
+  <section class="slide kind-data" data-index="8">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>09 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>09 / 24</b>
+      </div>
     </div>
-
+    
+    
     <div class="slide-chrome">
-      <div class="kicker">PROJECT TIMELINE</div>
-      <h1><!-- TL_TITLE --></h1>
-      <p><!-- TL_SUBTITLE --></p>
+      <div class="kicker">DATA & METRICS</div>
+      <h1>问卷结果</h1>
+      <p>准确性优先于激励，但激励能提升长期留存</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>76%</strong><span>希望显示拥堵/排队</span>
     </div>
 
-    <div class="block block-timeline" style="left:8%;top:36%;width:82%;height:24%;" data-animation="stagger">
-      <ol><!-- TL_ITEMS --></ol>
-    </div>
-    <div class="block block-body" style="left:14%;top:68%;width:66%;height:8%;" data-animation="fadeUp">
-      <p style="font-size:14px;"><!-- TL_NOTE --></p>
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>68%</strong><span>愿意使用低碳积分</span>
     </div>
 
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>2.1min</strong><span>平均决策节省</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;">同学更关心“能不能准时到”，其次才是积分、社交和排行榜。</p>
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>09</span></div>
   </section>
 
-  <!-- Thanks -->
-  <section class="slide kind-thanks" data-index="9">
+  <section class="slide kind-logic-chart" data-index="9">
+    
     <div class="brand-header">
-      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）"></div>
-      <div class="brand-meta"><span>COURSE PROJECT</span><b>10 / 10</b></div>
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>10 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">LOGIC MAP</div>
+      <h1>用户画像</h1>
+      <p>三类用户对应三类核心需求</p>
+    </div>
+    
+    <div class="block block-card logic-center" style="left:35%;top:35%;width:30%;height:18%;" data-animation="scaleIn">
+      <p>用户画像</p>
+    </div>
+    
+    <div class="block block-card logic-node" style="left:8%;top:30%;width:22%;height:13%;" data-animation="stagger">
+      <p>赶课型：时间敏感，需要最快路线</p>
     </div>
 
-    <div class="block block-image" style="right:5%;top:14%;width:40%;height:50%;" data-animation="parallax">
-      <img src="../../public/assets/hit-shenzhen/hit-building.png" alt="">
-    </div>
-    <div class="block block-title" style="left:9%;top:28%;width:34%;height:14%;" data-animation="heroReveal">
-      <p><!-- THANKS_TITLE --></p>
-    </div>
-    <div class="block block-subtitle" style="left:10%;top:50%;width:38%;height:6%;" data-animation="fadeUp">
-      <p><!-- THANKS_SUBTITLE --></p>
+    <div class="block block-card logic-node" style="right:8%;top:30%;width:22%;height:13%;" data-animation="stagger">
+      <p>实验室型：夜间往返，关注安全</p>
     </div>
 
+    <div class="block block-card logic-node" style="left:8%;top:53%;width:22%;height:13%;" data-animation="stagger">
+      <p>社交型：多人同行，偏好低成本</p>
+    </div>
+
+    <div class="block block-card logic-node" style="right:8%;top:53%;width:22%;height:13%;" data-animation="stagger">
+      <p>新同学：不熟悉路线，依赖指引</p>
+    </div>
+
+    <div class="block block-card logic-node" style="left:32%;top:64%;width:16%;height:10%;" data-animation="stagger">
+      <p>低碳积极型：关注节碳反馈</p>
+    </div>
+
+    <div class="block block-card logic-node" style="right:32%;top:64%;width:16%;height:10%;" data-animation="stagger">
+      <p>组织活动型：需要批量路线建议</p>
+    </div>
+    <div class="block block-subtitle" style="left:28%;top:55%;width:44%;height:6%;" data-animation="fadeUp">
+      <p>将访谈内容归纳为赶课型、实验室型和社交型三种典型画像。</p>
+    </div>
+    
     <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>10</span></div>
   </section>
 
-</div><!-- /stage -->
+  <section class="slide kind-compare" data-index="10">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>11 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">COMPARISON</div>
+      <h1>需求优先级</h1>
+      <p>从“想要”到“必须有”</p>
+    </div>
+    
+    <div class="block block-compare" style="left:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>对照维度</h3>
+      <ul><li>Must：路线推荐、车辆热力、到达时间</li>
+<li>Should：夜间安全路线、拥堵提醒</li></ul>
+    </div>
+    <div class="block block-compare is-accent" style="right:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>本文方案</h3>
+      <ul><li>Could：积分兑换、组队打卡</li>
+<li>Won't：复杂社区、完整地图编辑</li></ul>
+    </div>
+    <div class="block block-subtitle" style="left:20%;top:70%;width:60%;height:6%;" data-animation="fadeUp">
+      <p>第一版必须克制，先做好决策链路，再考虑社交化玩法。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>11</span></div>
+  </section>
+
+  <section class="slide kind-transition" data-index="11">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>12 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">SECTION</div>
+      <h1>第三章 方案设计</h1>
+      <p>03 / Solution</p>
+    </div>
+    
+    <div class="block block-section-index" style="left:8%;top:22%;width:22%;height:8%;" data-animation="lineSweep">
+      <p>03 / Solution</p>
+    </div>
+    <div class="block block-title" style="left:8%;top:34%;width:60%;height:18%;" data-animation="heroReveal">
+      <p>第三章 方案设计</p>
+    </div>
+    <div class="block block-body" style="left:10%;top:62%;width:48%;height:10%;" data-animation="fadeUp">
+      <p>围绕路线、车辆、节碳反馈三件事，构建轻量服务闭环。</p>
+    </div>
+    <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>12</span></div>
+  </section>
+
+  <section class="slide kind-flow" data-index="12">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>13 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">PROCESS FLOW</div>
+      <h1>产品框架</h1>
+      <p>入口轻、信息准、反馈快</p>
+    </div>
+    
+    <div class="block block-flow" style="left:7%;top:34%;width:86%;height:24%;" data-animation="stagger">
+      <ol><li class="flow-node">打开小程序</li>
+<li class="flow-node">选择目的地</li>
+<li class="flow-node">查看路线方案</li>
+<li class="flow-node">获取车辆/步行建议</li>
+<li class="flow-node">到达后记录节碳量</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:66%;width:70%;height:8%;" data-animation="fadeUp">
+      <p>核心流程控制在 5 步以内，保证课堂展示时能快速说明。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>13</span></div>
+  </section>
+
+  <section class="slide kind-figure" data-index="13">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>14 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">FIGURE</div>
+      <h1>原型页面</h1>
+      <p>预留 Figma 截图、流程图或实拍素材</p>
+    </div>
+    
+    <div class="block block-list" style="left:9%;top:34%;width:32%;height:30%;" data-animation="stagger">
+      <ul><li>首页突出最近目的地</li>
+<li>路线页只展示关键判断信息</li>
+<li>结算页强调本次节碳量与累计积分</li></ul>
+    </div>
+    <div class="block block-image" style="right:8%;top:30%;width:38%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-campus-window.svg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>14</span></div>
+  </section>
+
+  <section class="slide kind-gallery" data-index="14">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>15 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">GALLERY</div>
+      <h1>视觉系统</h1>
+      <p>工大蓝为主色，蓝橙/蓝绿辅助表达协作感</p>
+    </div>
+    
+    <div class="block block-body" style="left:8%;top:32%;width:48%;height:34%;" data-animation="fadeUp">
+      <p>蓝色用于可信信息与导航
+橙色用于行动按钮与关键提醒
+绿色用于低碳积分与正反馈</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>15</span></div>
+  </section>
+
+  <section class="slide kind-transition" data-index="15">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>16 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">SECTION</div>
+      <h1>第四章 验证迭代</h1>
+      <p>04 / Validation</p>
+    </div>
+    
+    <div class="block block-section-index" style="left:8%;top:22%;width:22%;height:8%;" data-animation="lineSweep">
+      <p>04 / Validation</p>
+    </div>
+    <div class="block block-title" style="left:8%;top:34%;width:60%;height:18%;" data-animation="heroReveal">
+      <p>第四章 验证迭代</p>
+    </div>
+    <div class="block block-body" style="left:10%;top:62%;width:48%;height:10%;" data-animation="fadeUp">
+      <p>用小范围测试发现问题，再用迭代计划回应不足。</p>
+    </div>
+    <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>16</span></div>
+  </section>
+
+  <section class="slide kind-data" data-index="16">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>17 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">DATA & METRICS</div>
+      <h1>可用性测试</h1>
+      <p>任务完成率与主观满意度同步记录</p>
+    </div>
+    
+    
+    <div class="block block-metric" style="left:8%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>86%</strong><span>任务完成率</span>
+    </div>
+
+    <div class="block block-metric" style="left:34%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>4.2/5</strong><span>满意度</span>
+    </div>
+
+    <div class="block block-metric" style="left:60%;top:32%;width:23%;height:18%;" data-animation="dataGlow">
+      <strong>31s</strong><span>平均决策时间</span>
+    </div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
+      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    </div>
+    <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
+      <p style="font-size:13px;text-align:center;">我们设置“从宿舍到教学楼”“从实验室到食堂”等典型任务，观察用户是否能快速完成路线选择。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>17</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="17">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>18 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>测试反馈</h1>
+      <p>用户希望减少文字解释，增加状态判断</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>路线卡片需要突出“最快 / 最稳 / 低碳”</li>
+<li>车辆热力图不能过度复杂</li>
+<li>夜间路线需要更清晰的安全提示</li>
+<li>积分奖励应避免打扰核心任务</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>18</span></div>
+  </section>
+
+  <section class="slide kind-flow" data-index="18">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>19 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">PROCESS FLOW</div>
+      <h1>迭代计划</h1>
+      <p>两周内完成高优先级修改</p>
+    </div>
+    
+    <div class="block block-flow" style="left:7%;top:34%;width:86%;height:24%;" data-animation="stagger">
+      <ol><li class="flow-node">优化路线卡片</li>
+<li class="flow-node">简化热力图颜色</li>
+<li class="flow-node">增加夜间模式</li>
+<li class="flow-node">调整积分入口</li>
+<li class="flow-node">二轮测试</li>
+<li class="flow-node">汇报复盘</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:66%;width:70%;height:8%;" data-animation="fadeUp">
+      <p>将反馈拆成界面、数据和激励三个模块推进。</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>19</span></div>
+  </section>
+
+  <section class="slide kind-timeline" data-index="19">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>20 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">TIMELINE</div>
+      <h1>小组分工</h1>
+      <p>每个人负责一条明确产出链</p>
+    </div>
+    
+    <div class="block block-timeline" style="left:8%;top:34%;width:82%;height:22%;" data-animation="stagger">
+      <ol><li class="timeline-node">调研设计：陈同学</li>
+<li class="timeline-node">数据整理：林同学</li>
+<li class="timeline-node">原型交互：王同学</li>
+<li class="timeline-node">视觉设计：刘同学</li>
+<li class="timeline-node">汇报整合：全体成员</li></ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:64%;width:67%;height:8%;" data-animation="fadeUp">
+      <p></p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>20</span></div>
+  </section>
+
+  <section class="slide kind-figure" data-index="20">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>21 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">FIGURE</div>
+      <h1>成果展示</h1>
+      <p>把过程材料转化为可展示的课程成果</p>
+    </div>
+    
+    <div class="block block-list" style="left:9%;top:34%;width:32%;height:30%;" data-animation="stagger">
+      <ul><li>完整服务蓝图</li>
+<li>可点击交互原型</li>
+<li>用户测试记录表</li>
+<li>迭代前后对比截图</li></ul>
+    </div>
+    <div class="block block-image" style="right:8%;top:30%;width:38%;height:42%;" data-animation="parallax">
+      <img src="../../public/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="">
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>21</span></div>
+  </section>
+
+  <section class="slide kind-swot" data-index="21">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>22 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">SWOT</div>
+      <h1>SWOT 分析</h1>
+      <p>课程项目的优势、边界与后续机会</p>
+    </div>
+    
+    <div class="block block-card swot-card" style="left:8%;top:28%;width:39%;height:18%;" data-animation="scaleIn">
+      <b>S</b><p>优势：场景清晰，用户可直接验证</p>
+    </div>
+
+    <div class="block block-card swot-card" style="right:8%;top:28%;width:39%;height:18%;" data-animation="scaleIn">
+      <b>W</b><p>劣势：真实车辆数据接入仍有限</p>
+    </div>
+
+    <div class="block block-card swot-card" style="left:8%;top:52%;width:39%;height:18%;" data-animation="scaleIn">
+      <b>O</b><p>机会：可扩展到社团活动与迎新服务</p>
+    </div>
+
+    <div class="block block-card swot-card" style="right:8%;top:52%;width:39%;height:18%;" data-animation="scaleIn">
+      <b>T</b><p>威胁：过度功能化会削弱核心体验</p>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>22</span></div>
+  </section>
+
+  <section class="slide kind-summary" data-index="22">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>23 / 24</b>
+      </div>
+    </div>
+    
+    
+    <div class="slide-chrome">
+      <div class="kicker">CONCLUSIONS</div>
+      <h1>总结与反思</h1>
+      <p>从功能方案回到真实用户价值</p>
+    </div>
+    
+    <div class="block block-list" style="left:12%;top:32%;width:72%;height:38%;" data-animation="stagger">
+      <ul><li>服务设计应先解决确定性，再考虑趣味性</li>
+<li>校园场景适合小步快跑的验证方式</li>
+<li>小组协作需要明确责任边界和交付节奏</li>
+<li>下一版重点优化数据可信度和夜间安全路线</li></ul>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>23</span></div>
+  </section>
+
+  <section class="slide kind-thanks" data-index="23">
+    
+    <div class="brand-header">
+      <div class="brand-lockup"><img src="../../public/assets/hit-shenzhen/hit-logo-blue.png" alt="哈尔滨工业大学（深圳）">
+      </div>
+      <div class="brand-meta">
+        
+        <span>COURSE PROJECT</span>
+        <b>24 / 24</b>
+      </div>
+    </div>
+    
+    
+    
+    <div class="block block-image" style="right:5%;top:16%;width:14%;height:20%;" data-animation="scaleIn">
+      <img src="../../public/assets/hit-shenzhen/hit-emblem-blue.png" alt="">
+    </div>
+    <div class="block block-title" style="left:10%;top:28%;width:52%;height:18%;" data-animation="heroReveal">
+      <p>谢谢观看</p>
+    </div>
+    <div class="block block-subtitle" style="left:11%;top:52%;width:44%;height:6%;" data-animation="fadeUp">
+      <p>欢迎老师和同学提问</p>
+    </div>
+    <div class="block" style="left:9%;bottom:14%;width:78%;height:8%;" data-animation="lineSweep">
+      <div class="research-grid"></div>
+    </div>
+    
+    <div class="slide-footer"><span>哈尔滨工业大学（深圳）</span><span>24</span></div>
+  </section>
+</div>
 
 <nav class="nav-controls">
   <button class="nav-btn" id="prevBtn">&#8592;</button>
-  <div class="nav-info" id="navInfo">01 / 10</div>
+  <div class="nav-info" id="navInfo">01 / 24</div>
   <div class="nav-track"><i id="navTrack"></i></div>
   <button class="nav-btn" id="nextBtn">&#8594;</button>
 </nav>
@@ -599,21 +1460,19 @@ body { display: grid; place-items: center; }
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script>
 (function() {
-  const stage = document.getElementById('stage');
-  const slides = stage.querySelectorAll('.slide');
-  const totalSlides = slides.length;
-  let currentIndex = 0;
-  let chartInstances = [];
+  var stage = document.getElementById('stage');
+  var slides = stage.querySelectorAll('.slide');
+  var totalSlides = slides.length;
+  var currentIndex = 0;
 
   function animateSlide(slide) {
-    const blocks = slide.querySelectorAll('[data-animation]');
+    var blocks = slide.querySelectorAll('[data-animation]');
     gsap.killTweensOf(blocks);
     gsap.set(blocks, { clearProps: 'transform,opacity,clipPath' });
-
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     blocks.forEach(function(block, i) {
-      const preset = block.dataset.animation;
-      const delay = i * 0.07;
+      var preset = block.dataset.animation;
+      var delay = i * 0.07;
       switch (preset) {
         case 'heroReveal': tl.from(block, { y: 42, opacity: 0, duration: 0.72 }, delay); break;
         case 'scaleIn': tl.from(block, { scale: 0.86, opacity: 0, duration: 0.56 }, delay); break;
@@ -621,53 +1480,17 @@ body { display: grid; place-items: center; }
         case 'parallax': tl.from(block, { x: 34, scale: 1.04, opacity: 0, duration: 0.75 }, delay); break;
         case 'stagger':
           tl.from(block, { y: 22, opacity: 0, duration: 0.58 }, delay);
-          tl.from(block.querySelectorAll('li, .timeline-node'), { y: 16, opacity: 0, stagger: 0.08, duration: 0.45 }, delay + 0.12);
+          tl.from(block.querySelectorAll('li, .timeline-node, .bar'), { y: 16, opacity: 0, stagger: 0.08, duration: 0.45 }, delay + 0.12);
           break;
         case 'dataGlow': tl.from(block, { scale: 0.9, opacity: 0, duration: 0.6 }, delay); break;
         case 'chartRise':
           tl.from(block, { y: 30, opacity: 0, duration: 0.65 }, delay);
+          tl.from(block.querySelectorAll('.bar'), { scaleY: 0, transformOrigin: 'bottom', stagger: 0.1, duration: 0.5 }, delay + 0.1);
           break;
+        case 'badgeStamp': tl.from(block, { scale: 0, opacity: 0, duration: 0.55, ease: 'back.out(1.7)' }, delay); break;
         default: tl.from(block, { y: 20, opacity: 0, duration: 0.5 }, delay);
       }
     });
-
-    // Initialize charts on data slides
-    initCharts(slide);
-  }
-
-  function initCharts(slide) {
-    // Clean up previous chart instances
-    chartInstances.forEach(function(c) { try { c.destroy(); } catch(e) {} });
-    chartInstances = [];
-
-    const canvas = slide.querySelector('canvas');
-    if (!canvas || !window.Chart) return;
-
-    const ctx = canvas.getContext('2d');
-    const chart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['指标A', '指标B', '指标C', '指标D', '指标E'],
-        datasets: [{
-          label: '数据',
-          data: [38, 68, 50, 82, 58],
-          backgroundColor: ['rgba(0,83,117,.7)', 'rgba(255,122,61,.7)', 'rgba(112,199,178,.7)', 'rgba(0,83,117,.5)', 'rgba(255,122,61,.5)'],
-          borderColor: ['#005375', '#ff7a3d', '#70c7b2', '#005375', '#ff7a3d'],
-          borderWidth: 1,
-          borderRadius: 8,
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,.06)' }, ticks: { color: '#667178' } },
-          x: { grid: { display: false }, ticks: { color: '#667178' } }
-        }
-      }
-    });
-    chartInstances.push(chart);
   }
 
   function goTo(index) {
@@ -676,48 +1499,38 @@ body { display: grid; place-items: center; }
     currentIndex = index;
     slides[currentIndex].classList.add('active');
     animateSlide(slides[currentIndex]);
-    updateNav();
-  }
-
-  function updateNav() {
     document.getElementById('navInfo').textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
     document.getElementById('navTrack').style.width = ((currentIndex + 1) / totalSlides * 100) + '%';
   }
 
   document.getElementById('prevBtn').addEventListener('click', function() { goTo(currentIndex - 1); });
   document.getElementById('nextBtn').addEventListener('click', function() { goTo(currentIndex + 1); });
-
   document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goTo(currentIndex + 1); }
     if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(currentIndex - 1); }
     if (e.key === 'Home') { e.preventDefault(); goTo(0); }
     if (e.key === 'End') { e.preventDefault(); goTo(totalSlides - 1); }
   });
-
   stage.addEventListener('click', function(e) {
     if (e.target.closest('button, a, .nav-controls')) return;
     goTo(e.clientX > window.innerWidth / 2 ? currentIndex + 1 : currentIndex - 1);
   });
-
-  let touchStartX = 0;
+  var touchStartX = 0;
   stage.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
   stage.addEventListener('touchend', function(e) {
-    const diff = touchStartX - e.changedTouches[0].clientX;
+    var diff = touchStartX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 50) goTo(currentIndex + (diff > 0 ? 1 : -1));
   });
-
   document.getElementById('fullscreenBtn').addEventListener('click', function() {
     document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   });
-
   function updateScale() {
-    const scaleW = (window.innerWidth - 40) / 1280;
-    const scaleH = (window.innerHeight - 100) / 720;
+    var scaleW = (window.innerWidth - 40) / 1280;
+    var scaleH = (window.innerHeight - 100) / 720;
     document.documentElement.style.setProperty('--scale', Math.min(scaleW, scaleH, 1));
   }
   window.addEventListener('resize', updateScale);
   updateScale();
-
   goTo(0);
 })();
 </script>

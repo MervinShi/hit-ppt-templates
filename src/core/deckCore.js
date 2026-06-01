@@ -28,12 +28,13 @@ export function parseMarkdownSection(section, index, total, options = {}) {
     ? lines[headingIndex].replace(/^#{1,3}\s+/, '')
     : `第 ${index + 1} 页`;
   const subtitle = findMeta(lines, '副标题') || findMeta(lines, 'subtitle') || inferSubtitle(lines, title);
+  const explicitKind = normalizeKind(findMeta(lines, '类型') || findMeta(lines, 'kind') || findMeta(lines, 'layout'));
   const images = [...section.matchAll(imagePattern)].map((match) => normalizeAssetPath(match[1], options.assetPrefix));
   const table = extractTable(lines);
   const metrics = extractMetrics(lines);
   const bullets = extractBullets(lines);
   const body = extractBody(lines);
-  const kind = detectKind(index, total, images, metrics, table, bullets, title);
+  const kind = explicitKind || detectKind(index, total, images, metrics, table, bullets, title);
 
   return { kind, title, subtitle, body, images, metrics, table, bullets };
 }
@@ -61,7 +62,7 @@ function extractBody(lines) {
     .filter((line) => !singleImagePattern.test(line))
     .filter((line) => !/^[-*]\s+/.test(line))
     .filter((line) => !/^(\d+)[.)、]\s+/.test(line))
-    .filter((line) => !/^(副标题|subtitle|metric|指标)[:：]/i.test(line))
+    .filter((line) => !/^(副标题|subtitle|metric|指标|类型|kind|layout)[:：]/i.test(line))
     .join('\n');
 }
 
@@ -88,13 +89,51 @@ export function extractMetrics(lines) {
 export function detectKind(index, total, images, metrics, table, bullets, title = '') {
   if (index === 0) return 'cover';
   if (index === total - 1) return 'thanks';
+  if (/^第[一二三四五六七八九十0-9]+[章节篇]|章节|chapter|part\s*\d+|过渡页/i.test(title)) return 'transition';
   if (/目录|议程|结构|提纲|contents?|agenda/i.test(title)) return 'agenda';
+  if (/swot/i.test(title)) return 'swot';
+  if (/对比|比较|竞品|差异|versus|\bvs\.?\b|compare/i.test(title)) return 'compare';
+  if (/流程|过程|路线|路径|技术路线|pipeline|process|roadmap/i.test(title)) return 'flow';
+  if (/框架|架构|模型|机理|逻辑|问题分解|framework|architecture|logic/i.test(title)) return 'logic-chart';
+  if (/引用|寄语|原声|宣言|quote/i.test(title)) return 'quote';
   if (metrics.length || table) return 'data';
   if (images.length >= 3) return 'gallery';
   if (images.length) return 'figure';
   if (bullets.length >= 5) return 'timeline';
   if (bullets.length >= 3) return 'summary';
   return 'background';
+}
+
+export function normalizeKind(value = '') {
+  const key = String(value).trim().toLowerCase();
+  const aliases = {
+    cover: 'cover',
+    agenda: 'agenda',
+    contents: 'agenda',
+    background: 'background',
+    body: 'background',
+    framework: 'framework',
+    data: 'data',
+    results: 'results',
+    figure: 'figure',
+    image: 'figure',
+    gallery: 'gallery',
+    timeline: 'timeline',
+    flow: 'flow',
+    process: 'flow',
+    transition: 'transition',
+    chapter: 'transition',
+    'logic-chart': 'logic-chart',
+    logic: 'logic-chart',
+    architecture: 'logic-chart',
+    compare: 'compare',
+    comparison: 'compare',
+    swot: 'swot',
+    quote: 'quote',
+    summary: 'summary',
+    thanks: 'thanks',
+  };
+  return aliases[key] || '';
 }
 
 export function templateFamily(templateId) {

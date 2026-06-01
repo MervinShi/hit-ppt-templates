@@ -35,6 +35,132 @@ async function loadDeckCore() {
 // ===== Template Configuration =====
 const TEMPLATE_DIR = path.resolve(__dirname, '..', 'templates');
 
+const ADVANCED_LAYOUT_CSS = `
+
+/* ===== Advanced generated layouts shared by expanded templates ===== */
+.block-section-index {
+  display: grid;
+  align-items: center;
+  border-left: 6px solid var(--gold, var(--accent));
+  padding-left: 18px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+.block-section-index p { font-size: clamp(16px, 1.8vw, 24px); }
+.campus-window img {
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .22));
+}
+.logic-center {
+  text-align: center;
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
+}
+.logic-node p,
+.swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
+.block-flow ol {
+  list-style: none;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+.flow-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 96px;
+  padding: 14px;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  font-size: clamp(13px, 1.25vw, 17px);
+  font-weight: 850;
+  line-height: 1.35;
+}
+.flow-node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: var(--gold, var(--accent));
+}
+.block-compare {
+  padding: 20px 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+.block-compare.is-accent {
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  background: color-mix(in srgb, var(--gold, var(--accent)) 10%, transparent);
+}
+.block-compare h3 {
+  margin: 0 0 14px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-size: 15px;
+  letter-spacing: .08em;
+}
+.block-compare ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  padding: 0;
+}
+.block-compare li {
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+  font-size: clamp(14px, 1.25vw, 18px);
+  line-height: 1.45;
+}
+.swot-card {
+  grid-template-columns: 54px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+.swot-card b {
+  color: var(--gold, var(--accent));
+  font-family: Georgia, var(--font-title);
+  font-size: clamp(30px, 4vw, 54px);
+}
+.quote-mark {
+  color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  font-family: Georgia, serif;
+  font-size: 120px;
+  line-height: .8;
+}
+.slide.kind-transition {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
+    var(--template-photo-strip, var(--template-building-image)),
+    var(--template-bg-image) !important;
+  background-size: cover, 48% auto, cover !important;
+  background-position: center, 98% 58%, center !important;
+  background-repeat: no-repeat !important;
+}
+.slide.kind-figure,
+.slide.kind-gallery {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 90%, transparent), color-mix(in srgb, var(--paper) 62%, transparent) 48%, transparent),
+    var(--template-campus-clean, var(--template-bg-image)) !important;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+}
+@media print {
+  html, body { overflow: visible; background: #fff; }
+  body { display: block; }
+  .stage { width: 100%; height: auto; transform: none; box-shadow: none; }
+  .slide { position: relative; display: block !important; page-break-after: always; width: 100vw; height: 56.25vw; }
+  .nav-controls, .fullscreen-btn { display: none !important; }
+}
+`;
+
 // Page type layout presets (percentage positions for 1280x720 canvas)
 const LAYOUTS = {
   cover: {
@@ -137,16 +263,16 @@ const LAYOUTS = {
 };
 
 // ===== HTML Generator =====
-function generateSlideHTML(slide, templateSlug, index, total) {
+function generateSlideHTML(slide, templateSlug, index, total, assetPrefix = './assets') {
   const { kind, title, subtitle, body, images, metrics, bullets } = slide;
 
   const family = templateFamily(templateSlug);
   const isAcademic = family === 'academic';
   const isCourse = family === 'course';
   const isCampaign = family === 'campaign';
-  const defaultHero = defaultHeroForTemplate(templateSlug);
-  const defaultEmblem = defaultEmblemForTemplate(templateSlug);
-  const brandAssets = brandAssetsForTemplate(templateSlug);
+  const defaultHero = defaultHeroForTemplate(templateSlug, assetPrefix);
+  const defaultEmblem = defaultEmblemForTemplate(templateSlug, assetPrefix);
+  const brandAssets = brandAssetsForTemplate(templateSlug, assetPrefix);
 
   const categoryLabel = isAcademic ? 'ACADEMIC DEFENSE'
     : isCourse ? 'COURSE PROJECT'
@@ -161,7 +287,7 @@ function generateSlideHTML(slide, templateSlug, index, total) {
       <div class="brand-lockup"><img src="${brandAssets.logo}" alt="哈尔滨工业大学（深圳）">
       </div>
       <div class="brand-meta">
-        ${isCampaign ? '<img class="brand-right-mark" src="./assets/hit-shenzhen/flag.png" alt="">' : ''}
+        ${isCampaign ? `<img class="brand-right-mark" src="${assetPath('hit-shenzhen/flag.png', assetPrefix)}" alt="">` : ''}
         <span>${categoryLabel}</span>
         <b>${slideNum} / ${totalNum}</b>
       </div>
@@ -176,7 +302,7 @@ function generateSlideHTML(slide, templateSlug, index, total) {
     </div>` : '';
 
   // Content blocks
-  const blocksHTML = generateBlocks(kind, { title, subtitle, body, images, metrics, bullets }, templateSlug, defaultHero, defaultEmblem);
+  const blocksHTML = generateBlocks(kind, { title, subtitle, body, images, metrics, bullets }, templateSlug, defaultHero, defaultEmblem, assetPrefix);
 
   // Footer
   const footerHTML = `
@@ -200,7 +326,8 @@ function kindLabel(kind) {
     cover: 'COVER', agenda: 'CONTENTS', background: 'BACKGROUND',
     framework: 'FRAMEWORK', data: 'DATA & METRICS', figure: 'FIGURE',
     results: 'RESULTS', timeline: 'TIMELINE', summary: 'CONCLUSIONS',
-    thanks: 'THANKS',
+    thanks: 'THANKS', transition: 'SECTION', 'logic-chart': 'LOGIC MAP',
+    flow: 'PROCESS FLOW', compare: 'COMPARISON', swot: 'SWOT', quote: 'QUOTE',
     problem: 'PROBLEM', persona: 'USER PROFILES', solution: 'SOLUTION',
     prototype: 'PROTOTYPE', feedback: 'FEEDBACK & DATA', team: 'TEAM',
     profile: 'PROFILE', achievements: 'ACHIEVEMENTS', pain: 'ANALYSIS',
@@ -209,7 +336,7 @@ function kindLabel(kind) {
   return labels[kind] || kind.toUpperCase();
 }
 
-function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem) {
+function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem, assetPrefix = './assets') {
   const { title, subtitle, body, images, metrics, bullets } = content;
 
   switch (kind) {
@@ -234,7 +361,7 @@ function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem)
       <ul>${bullets.map(b => `<li>${escapeHTML(b)}</li>`).join('\n')}</ul>
     </div>
     <div class="block block-image" style="right:10%;top:30%;width:20%;height:24%;" data-animation="scaleIn">
-      <img src="./assets/hit-shenzhen/campus-mark.jpg" alt="">
+      <img src="${assetPath('hit-shenzhen/campus-mark.jpg', assetPrefix)}" alt="">
     </div>
     <div class="block" style="left:60%;top:26%;width:3px;height:44%;" data-animation="lineSweep">
       <div class="vert-axis"></div>
@@ -266,6 +393,93 @@ function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem)
       <p>${escapeHTML(body || '')}</p>
     </div>`;
 
+    case 'transition':
+      return `
+    <div class="block block-section-index" style="left:8%;top:22%;width:22%;height:8%;" data-animation="lineSweep">
+      <p>${escapeHTML(subtitle || 'SECTION')}</p>
+    </div>
+    <div class="block block-title" style="left:8%;top:34%;width:60%;height:18%;" data-animation="heroReveal">
+      <p>${escapeHTML(title)}</p>
+    </div>
+    <div class="block block-body" style="left:10%;top:62%;width:48%;height:10%;" data-animation="fadeUp">
+      <p>${escapeHTML(body || '本章节将展开关键问题、方法路径与验证逻辑。')}</p>
+    </div>
+    <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
+      <img src="${assetPath('generated/hit-shenzhen-campus/element-photo-strip.svg', assetPrefix)}" alt="">
+    </div>`;
+
+    case 'logic-chart':
+      const logicItems = bullets.slice(0, 6);
+      const logicPositions = [
+        'left:8%;top:30%;width:22%;height:13%;',
+        'right:8%;top:30%;width:22%;height:13%;',
+        'left:8%;top:53%;width:22%;height:13%;',
+        'right:8%;top:53%;width:22%;height:13%;',
+        'left:32%;top:64%;width:16%;height:10%;',
+        'right:32%;top:64%;width:16%;height:10%;',
+      ];
+      return `
+    <div class="block block-card logic-center" style="left:35%;top:35%;width:30%;height:18%;" data-animation="scaleIn">
+      <p>${escapeHTML(title)}</p>
+    </div>
+    ${logicItems.map((item, i) => `
+    <div class="block block-card logic-node" style="${logicPositions[i]}" data-animation="stagger">
+      <p>${escapeHTML(item)}</p>
+    </div>`).join('\n')}
+    <div class="block block-subtitle" style="left:28%;top:55%;width:44%;height:6%;" data-animation="fadeUp">
+      <p>${escapeHTML(body || '逻辑图用于承载变量、假设、机制与约束之间的关系。')}</p>
+    </div>`;
+
+    case 'flow':
+      return `
+    <div class="block block-flow" style="left:7%;top:34%;width:86%;height:24%;" data-animation="stagger">
+      <ol>${bullets.slice(0, 7).map(b => `<li class="flow-node">${escapeHTML(b)}</li>`).join('\n')}</ol>
+    </div>
+    <div class="block block-subtitle" style="left:14%;top:66%;width:70%;height:8%;" data-animation="fadeUp">
+      <p>${escapeHTML(body || '流程页适合展示技术路线、实验流程或项目推进链路。')}</p>
+    </div>`;
+
+    case 'compare':
+      const splitIndex = Math.ceil(bullets.length / 2);
+      const compareLeft = bullets.slice(0, splitIndex);
+      const compareRight = bullets.slice(splitIndex);
+      return `
+    <div class="block block-compare" style="left:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>对照维度</h3>
+      <ul>${(compareLeft.length ? compareLeft : ['方案 A', '优势一', '优势二']).map(b => `<li>${escapeHTML(b)}</li>`).join('\n')}</ul>
+    </div>
+    <div class="block block-compare is-accent" style="right:8%;top:30%;width:38%;height:36%;" data-animation="stagger">
+      <h3>本文方案</h3>
+      <ul>${(compareRight.length ? compareRight : ['方案 B', '差异一', '差异二']).map(b => `<li>${escapeHTML(b)}</li>`).join('\n')}</ul>
+    </div>
+    <div class="block block-subtitle" style="left:20%;top:70%;width:60%;height:6%;" data-animation="fadeUp">
+      <p>${escapeHTML(body || '通过并列结构突出差异、取舍和最终选择。')}</p>
+    </div>`;
+
+    case 'swot':
+      const swotItems = bullets.length ? bullets : ['优势 Strength', '劣势 Weakness', '机会 Opportunity', '威胁 Threat'];
+      const swotLabels = ['S', 'W', 'O', 'T'];
+      const swotPositions = [
+        'left:8%;top:28%;width:39%;height:18%;',
+        'right:8%;top:28%;width:39%;height:18%;',
+        'left:8%;top:52%;width:39%;height:18%;',
+        'right:8%;top:52%;width:39%;height:18%;',
+      ];
+      return swotItems.slice(0, 4).map((item, i) => `
+    <div class="block block-card swot-card" style="${swotPositions[i]}" data-animation="scaleIn">
+      <b>${swotLabels[i]}</b><p>${escapeHTML(item)}</p>
+    </div>`).join('\n');
+
+    case 'quote':
+      return `
+    <div class="block quote-mark" style="left:8%;top:20%;width:12%;height:14%;" data-animation="scaleIn">“</div>
+    <div class="block block-title" style="left:18%;top:30%;width:64%;height:24%;" data-animation="heroReveal">
+      <p>${escapeHTML(body || title)}</p>
+    </div>
+    <div class="block block-subtitle" style="right:14%;top:62%;width:28%;height:6%;" data-animation="fadeUp">
+      <p>哈尔滨工业大学（深圳）</p>
+    </div>`;
+
     case 'data':
     case 'results':
       return `
@@ -289,7 +503,7 @@ function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem)
       <ul>${bullets.slice(0, 5).map(b => `<li>${escapeHTML(b)}</li>`).join('\n')}</ul>
     </div>
     <div class="block block-image" style="right:8%;top:30%;width:38%;height:42%;" data-animation="parallax">
-      <img src="${escapeAttr(images[0] || './assets/hit-shenzhen/campus-mark.jpg')}" alt="">
+      <img src="${escapeAttr(images[0] || assetPath('hit-shenzhen/campus-mark.jpg', assetPrefix))}" alt="">
     </div>`;
 
     case 'timeline':
@@ -373,9 +587,9 @@ function generateOrnaments(kind, templateSlug) {
 
   // Academic ornaments
   return `
-    ${kind === 'cover' || kind === 'agenda' || kind === 'framework' || kind === 'thanks' ? '<div class="ornament-ring"></div>' : ''}
-    ${kind === 'cover' || kind === 'background' || kind === 'results' || kind === 'thanks' ? '<div class="ornament-ribbon"></div>' : ''}
-    ${kind === 'cover' || kind === 'data' || kind === 'thanks' ? '<div class="ornament-badge"></div>' : ''}`;
+    ${kind === 'cover' || kind === 'agenda' || kind === 'framework' || kind === 'logic-chart' || kind === 'thanks' ? '<div class="ornament-ring"></div>' : ''}
+    ${kind === 'cover' || kind === 'transition' || kind === 'background' || kind === 'results' || kind === 'thanks' ? '<div class="ornament-ribbon"></div>' : ''}
+    ${kind === 'cover' || kind === 'data' || kind === 'flow' || kind === 'thanks' ? '<div class="ornament-badge"></div>' : ''}`;
 }
 
 // ===== Utilities =====
@@ -389,6 +603,10 @@ function escapeHTML(str) {
 
 function escapeAttr(str) {
   return String(str).replace(/"/g, '&quot;');
+}
+
+function assetPath(file, assetPrefix = './assets') {
+  return `${assetPrefix.replace(/\/$/, '')}/${file.replace(/^\//, '')}`;
 }
 
 function copyDir(src, dest) {
@@ -406,6 +624,7 @@ function copyDir(src, dest) {
 async function generate(args) {
   await loadDeckCore();
   const { template, content, output, title } = args;
+  const assetPrefix = args.assetPrefix || './assets';
 
   // Load template CSS
   const templatePath = path.join(TEMPLATE_DIR, template, 'index.html');
@@ -430,7 +649,7 @@ async function generate(args) {
     if (content.endsWith('.json')) {
       slides = JSON.parse(raw);
     } else {
-      slides = parseMarkdown(raw);
+      slides = parseMarkdown(raw, { assetPrefix });
       if (!slides) {
         console.error('Failed to parse content. Use Markdown with --- separators or JSON.');
         process.exit(1);
@@ -455,13 +674,15 @@ async function generate(args) {
   }
 
   // Generate slide HTML blocks
-  const slidesHTML = slides.map((slide, i) => generateSlideHTML(slide, template, i, slides.length)).join('\n');
+  const slidesHTML = slides.map((slide, i) => generateSlideHTML(slide, template, i, slides.length, assetPrefix)).join('\n');
 
   // Extract the style block from the template
   const styleMatch = templateHTML.match(/<style>([\s\S]*?)<\/style>/);
   const styleBlock = (styleMatch ? styleMatch[1] : '')
-    .replaceAll('../../public/assets/', './assets/')
-    .replaceAll('../public/assets/', './assets/');
+    .replace(/(?:\.\.\/)+public\/assets\//g, '__ASSET_PREFIX__/')
+    .replace(/\.\/assets\//g, '__ASSET_PREFIX__/')
+    .replaceAll('__ASSET_PREFIX__/', '__ASSET_PREFIX__')
+    .replaceAll('__ASSET_PREFIX__', `${assetPrefix.replace(/\/$/, '')}/`);
 
   // Build the output HTML
   const outputHTML = `<!DOCTYPE html>
@@ -473,7 +694,8 @@ async function generate(args) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>${styleBlock}</style>
+<style>${styleBlock}
+${ADVANCED_LAYOUT_CSS}</style>
 </head>
 <body>
 <div class="stage" id="stage">${slidesHTML}
@@ -570,7 +792,9 @@ async function generate(args) {
 
   // Write output
   const outputPath = path.resolve(output || 'output.html');
-  copyDir(path.resolve(__dirname, '..', 'public', 'assets'), path.join(path.dirname(outputPath), 'assets'));
+  if (assetPrefix === './assets') {
+    copyDir(path.resolve(__dirname, '..', 'public', 'assets'), path.join(path.dirname(outputPath), 'assets'));
+  }
   fs.writeFileSync(outputPath, outputHTML, 'utf-8');
   console.log(`Generated: ${outputPath}`);
   console.log(`  Template: ${template}`);

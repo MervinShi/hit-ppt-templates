@@ -61,7 +61,7 @@ function decorationBlock(id, variant, x, y, width, height) {
   };
 }
 
-export function generateDeckFromMarkdown(template, markdown) {
+export function generateDeckFromMarkdown(template, markdown, options = {}) {
   const parsedSlides = parseMarkdown(markdown);
   if (!parsedSlides) return null;
 
@@ -70,7 +70,7 @@ export function generateDeckFromMarkdown(template, markdown) {
     ...template,
     id: template.id,
     generatedAt: Date.now(),
-    name: `${template.name} · 自动生成`,
+    name: options.keepName ? template.name : `${template.name} · 自动生成`,
     slides,
   };
 }
@@ -84,10 +84,17 @@ function buildSlide(templateId, slide) {
 
 function layoutBlocks(templateId, kind, content) {
   if (kind === "cover") return coverLayout(templateId, content);
+  if (kind === "agenda") return agendaLayout(content);
   if (kind === "thanks") return thanksLayout(templateId, content);
   if (kind === "data" || kind === "results") return dataLayout(content);
   if (kind === "gallery") return galleryLayout(content);
   if (kind === "figure") return figureLayout(content);
+  if (kind === "transition") return transitionLayout(content);
+  if (kind === "logic-chart") return logicChartLayout(content);
+  if (kind === "flow") return flowLayout(content);
+  if (kind === "compare") return compareLayout(content);
+  if (kind === "quote") return quoteLayout(content);
+  if (kind === "swot") return swotLayout(content);
   if (kind === "timeline") return timelineLayout(content);
   if (kind === "summary") return summaryLayout(content);
   return bodyLayout(content);
@@ -107,6 +114,15 @@ function bodyLayout({ body, bullets }) {
   return [
     textBlock("generated-body", body || bullets.join("\n") || "请输入正文内容。", 8, 23, 48, 34, "body"),
     textBlock("generated-points", bullets.slice(0, 4).join("\n") || "关键观点一\n关键观点二\n关键观点三", 61, 22, 28, 36, "list", "stagger"),
+  ];
+}
+
+function agendaLayout({ bullets, body }) {
+  const items = bullets.length ? bullets : ["背景与问题", "方法与框架", "实验与结果", "总结与展望"];
+  return [
+    textBlock("generated-agenda-list", items.slice(0, 6).join("\n"), 12, 23, 48, 42, "list", "stagger"),
+    textBlock("generated-agenda-note", body || "完整结构可按用户输入自动扩展。", 64, 26, 24, 12, "subtitle"),
+    decorationBlock("generated-agenda-axis", "vertical-axis", 60, 21, 1, 48),
   ];
 }
 
@@ -151,6 +167,65 @@ function timelineLayout({ bullets, body }) {
     timelineBlock("generated-timeline", bullets.slice(0, 6), 8, 26, 82, 24),
     textBlock("generated-timeline-note", body || "阶段说明与风险控制。", 18, 60, 60, 8, "subtitle"),
   ];
+}
+
+function transitionLayout({ title, subtitle, body }) {
+  return [
+    textBlock("generated-transition-index", subtitle || "SECTION", 8, 18, 24, 7, "subtitle", "lineSweep"),
+    textBlock("generated-transition-title", title, 8, 31, 60, 18, "title", "heroReveal"),
+    textBlock("generated-transition-copy", body || "本章节将展开关键问题、方法路径与验证逻辑。", 10, 58, 50, 10, "body", "fadeUp"),
+    decorationBlock("generated-transition-grid", "research-grid", 57, 19, 29, 45),
+  ];
+}
+
+function logicChartLayout({ title, body, bullets }) {
+  const items = bullets.slice(0, 6);
+  return [
+    textBlock("generated-logic-center", title, 37, 28, 25, 15, "card", "scaleIn"),
+    ...items.map((item, index) => {
+      const positions = [
+        [8, 22], [66, 22], [8, 47], [66, 47], [26, 60], [48, 60],
+      ];
+      const [x, y] = positions[index] || [10 + index * 12, 58];
+      return textBlock(`generated-logic-${index}`, item, x, y, 22, 13, "card", "stagger");
+    }),
+    textBlock("generated-logic-note", body || "用逻辑图承载变量、假设、机制与约束之间的关系。", 28, 49, 43, 6, "subtitle"),
+  ];
+}
+
+function flowLayout({ bullets, body }) {
+  return [
+    timelineBlock("generated-flow", bullets.slice(0, 7), 7, 28, 86, 24),
+    textBlock("generated-flow-note", body || "流程页适合展示技术路线、实验流程或项目推进链路。", 14, 61, 70, 8, "subtitle"),
+  ];
+}
+
+function compareLayout({ bullets, body }) {
+  const left = bullets.slice(0, Math.ceil(bullets.length / 2)).join("\n") || "方案 A\n优势一\n优势二";
+  const right = bullets.slice(Math.ceil(bullets.length / 2)).join("\n") || "方案 B\n差异一\n差异二";
+  return [
+    textBlock("generated-compare-left", left, 8, 25, 38, 36, "list", "stagger"),
+    textBlock("generated-compare-right", right, 54, 25, 38, 36, "list", "stagger"),
+    textBlock("generated-compare-note", body || "通过并列结构突出差异、取舍和最终选择。", 20, 66, 60, 6, "subtitle"),
+  ];
+}
+
+function quoteLayout({ title, body }) {
+  return [
+    textBlock("generated-quote-mark", "“", 8, 18, 12, 14, "title", "scaleIn"),
+    textBlock("generated-quote-copy", body || title, 18, 27, 64, 25, "title", "heroReveal"),
+    textBlock("generated-quote-source", "哈尔滨工业大学（深圳）", 56, 58, 26, 6, "subtitle"),
+    decorationBlock("generated-quote-line", "research-grid", 11, 66, 74, 7),
+  ];
+}
+
+function swotLayout({ bullets }) {
+  const items = bullets.length ? bullets : ["优势 Strength", "劣势 Weakness", "机会 Opportunity", "威胁 Threat"];
+  return items.slice(0, 4).map((item, index) => {
+    const positions = [[8, 24], [52, 24], [8, 49], [52, 49]];
+    const [x, y] = positions[index];
+    return textBlock(`generated-swot-${index}`, item, x, y, 36, 18, "card", "scaleIn");
+  });
 }
 
 function summaryLayout({ bullets, body }) {

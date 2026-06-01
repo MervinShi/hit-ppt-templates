@@ -12,6 +12,7 @@ const http = require('http');
 const TEMPLATES_DIR = path.resolve(__dirname, '..', 'templates');
 const PREVIEWS_DIR = path.resolve(__dirname, '..', 'docs', 'previews');
 const PORT = 8765;
+const CHROME_STABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 // Collect all template slugs from directories
 const templates = fs.readdirSync(TEMPLATES_DIR).filter(d => {
@@ -67,13 +68,14 @@ const server = http.createServer((req, res) => {
 
 async function main() {
   // Start server
-  await new Promise(resolve => server.listen(PORT, resolve));
+  await new Promise(resolve => server.listen(PORT, '127.0.0.1', resolve));
   console.log(`Server running on http://localhost:${PORT}`);
 
   let browser;
   try {
     browser = await puppeteer.launch({
       headless: 'new',
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || (fs.existsSync(CHROME_STABLE) ? CHROME_STABLE : undefined),
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 

@@ -1,4 +1,8 @@
 import { brandAssetsForTemplate } from "../core/deckCore.js";
+import { generateDeckFromMarkdown } from "../generator/markdownDeck.js";
+import academic24Markdown from "../../examples/sample-academic-24.md?raw";
+import course24Markdown from "../../examples/sample-course-24.md?raw";
+import campaign25Markdown from "../../examples/sample-campaign-25.md?raw";
 
 const asset = (name) => `./assets/hit-shenzhen/${name}`;
 const generated = (name) => `./assets/generated/${name}`;
@@ -73,7 +77,7 @@ function slide(kind, title, subtitle, blocks) {
   };
 }
 
-export const templates = [
+const baseTemplates = [
   {
     id: "academic",
     name: "科研学术汇报",
@@ -284,3 +288,13 @@ export const templates = [
     ],
   },
 ];
+
+export const templates = baseTemplates.map((template) => (
+  template.id === "academic"
+    ? generateDeckFromMarkdown(template, academic24Markdown, { keepName: true })
+    : template.id === "course"
+      ? generateDeckFromMarkdown(template, course24Markdown, { keepName: true })
+    : template.id === "campaign"
+      ? generateDeckFromMarkdown(template, campaign25Markdown, { keepName: true })
+    : template
+));
