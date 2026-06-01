@@ -11,6 +11,7 @@
     "expand": "node scripts/expand-template.cjs",
     "icons": "node scripts/generate-icons.cjs",
     "assets": "node scripts/create-brand-assets.cjs && node scripts/apply-template-assets.cjs",
+    "verify": "node scripts/verify-templates.cjs",
     "previews": "node scripts/generate-previews.cjs"
   },
   "dependencies": {

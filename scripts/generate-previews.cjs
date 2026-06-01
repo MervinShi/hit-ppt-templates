@@ -13,6 +13,7 @@ const TEMPLATES_DIR = path.resolve(__dirname, '..', 'templates');
 const PREVIEWS_DIR = path.resolve(__dirname, '..', 'docs', 'previews');
 const PORT = 8765;
 const CHROME_STABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const useServer = process.argv.includes('--serve');
 
 // Collect all template slugs from directories
 const templates = fs.readdirSync(TEMPLATES_DIR).filter(d => {
@@ -38,7 +39,8 @@ try {
 // Ensure previews directory exists
 fs.mkdirSync(PREVIEWS_DIR, { recursive: true });
 
-// Simple HTTP server
+// Simple HTTP server. Most templates also work through file:// because they
+// reference repository-local assets; --serve remains available for stricter QA.
 const server = http.createServer((req, res) => {
   const urlPath = req.url === '/' ? '/index.html' : req.url;
   const filePath = path.resolve(__dirname, '..', urlPath.replace(/^\//, ''));
@@ -68,8 +70,12 @@ const server = http.createServer((req, res) => {
 
 async function main() {
   // Start server
-  await new Promise(resolve => server.listen(PORT, '127.0.0.1', resolve));
-  console.log(`Server running on http://localhost:${PORT}`);
+  if (useServer) {
+    await new Promise(resolve => server.listen(PORT, '127.0.0.1', resolve));
+    console.log(`Server running on http://localhost:${PORT}`);
+  } else {
+    console.log('Using file:// preview mode');
+  }
 
   let browser;
   try {
@@ -80,7 +86,9 @@ async function main() {
     });
 
     for (const slug of templates) {
-      const url = `http://localhost:${PORT}/templates/${slug}/index.html`;
+      const url = useServer
+        ? `http://localhost:${PORT}/templates/${slug}/index.html`
+        : `file://${path.join(TEMPLATES_DIR, slug, 'index.html')}`;
       const outputPath = path.join(PREVIEWS_DIR, `${slug}.png`);
 
       console.log(`Capturing ${slug}...`);
@@ -102,7 +110,7 @@ async function main() {
     }
   } finally {
     if (browser) await browser.close();
-    server.close();
+    if (useServer) server.close();
     console.log('Done.');
   }
 }
