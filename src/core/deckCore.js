@@ -132,6 +132,16 @@ export function normalizeKind(value = '') {
     quote: 'quote',
     summary: 'summary',
     thanks: 'thanks',
+    persona: 'persona',
+    solution: 'solution',
+    prototype: 'prototype',
+    feedback: 'feedback',
+    team: 'team',
+    profile: 'profile',
+    achievements: 'achievements',
+    pain: 'pain',
+    plan: 'plan',
+    promise: 'promise',
   };
   return aliases[key] || '';
 }

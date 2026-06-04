@@ -20,6 +20,8 @@ let brandAssetsForTemplate;
 let defaultHeroForTemplate;
 let defaultEmblemForTemplate;
 let templateFamily;
+let normalizeDeck;
+let validateDeck;
 
 async function loadDeckCore() {
   if (parseMarkdown) return;
@@ -30,6 +32,8 @@ async function loadDeckCore() {
     defaultEmblemForTemplate,
     templateFamily,
   } = await import('../src/core/deckCore.js'));
+  ({ normalizeDeck } = await import('../src/core/normalizeDeck.js'));
+  ({ validateDeck } = await import('../src/core/validateDeck.js'));
 }
 
 // ===== Template Configuration =====
@@ -620,10 +624,22 @@ function copyDir(src, dest) {
   }
 }
 
+function inferTemplateFromContent(content) {
+  if (!content || !String(content).endsWith('.json')) return '';
+  const contentPath = path.resolve(content);
+  if (!fs.existsSync(contentPath)) return '';
+  try {
+    return JSON.parse(fs.readFileSync(contentPath, 'utf-8'))?.template || '';
+  } catch {
+    return '';
+  }
+}
+
 // ===== Main =====
 async function generate(args) {
   await loadDeckCore();
-  const { template, content, output, title } = args;
+  const { content, output, title } = args;
+  const template = args.template || inferTemplateFromContent(content) || 'academic-tech-dark';
   const assetPrefix = args.assetPrefix || './assets';
 
   // Load template CSS
@@ -637,7 +653,7 @@ async function generate(args) {
   const templateHTML = fs.readFileSync(templatePath, 'utf-8');
 
   // Parse content
-  let slides;
+  let deck;
   if (content) {
     const contentPath = path.resolve(content);
     if (!fs.existsSync(contentPath)) {
@@ -647,17 +663,27 @@ async function generate(args) {
     const raw = fs.readFileSync(contentPath, 'utf-8');
 
     if (content.endsWith('.json')) {
-      slides = JSON.parse(raw);
+      deck = normalizeDeck(JSON.parse(raw), { template, title });
     } else {
-      slides = parseMarkdown(raw, { assetPrefix });
+      const slides = parseMarkdown(raw, { assetPrefix });
       if (!slides) {
         console.error('Failed to parse content. Use Markdown with --- separators or JSON.');
         process.exit(1);
       }
+      deck = normalizeDeck({
+        template,
+        title: title || slides[0]?.title,
+        source: { type: 'markdown', file: contentPath },
+        slides,
+      }, { template, title });
     }
   } else if (title) {
     // Generate from title only
-    slides = [
+    deck = normalizeDeck({
+      template,
+      title,
+      source: { type: 'title' },
+      slides: [
       { kind: 'cover', title, subtitle: '', body: '', images: [], metrics: [], bullets: [] },
       { kind: 'agenda', title: '目录', subtitle: '', body: '', images: [], metrics: [], bullets: ['概述', '背景', '方案', '结果', '总结'] },
       { kind: 'background', title: '背景', subtitle: '', body: '请在此补充研究背景和问题定义。', images: [], metrics: [], bullets: ['关键挑战一', '关键挑战二'] },
@@ -667,11 +693,19 @@ async function generate(args) {
       { kind: 'timeline', title: '规划', subtitle: '', body: '按计划推进各项工作。', images: [], metrics: [], bullets: ['第一阶段', '第二阶段', '第三阶段', '第四阶段'] },
       { kind: 'summary', title: '总结', subtitle: '', body: '', images: [], metrics: [], bullets: ['结论一', '结论二', '结论三'] },
       { kind: 'thanks', title: '谢谢聆听', subtitle: '欢迎批评指正', body: '', images: [], metrics: [], bullets: [] },
-    ];
+    ]}, { template, title });
   } else {
     console.error('Please provide --content or --title');
     process.exit(1);
   }
+
+  const validation = validateDeck(deck, { template, title });
+  if (!validation.ok) {
+    console.error(validation.errors.join('\n'));
+    process.exit(1);
+  }
+  deck = validation.deck;
+  const slides = deck.slides;
 
   // Generate slide HTML blocks
   const slidesHTML = slides.map((slide, i) => generateSlideHTML(slide, template, i, slides.length, assetPrefix)).join('\n');
@@ -796,6 +830,11 @@ ${ADVANCED_LAYOUT_CSS}</style>
     copyDir(path.resolve(__dirname, '..', 'public', 'assets'), path.join(path.dirname(outputPath), 'assets'));
   }
   fs.writeFileSync(outputPath, outputHTML, 'utf-8');
+  if (args.exportDeck) {
+    const deckPath = path.resolve(args.exportDeck === true ? outputPath.replace(/\.html?$/i, '.deck.json') : args.exportDeck);
+    fs.writeFileSync(deckPath, `${JSON.stringify(deck, null, 2)}\n`, 'utf-8');
+    console.log(`Deck JSON: ${deckPath}`);
+  }
   console.log(`Generated: ${outputPath}`);
   console.log(`  Template: ${template}`);
   console.log(`  Slides: ${slides.length}`);

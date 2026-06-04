@@ -9,6 +9,7 @@ Generate a directly presentable HTML slide deck from either:
 
 1. Existing user content: Markdown, pasted page-by-page text, image paths, tables, metrics, or extracted PPT content.
 2. A high-level request: first plan the slide structure, then generate content and render it into a selected template.
+3. Delivery output: render the same normalized Deck JSON to animated HTML and optional editable PPTX.
 
 ## Core Workflow
 
@@ -18,14 +19,39 @@ Generate a directly presentable HTML slide deck from either:
    - campaign: student organization election, candidacy defense, formal appointment pitch.
 2. Read `index.json` and select 1 template by default, or present 2-3 candidates when style is ambiguous.
 3. If the user only gives a topic, plan the deck page-by-page before generation.
-4. Convert content to Markdown sections separated by `---`.
+4. Convert content to Markdown sections separated by `---`, then normalize it into Deck JSON.
 5. Run the generator:
 
 ```bash
 node scripts/generate.cjs --template TEMPLATE_SLUG --content input.md --output output.html
 ```
 
-6. Preview the output HTML and iterate if layout, tone, or content density is not acceptable.
+6. Export Deck JSON when the user may need reuse or a second output:
+
+```bash
+node scripts/generate.cjs --template TEMPLATE_SLUG --content input.md --output output.html --exportDeck output.deck.json
+```
+
+7. If the user needs native PowerPoint delivery, run:
+
+```bash
+node scripts/export-pptx.cjs --template TEMPLATE_SLUG --content input.md --output output.pptx
+```
+
+8. Preview the output HTML and iterate if layout, tone, or content density is not acceptable.
+
+For a one-step package from a short brief:
+
+```bash
+npm run create -- --brief "用户需求" --outDir output-folder
+```
+
+For existing PowerPoint re-layout:
+
+```bash
+npm run import:pptx -- --input old-deck.pptx --output imported.deck.json --template TEMPLATE_SLUG
+npm run generate -- --content imported.deck.json --output imported.html
+```
 
 ## Content Format
 
@@ -65,6 +91,33 @@ Every template should have:
 - campaign templates: 25 slides.
 - advanced page types: `transition`, `logic-chart`, `flow`, `compare`, `gallery`, `quote`, `swot`.
 
+## Deck JSON
+
+Markdown, brief planning, and future PPT extraction should converge to one Deck JSON contract:
+
+```json
+{
+  "schemaVersion": "2.0",
+  "template": "academic-tech-dark",
+  "title": "汇报标题",
+  "meta": { "occasion": "论文答辩", "mood": ["严谨", "数据驱动"] },
+  "slides": [
+    {
+      "kind": "cover",
+      "title": "页面标题",
+      "subtitle": "副标题",
+      "body": "",
+      "bullets": [],
+      "metrics": [],
+      "images": [],
+      "table": null
+    }
+  ]
+}
+```
+
+The HTML generator accepts either a raw slide array or a full Deck JSON file.
+
 ## Visual Identity Rules
 
 Follow the HIT Visual Identity System:
@@ -91,6 +144,9 @@ cover, agenda, transition, background, quote, logic-chart, timeline, data, galle
 Before delivery:
 
 - Build or run generation successfully.
+- Export Deck JSON with `--exportDeck` when the deck may be reused.
+- For PPTX delivery, run `npm run export:pptx`.
+- For existing PowerPoint content, run `npm run import:pptx`, then regenerate HTML/PPTX from the imported Deck JSON.
 - Ensure generated HTML has a same-directory `assets/` folder.
 - If generating into `templates/{slug}/index.html`, pass `--assetPrefix ../../public/assets` to reuse repository assets without copying them.
 - Verify logo/name are visible and unobstructed.

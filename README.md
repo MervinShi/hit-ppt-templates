@@ -1,9 +1,9 @@
 # HIT Shenzhen HTML PPT Templates
 
 > Agent-ready HTML presentation templates for Harbin Institute of Technology, Shenzhen.
-> Standalone slides, GSAP motion, Chart.js-ready data pages, HIT VIS-compliant branding, and a Markdown-to-HTML generator.
+> Standalone slides, GSAP motion, Chart.js-ready data pages, HIT VIS-compliant branding, Deck JSON, and first native PPTX export.
 
-[中文说明](./README_CN.md) · [Template Index](./index.json) · [Implementation Manual](./docs/IMPLEMENTATION_MANUAL.md)
+[中文说明](./README_CN.md) · [Template Index](./index.json) · [Implementation Manual](./docs/IMPLEMENTATION_MANUAL.md) · [v2 Design System](./docs/DESIGN_SYSTEM_V2.md)
 
 [![Templates](https://img.shields.io/badge/templates-9-005375)](./templates)
 [![Static HTML](https://img.shields.io/badge/output-standalone_HTML-success)](./scripts/generate.cjs)
@@ -23,6 +23,7 @@ Each template is a self-contained HTML deck:
 - use HIT Shenzhen logo, emblem, school motto, and campus architecture assets;
 - include GSAP-powered transitions and visual rhythm;
 - support Markdown-based deck generation through `scripts/generate.cjs`;
+- export normalized Deck JSON and editable PPTX through `scripts/export-pptx.cjs`;
 - provide metadata for AI coding agents in `index.json` and `skill/SKILL.md`.
 
 The project follows the design framework in [docs/IMPLEMENTATION_MANUAL.md](./docs/IMPLEMENTATION_MANUAL.md):
@@ -120,7 +121,57 @@ Body paragraph.
 
 The generator copies the required `assets/` folder next to the output HTML, so the generated deck remains portable.
 
-### 3. Use The React Designer
+Export the normalized Deck JSON for reuse:
+
+```bash
+node scripts/generate.cjs \
+  --template academic-tech-dark \
+  --content examples/sample-academic.md \
+  --output my-deck.html \
+  --exportDeck my-deck.deck.json
+```
+
+### 3. Export PowerPoint
+
+```bash
+npm run export:pptx -- \
+  --template academic-tech-dark \
+  --content examples/sample-academic.md \
+  --output my-deck.pptx
+```
+
+The PPTX path creates native editable text, bullets, metric cards, and image frames. HTML remains the high-fidelity animated output.
+
+### 4. Skill Helper Commands
+
+```bash
+npm run match -- --query "HIT blue rigorous data opening report"
+npm run plan -- --brief "Opening report on multimodal sensor data for traffic prediction" --output planned.deck.json
+npm run quality -- --content planned.deck.json
+```
+
+`match` recommends templates, `plan` creates a Deck JSON outline from a brief, and `quality` checks visual/content richness before rendering.
+
+### 5. One-Step Creation And PPTX Import
+
+Create Deck JSON, HTML, and PPTX from one brief:
+
+```bash
+npm run create -- \
+  --brief "Course group presentation on multisource data fusion for intelligent manufacturing" \
+  --outDir generated/manufacturing-report
+```
+
+Import an existing PowerPoint into Deck JSON for template-based re-layout:
+
+```bash
+npm run import:pptx -- \
+  --input old-deck.pptx \
+  --output imported.deck.json \
+  --template academic-tech-dark
+```
+
+### 6. Use The React Designer
 
 ```bash
 npm install
@@ -143,7 +194,8 @@ Recommended agent workflow:
 4. If the user only gives a topic, plan the slide outline first.
 5. Convert user content into Markdown sections.
 6. Run `scripts/generate.cjs`.
-7. Preview the generated HTML and iterate.
+7. Export Deck JSON or PPTX when needed.
+8. Preview the generated HTML and iterate.
 
 The reusable skill entry is [skill/SKILL.md](./skill/SKILL.md).
 
@@ -194,10 +246,19 @@ All templates are indexed in [index.json](./index.json). Each item contains:
 │   └── ppt-media/                # decorative PPT media
 ├── docs/
 │   ├── IMPLEMENTATION_MANUAL.md  # design and implementation roadmap
+│   ├── DESIGN_SYSTEM_V2.md       # skill system and visual direction
+│   ├── SKILL_WORKFLOW_V2.md      # agent generation workflow
+│   ├── PPTX_EXPORT_PLAN.md       # native PPTX export scope
 │   └── previews/                 # template screenshots used in README
 ├── examples/                     # sample Markdown and generated outputs
 ├── scripts/
-│   ├── generate.cjs              # Markdown -> standalone HTML
+│   ├── generate.cjs              # Markdown / Deck JSON -> standalone HTML
+│   ├── export-pptx.cjs           # Markdown / Deck JSON -> editable PPTX
+│   ├── import-pptx.cjs           # PPTX -> Deck JSON + extracted images
+│   ├── create-deck.cjs           # brief/content/pptx -> deck/html/pptx
+│   ├── match-template.cjs        # template recommendation
+│   ├── plan-deck.cjs             # brief -> Deck JSON outline
+│   ├── quality-deck.cjs          # deck quality scoring
 │   ├── create-brand-assets.cjs   # transparent logo/motto/background generation
 │   ├── apply-template-assets.cjs # apply per-template assets
 │   └── generate-previews.cjs     # regenerate preview screenshots
@@ -217,7 +278,8 @@ Next work:
 
 - deeper per-template visual tuning after real user content;
 - broader mobile/tablet visual regression;
-- optional PDF/PPTX export research.
+- higher-fidelity editable PPTX charts and diagrams;
+- existing PPTX extraction into Deck JSON.
 
 ---
 

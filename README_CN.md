@@ -1,9 +1,9 @@
 # 哈工大深圳 HTML PPT 模板库
 
 > 哈工大深圳校区纯静态 HTML 幻灯片模板库，支持 AI Agent 自动生成，严格遵循哈工大 VIS 手册。
-> GSAP 动画 + Chart.js 数据可视化。
+> GSAP 动画 + Chart.js 数据可视化 + Deck JSON 中间层 + PPTX 导出初版。
 
-[English](./README.md) · [模板索引](./index.json) · [优化实施手册](./docs/IMPLEMENTATION_MANUAL.md)
+[English](./README.md) · [模板索引](./index.json) · [优化实施手册](./docs/IMPLEMENTATION_MANUAL.md) · [v2 设计系统](./docs/DESIGN_SYSTEM_V2.md)
 
 [![Templates](https://img.shields.io/badge/templates-9-blue)](https://github.com/MervinShi/hit-ppt-templates)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
@@ -87,7 +87,57 @@ npm run generate -- \
 
 用 `---` 分隔页面，参考 `examples/` 目录下的示例文件。
 
-### 3. React 设计器
+同时导出可复用的 Deck JSON：
+
+```bash
+npm run generate -- \
+  --template academic-tech-dark \
+  --content examples/sample-academic.md \
+  --output my-deck.html \
+  --exportDeck my-deck.deck.json
+```
+
+### 3. 导出 PowerPoint
+
+```bash
+npm run export:pptx -- \
+  --template academic-tech-dark \
+  --content examples/sample-academic.md \
+  --output my-deck.pptx
+```
+
+PPTX 导出走原生可编辑路线：标题、正文、列表和指标卡会成为 PowerPoint 可编辑对象。HTML 仍然是动画和视觉完成度最高的输出。
+
+### 4. Skill 辅助命令
+
+```bash
+npm run match -- --query "工大蓝 严谨 数据 开题报告"
+npm run plan -- --brief "多模态传感数据驱动的城市交通预测开题报告" --output planned.deck.json
+npm run quality -- --content planned.deck.json
+```
+
+`match` 用于模板推荐，`plan` 用于从一句需求生成 Deck JSON 大纲，`quality` 用于检查页面丰富度、数据/图片占位和结构完整性。
+
+### 5. 一站式生成与 PPTX 导入
+
+从一句需求直接生成 Deck JSON、HTML 和 PPTX：
+
+```bash
+npm run create -- \
+  --brief "面向智能制造的多源数据融合课程小组汇报" \
+  --outDir generated/智能制造汇报
+```
+
+从已有 PowerPoint 提取文字、图片和页面结构，再进入模板重排：
+
+```bash
+npm run import:pptx -- \
+  --input old-deck.pptx \
+  --output imported.deck.json \
+  --template academic-tech-dark
+```
+
+### 6. React 设计器
 
 ```bash
 npm install
@@ -182,7 +232,13 @@ npm run dev
 │   ├── campaign-formal/
 │   └── campaign-manifesto/
 ├── scripts/
-│   ├── generate.cjs            # Markdown → HTML 生成器
+│   ├── generate.cjs            # Markdown / Deck JSON → HTML 生成器
+│   ├── export-pptx.cjs         # Markdown / Deck JSON → 可编辑 PPTX
+│   ├── import-pptx.cjs         # PPTX → Deck JSON + 图片资产
+│   ├── create-deck.cjs         # brief/content/pptx → deck/html/pptx 一站式生成
+│   ├── match-template.cjs      # 根据场景/语气推荐模板
+│   ├── plan-deck.cjs           # 根据简要需求规划 Deck JSON
+│   ├── quality-deck.cjs        # Deck JSON / Markdown 质量评分
 │   ├── create-brand-assets.cjs # 品牌资产创建脚本
 │   ├── apply-template-assets.cjs
 │   └── generate-previews.cjs   # 预览截图生成器
@@ -212,17 +268,23 @@ npm run dev
 1. 根据用户场景自动匹配模板（答辩、竞选、课程等）
 2. 规划幻灯片内容结构
 3. 生成符合哈工大品牌规范的 HTML 演示文稿
+4. 输出统一 Deck JSON，并可进一步导出可编辑 PPTX
+
+v2 规划文档：
+
+- [HIT Presentation Skill System v2](./docs/DESIGN_SYSTEM_V2.md)
+- [Skill Workflow v2](./docs/SKILL_WORKFLOW_V2.md)
+- [PPTX Export Plan](./docs/PPTX_EXPORT_PLAN.md)
 
 ---
 
 ## 后续路线
 
-当前版本提供 9 套模板和 10 种核心页面类型。v2 方案会继续按实施手册推进：
+当前版本提供 9 套模板和多种核心页面类型。v2 方案会继续按实施手册推进：
 
-- 学术/课程模板扩展到 24 页；
-- 竞选模板扩展到 25 页；
-- 增加章节过渡页、章节导航和进度指示；
-- 增加逻辑图、流程图、对比页、引用页、SWOT 页；
+- 提升 PPTX 导出中的原生图表、流程图和逻辑图保真度；
+- 支持从用户已有 PPTX 中提取文字、图片和页面结构，再转入 Deck JSON；
+- 增强 Deck JSON 的质量检查和模板匹配评分；
 - 建立完整预览截图回归流程。
 
 ---
