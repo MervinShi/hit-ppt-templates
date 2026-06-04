@@ -280,7 +280,7 @@ Next work:
 - deeper per-template visual tuning after real user content;
 - broader mobile/tablet visual regression;
 - higher-fidelity editable PPTX charts and diagrams;
-- existing PPTX extraction into Deck JSON.
+- higher-fidelity extraction of arbitrary third-party PPTX layouts.
 
 ---
 
