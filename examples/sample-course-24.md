@@ -168,7 +168,7 @@
 类型：gallery
 
 ![校园图窗](generated/hit-shenzhen-campus/element-campus-window.svg)
-![照片条](generated/hit-shenzhen-campus/element-photo-strip.svg)
+![工程线稿](generated/hit-shenzhen-campus/element-engineering-tower.svg)
 ![校训卡片](generated/hit-shenzhen-campus/element-motto-stone-card.svg)
 
 - 蓝色用于可信信息与导航
@@ -244,7 +244,7 @@
 - 用户测试记录表
 - 迭代前后对比截图
 
-![成果占位](generated/hit-shenzhen-campus/element-photo-strip.svg)
+![成果占位](generated/hit-shenzhen-campus/element-engineering-tower.svg)
 
 ---
 

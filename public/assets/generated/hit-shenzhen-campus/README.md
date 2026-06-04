@@ -13,7 +13,7 @@ Photo-derived presentation assets for the HTML PPT templates. Source images are 
 
 ## Elements
 
-- `element-photo-strip.svg` — three-photo angled strip for section dividers or summary pages.
+- `element-engineering-tower.svg` — line-art HIT building, gear, and data motif for section dividers or summary pages.
 - `element-campus-window.svg` — framed campus image window for figure/body layouts.
 - `element-motto-stone-card.svg` — framed motto-stone image card for summary or spirit pages.
 - `element-sunset-banner.svg` — formal campus sunset banner for section dividers.
@@ -30,5 +30,5 @@ Use paths from the app/public root, for example:
 ```
 
 ```html
-<img src="/assets/generated/hit-shenzhen-campus/element-photo-strip.svg" alt="" class="campus-strip" />
+<img src="/assets/generated/hit-shenzhen-campus/element-engineering-tower.svg" alt="" class="campus-line-art" />
 ```

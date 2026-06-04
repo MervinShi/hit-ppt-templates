@@ -224,7 +224,7 @@
 - 案例 B：校园周边晚高峰产生周期性波动
 - 案例 C：雨天低速区间明显扩大
 
-![校园场景](generated/hit-shenzhen-campus/element-photo-strip.svg)
+![工程线稿](generated/hit-shenzhen-campus/element-engineering-tower.svg)
 
 ---
 

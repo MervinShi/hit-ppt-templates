@@ -97,7 +97,7 @@
 副标题：用于放入候选人工作照、活动合影和荣誉材料
 类型：gallery
 
-![活动照片](generated/hit-shenzhen-campus/element-photo-strip.svg)
+![活动照片](generated/hit-shenzhen-campus/element-engineering-tower.svg)
 ![校园窗口](generated/hit-shenzhen-campus/element-campus-window.svg)
 ![校训卡](generated/hit-shenzhen-campus/element-motto-stone-card.svg)
 
@@ -222,7 +222,7 @@
 - 支持按时间、地点、对象筛选
 - 降低重复宣传和错过活动的成本
 
-![校园活动](generated/hit-shenzhen-campus/element-photo-strip.svg)
+![校园活动](generated/hit-shenzhen-campus/element-engineering-tower.svg)
 
 ---
 

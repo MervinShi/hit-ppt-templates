@@ -28,13 +28,12 @@ npm run export:pptx -- \
 The same Markdown or Deck JSON can be used with:
 
 ```bash
-npm run generate -- --template academic-tech-dark --content examples/sample-academic.md --output examples/output-academic.html
+npm run generate -- --template academic-tech-dark --content examples/sample-academic.md --output /tmp/output-academic.html
 ```
 
 ## Next Improvements
 
-- Convert structured `table` data into native charts.
 - Support exact background images from `public/assets/generated/`.
-- Improve extraction of arbitrary third-party `.pptx` layouts beyond text/images.
+- Improve extraction of arbitrary third-party `.pptx` layouts beyond text/images/tables/charts.
 - Add slide notes for speaker script.
 - Add a screenshot-based fallback for pixel-perfect review decks.
