@@ -29,6 +29,8 @@ export async function importPptxToDeck(buffer, options = {}) {
     };
     const textRuns = cleanTextRuns(rawTextRuns);
     const images = extractSlideImages(relsXml, slideFile.index);
+    const tables = extractTables(xml);
+    const charts = extractSlideCharts(relsXml, slideFile.index);
     assets.push(...images.map((image) => ({ ...image, slide: slideFile.index })));
 
     const title = metadata.title || textRuns[0] || `第 ${slideFile.index} 页`;
@@ -36,12 +38,13 @@ export async function importPptxToDeck(buffer, options = {}) {
     const bullets = bodyRuns.filter((text) => text.length <= 48).slice(0, 8);
     const body = bodyRuns.filter((text) => text.length > 48).join("\n");
     const metrics = extractMetricsFromText(textRuns);
+    const primaryTable = tables[0] || null;
     const kind = metadata.kind || detectKind(
       slideFile.index - 1,
       slideFiles.length,
       images.map((image) => image.path),
       metrics,
-      null,
+      primaryTable || (charts.length ? [["Chart"], ["Editable chart placeholder"]] : null),
       bullets,
       title,
     );
@@ -55,7 +58,8 @@ export async function importPptxToDeck(buffer, options = {}) {
       bullets,
       metrics,
       images: images.map((image) => normalizeAssetPath(image.path, options.assetPrefix || "./assets")),
-      table: null,
+      table: primaryTable,
+      charts,
       notes: cleanNotes(notes),
     });
   }
@@ -154,6 +158,31 @@ function extractSlideImages(relsXml, slideIndex) {
     source: rel.target,
     path: `imported-pptx/slide-${String(slideIndex).padStart(2, "0")}-${String(index + 1).padStart(2, "0")}-${rel.target.split("/").pop()}`,
   }));
+}
+
+function extractSlideCharts(relsXml, slideIndex) {
+  return [...relsXml.matchAll(/<Relationship[^>]+Id="([^"]+)"[^>]+Target="([^"]+)"/g)]
+    .map((match) => ({ id: match[1], target: match[2] }))
+    .filter((rel) => /charts\/chart\d+\.xml$/i.test(rel.target))
+    .map((rel, index) => ({
+      id: rel.id,
+      type: "imported-chart",
+      source: rel.target,
+      title: `导入图表 ${slideIndex}-${index + 1}`,
+    }));
+}
+
+function extractTables(xml) {
+  const tableMatches = [...xml.matchAll(/<a:tbl[\s\S]*?<\/a:tbl>/g)];
+  return tableMatches
+    .map((match) => {
+      const rows = [...match[0].matchAll(/<a:tr[\s\S]*?<\/a:tr>/g)]
+        .map((rowMatch) => [...rowMatch[0].matchAll(/<a:tc[\s\S]*?<\/a:tc>/g)]
+          .map((cellMatch) => extractTextRuns(cellMatch[0]).join("").trim())
+          .filter((cell) => cell.length));
+      return rows.filter((row) => row.length);
+    })
+    .filter((table) => table.length);
 }
 
 async function extractNotes(zip, slideIndex) {

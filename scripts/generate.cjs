@@ -42,6 +42,73 @@ const TEMPLATE_DIR = path.resolve(__dirname, '..', 'templates');
 const ADVANCED_LAYOUT_CSS = `
 
 /* ===== Advanced generated layouts shared by expanded templates ===== */
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 72px 34px 42px;
+  pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+  opacity: .7;
+  mask-image: linear-gradient(90deg, #000 0 18%, transparent 18% 82%, #000 82% 100%);
+}
+.slide.kind-cover::after,
+.slide.kind-thanks::after {
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 28%, transparent);
+  mask-image: linear-gradient(120deg, #000 0 28%, transparent 28% 70%, #000 70% 100%);
+}
+.slide.kind-cover .block-title p {
+  text-shadow: 0 20px 50px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.slide.kind-cover .block-subtitle,
+.slide.kind-thanks .block-subtitle {
+  border-left: 4px solid var(--gold, var(--accent));
+  padding-left: 18px;
+}
+.slide.kind-data,
+.slide.kind-results {
+  background-image:
+    radial-gradient(circle at 74% 62%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 28%),
+    linear-gradient(120deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--surface) 82%, transparent)),
+    var(--template-bg-image) !important;
+}
+.slide.kind-data .block-metric,
+.slide.kind-results .block-metric {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 18%, transparent),
+    0 24px 70px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.slide.kind-data .bars,
+.slide.kind-results .bars {
+  position: relative;
+  padding: 18px 22px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  background:
+    linear-gradient(color-mix(in srgb, var(--accent) 11%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px),
+    color-mix(in srgb, var(--surface) 84%, transparent);
+  background-size: 100% 24px, 44px 100%, auto;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .12);
+}
+.slide.kind-figure .block-image,
+.slide.kind-gallery .block-image {
+  padding: 10px;
+  border: 1px solid color-mix(in srgb, var(--gold, var(--accent)) 42%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--surface) 90%, transparent), color-mix(in srgb, var(--paper) 66%, transparent));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .18);
+}
+.slide.kind-quote .block-title {
+  border-top: 2px solid color-mix(in srgb, var(--gold, var(--accent)) 72%, transparent);
+  border-bottom: 2px solid color-mix(in srgb, var(--gold, var(--accent)) 42%, transparent);
+  padding: 20px 0;
+}
+.slide.kind-plan .block-card,
+.slide.kind-team .block-card,
+.slide.kind-promise .block-card,
+.slide.kind-persona .block-card {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--surface) 92%, transparent), color-mix(in srgb, var(--gold, var(--accent)) 8%, transparent));
+  box-shadow: 0 20px 58px rgba(0, 0, 0, .13);
+}
 .block-section-index {
   display: grid;
   align-items: center;
@@ -63,6 +130,10 @@ const ADVANCED_LAYOUT_CSS = `
   text-align: center;
   border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
   background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 7%, transparent), 0 26px 90px rgba(0,0,0,.16);
+}
+.logic-node {
+  box-shadow: 0 18px 56px rgba(0, 0, 0, .12);
 }
 .logic-node p,
 .swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
@@ -86,6 +157,7 @@ const ADVANCED_LAYOUT_CSS = `
   font-size: clamp(13px, 1.25vw, 17px);
   font-weight: 850;
   line-height: 1.35;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 10px 50%);
 }
 .flow-node:not(:last-child)::after {
   content: '';
@@ -142,10 +214,10 @@ const ADVANCED_LAYOUT_CSS = `
 .slide.kind-transition {
   background-image:
     linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
-    var(--template-photo-strip, var(--template-building-image)),
+    var(--template-building-image),
     var(--template-bg-image) !important;
-  background-size: cover, 48% auto, cover !important;
-  background-position: center, 98% 58%, center !important;
+  background-size: cover, 40% auto, cover !important;
+  background-position: center, 96% 74%, center !important;
   background-repeat: no-repeat !important;
 }
 .slide.kind-figure,
@@ -298,7 +370,7 @@ function generateSlideHTML(slide, templateSlug, index, total, assetPrefix = './a
     </div>`;
 
   // Title chrome (hidden on cover/thanks)
-  const chromeHTML = (kind !== 'cover' && kind !== 'thanks') ? `
+  const chromeHTML = (kind !== 'cover' && kind !== 'thanks' && kind !== 'transition') ? `
     <div class="slide-chrome">
       <div class="kicker">${kindLabel(kind)}</div>
       <h1>${escapeHTML(title)}</h1>
@@ -409,7 +481,7 @@ function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem,
       <p>${escapeHTML(body || '本章节将展开关键问题、方法路径与验证逻辑。')}</p>
     </div>
     <div class="block block-image campus-window" style="right:6%;top:22%;width:29%;height:42%;" data-animation="parallax">
-      <img src="${assetPath('generated/hit-shenzhen-campus/element-photo-strip.svg', assetPrefix)}" alt="">
+      <img src="${assetPath('generated/hit-shenzhen-campus/element-engineering-tower.svg', assetPrefix)}" alt="">
     </div>`;
 
     case 'logic-chart':

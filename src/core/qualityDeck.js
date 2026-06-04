@@ -53,13 +53,13 @@ function checkRichDensity(deck, family) {
 
 function checkDataEvidence(deck, family) {
   const dataSlides = deck.slides.filter((slide) => DATA_KINDS.has(slide.kind));
-  const hasEvidence = dataSlides.some((slide) => slide.metrics.length || slide.table);
+  const hasEvidence = dataSlides.some((slide) => slide.metrics.length || slide.table || slide.charts?.length);
   const required = family !== "campaign";
   return passFail(
     "data-evidence",
     !required || hasEvidence,
     !required || hasEvidence ? 100 : 52,
-    ["学术/课程汇报建议至少包含 1 页带指标或表格的数据页。"],
+    ["学术/课程汇报建议至少包含 1 页带指标、表格或图表的数据页。"],
   );
 }
 

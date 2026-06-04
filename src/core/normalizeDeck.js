@@ -30,6 +30,7 @@ export function normalizeSlide(slide = {}, index = 0, total = 1) {
     metrics: normalizeMetrics(slide.metrics),
     images: Array.isArray(slide.images) ? slide.images.map(String) : [],
     table: Array.isArray(slide.table) ? slide.table : null,
+    charts: Array.isArray(slide.charts) ? slide.charts : [],
     blocks: Array.isArray(slide.blocks) ? slide.blocks : [],
     notes: String(slide.notes || ""),
   };

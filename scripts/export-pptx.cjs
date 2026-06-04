@@ -18,6 +18,7 @@ let brandAssetsForTemplate;
 let defaultHeroForTemplate;
 let defaultEmblemForTemplate;
 let SHAPE;
+let CHART;
 
 async function loadCore() {
   ({
@@ -72,6 +73,7 @@ async function exportPptx(args) {
 
   const pptx = new PptxGenJS();
   SHAPE = pptx.ShapeType;
+  CHART = pptx.ChartType;
   pptx.layout = 'LAYOUT_WIDE';
   pptx.author = 'HIT Shenzhen PPT Skill';
   pptx.subject = deck.title;
@@ -199,7 +201,7 @@ function drawSlideBody(slide, page, deck, visual, outputDir) {
     case 'data':
     case 'results':
       drawMetrics(slide, page, visual, 0.9, 2.5);
-      drawChartPlaceholder(slide, visual);
+      drawNativeChart(slide, page, visual);
       break;
     case 'figure':
       drawBullets(slide, page, visual, 0.9, 2.55, 4.25, 3.1);
@@ -410,6 +412,48 @@ function drawLogicChart(slide, page, visual) {
   });
 }
 
+function drawNativeChart(slide, page, visual) {
+  const chartData = chartDataFromSlide(page);
+  if (CHART?.bar && chartData.labels.length) {
+    slide.addShape(SHAPE.roundRect, {
+      x: 1.0, y: 4.15, w: 10.65, h: 1.75,
+      rectRadius: 0.04,
+      fill: { color: visual.surface, transparency: 5 },
+      line: { color: visual.primary, transparency: 60, pt: 0.5 },
+    });
+    slide.addChart(CHART.bar, [{
+      name: chartData.seriesName,
+      labels: chartData.labels,
+      values: chartData.values,
+    }], {
+      x: 1.2,
+      y: 4.28,
+      w: 10.25,
+      h: 1.48,
+      showLegend: false,
+      showTitle: false,
+      showValue: true,
+      showCatName: false,
+      showValAxis: true,
+      showCatAxis: true,
+      valAxisLabelColor: visual.muted,
+      catAxisLabelColor: visual.muted,
+      valAxisLineColor: visual.primary,
+      catAxisLineColor: visual.primary,
+      valGridLine: { color: visual.primary, transparency: 78 },
+      chartColors: [visual.accent, visual.primary, visual.gold].filter(Boolean),
+      showLeaderLines: false,
+      showDataTable: false,
+      showCategoryName: false,
+      dataLabelPosition: 'outEnd',
+      valueBarColors: true,
+      gapWidthPct: 56,
+    });
+    return;
+  }
+  drawChartPlaceholder(slide, visual);
+}
+
 function drawChartPlaceholder(slide, visual) {
   slide.addShape(SHAPE.roundRect, {
     x: 1.0, y: 4.25, w: 10.65, h: 1.55,
@@ -425,6 +469,29 @@ function drawChartPlaceholder(slide, visual) {
     });
   });
   slide.addText('Chart / Table Placeholder', { x: 7.5, y: 4.82, w: 2.9, h: 0.28, fontSize: 9, color: visual.muted, align: 'right', margin: 0 });
+}
+
+function chartDataFromSlide(page) {
+  if (Array.isArray(page.table) && page.table.length >= 2) {
+    const rows = page.table.slice(1).filter((row) => row.length >= 2);
+    const labels = rows.map((row) => String(row[0] || '').slice(0, 18));
+    const values = rows.map((row) => parseNumericValue(row[1]));
+    if (labels.length && values.some((value) => value > 0)) {
+      return { seriesName: page.table[0]?.[1] || '数据', labels, values };
+    }
+  }
+  const metrics = page.metrics?.length ? page.metrics : rowsToMetrics(page.table);
+  return {
+    seriesName: page.title || '指标',
+    labels: metrics.slice(0, 6).map((metric) => String(metric.label || '指标').slice(0, 18)),
+    values: metrics.slice(0, 6).map((metric) => parseNumericValue(metric.value)),
+  };
+}
+
+function parseNumericValue(value) {
+  const raw = String(value ?? '').replace(/,/g, '');
+  const matched = raw.match(/[+-]?\d+(?:\.\d+)?/);
+  return matched ? Number(matched[0]) : 0;
 }
 
 function drawGallery(slide, page, deck, visual, outputDir) {
