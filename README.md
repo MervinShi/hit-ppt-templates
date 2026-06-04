@@ -148,9 +148,10 @@ The PPTX path creates native editable text, bullets, metric cards, and image fra
 npm run match -- --query "HIT blue rigorous data opening report"
 npm run plan -- --brief "Opening report on multimodal sensor data for traffic prediction" --output planned.deck.json
 npm run quality -- --content planned.deck.json
+npm run smoke
 ```
 
-`match` recommends templates, `plan` creates a Deck JSON outline from a brief, and `quality` checks visual/content richness before rendering.
+`match` recommends templates, `plan` creates a Deck JSON outline from a brief, `quality` checks visual/content richness before rendering, and `smoke` runs the full workflow regression.
 
 ### 5. One-Step Creation And PPTX Import
 

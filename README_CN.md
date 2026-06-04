@@ -114,9 +114,10 @@ PPTX 导出走原生可编辑路线：标题、正文、列表和指标卡会成
 npm run match -- --query "工大蓝 严谨 数据 开题报告"
 npm run plan -- --brief "多模态传感数据驱动的城市交通预测开题报告" --output planned.deck.json
 npm run quality -- --content planned.deck.json
+npm run smoke
 ```
 
-`match` 用于模板推荐，`plan` 用于从一句需求生成 Deck JSON 大纲，`quality` 用于检查页面丰富度、数据/图片占位和结构完整性。
+`match` 用于模板推荐，`plan` 用于从一句需求生成 Deck JSON 大纲，`quality` 用于检查页面丰富度、数据/图片占位和结构完整性，`smoke` 用于完整链路回归。
 
 ### 5. 一站式生成与 PPTX 导入
 
@@ -275,6 +276,7 @@ v2 规划文档：
 - [HIT Presentation Skill System v2](./docs/DESIGN_SYSTEM_V2.md)
 - [Skill Workflow v2](./docs/SKILL_WORKFLOW_V2.md)
 - [PPTX Export Plan](./docs/PPTX_EXPORT_PLAN.md)
+- [QA And Release Checklist](./docs/QA.md)
 
 ---
 

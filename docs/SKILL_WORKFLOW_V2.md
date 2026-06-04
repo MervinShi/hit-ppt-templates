@@ -22,6 +22,7 @@ npm run match -- --query "工大蓝 严谨 数据 开题报告"
 npm run plan -- --brief "多模态传感数据驱动的城市交通预测开题报告" --output planned.deck.json
 npm run quality -- --content planned.deck.json
 npm run create -- --brief "课程小组智能制造项目汇报" --outDir generated/manufacturing
+npm run smoke
 ```
 
 ### 2. Existing Content To Deck

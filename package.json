@@ -18,7 +18,9 @@
     "create": "node scripts/create-deck.cjs",
     "match": "node scripts/match-template.cjs",
     "plan": "node scripts/plan-deck.cjs",
-    "quality": "node scripts/quality-deck.cjs"
+    "quality": "node scripts/quality-deck.cjs",
+    "smoke": "node scripts/smoke-test.cjs",
+    "test": "npm run smoke"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.0.4",
