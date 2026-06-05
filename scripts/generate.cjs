@@ -402,6 +402,7 @@ function generateSlideHTML(slide, templateSlug, index, total, assetPrefix = './a
   <section class="slide kind-${kind}" data-index="${index}">
     ${headerHTML}
     ${ornamentsHTML}
+    <div class="motto-mark" aria-hidden="true"></div>
     ${chromeHTML}
     ${blocksHTML}
     ${footerHTML}

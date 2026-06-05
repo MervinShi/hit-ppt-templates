@@ -19,6 +19,15 @@ const configs = {
 };
 
 function cssOverride(slug, cfg) {
+  const isCampaign = slug.startsWith('campaign');
+  const mottoOpacity = cfg.tone === 'red' ? '.46' : isCampaign ? '.56' : cfg.tone === 'light' ? '.42' : '.38';
+  const mottoFeatureOpacity = cfg.tone === 'red' ? '.54' : isCampaign ? '.62' : cfg.tone === 'light' ? '.50' : '.46';
+  const mottoBlend = cfg.tone === 'light' ? 'multiply' : 'normal';
+  const mottoFilter = cfg.tone === 'red'
+    ? 'drop-shadow(0 14px 22px rgba(0,0,0,.18))'
+    : cfg.tone === 'light'
+      ? 'drop-shadow(0 10px 18px rgba(255,255,255,.72))'
+      : 'drop-shadow(0 12px 22px rgba(0,0,0,.26))';
   return `
 
 /* ===== Applied brand assets and architectural background: ${slug} ===== */
@@ -27,23 +36,24 @@ function cssOverride(slug, cfg) {
   --template-motto-image: url('../../public/assets/hit-shenzhen/${cfg.motto}');
   --template-building-image: url('../../public/assets/hit-shenzhen/${cfg.building}');
   --template-gear-image: url('../../public/assets/ppt-media/image25.png');
+  --template-motto-opacity: ${mottoOpacity};
+  --template-motto-feature-opacity: ${mottoFeatureOpacity};
+  --template-motto-blend: ${mottoBlend};
+  --template-motto-filter: ${mottoFilter};
 }
 .slide {
   background-image:
     linear-gradient(90deg, color-mix(in srgb, var(--paper) 88%, transparent), color-mix(in srgb, var(--paper) 48%, transparent) 46%, transparent),
-    var(--template-motto-image),
     var(--template-gear-image),
     var(--template-building-image),
     var(--template-bg-image) !important;
   background-size:
     cover,
-    31% auto,
     29% auto,
     56% auto,
     cover !important;
   background-position:
     center,
-    7% 78%,
     95% 23%,
     88% 63%,
     center !important;
@@ -53,23 +63,39 @@ function cssOverride(slug, cfg) {
 .slide.kind-thanks::after {
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--paper) 86%, transparent), color-mix(in srgb, var(--paper) 42%, transparent) 54%, transparent),
-    var(--template-motto-image),
     var(--template-gear-image),
     var(--template-building-image),
     var(--template-bg-image) !important;
   background-size:
     cover,
     31% auto,
-    31% auto,
     58% auto,
     cover !important;
   background-position:
     center,
-    7% 78%,
     95% 24%,
     88% 63%,
     center !important;
   background-repeat: no-repeat !important;
+}
+.motto-mark {
+  position: absolute;
+  left: 5.8%;
+  bottom: 11.8%;
+  z-index: 3;
+  width: 28.5%;
+  aspect-ratio: 2268 / 1102;
+  pointer-events: none;
+  background: var(--template-motto-image) left bottom / contain no-repeat;
+  opacity: var(--template-motto-opacity);
+  mix-blend-mode: var(--template-motto-blend);
+  filter: var(--template-motto-filter);
+}
+.slide.kind-cover .motto-mark,
+.slide.kind-thanks .motto-mark {
+  width: 31.5%;
+  bottom: 13.8%;
+  opacity: var(--template-motto-feature-opacity);
 }
 .brand-header {
   position: absolute !important;

@@ -231,7 +231,7 @@ ${paperTexture}
 ${ribbon}
 <image href="../hit-shenzhen/hit-building.png" x="${isCampaign ? 850 : 650}" y="${isCampaign ? 292 : 318}" width="${isCampaign ? 850 : 980}" opacity="${isLight ? '.18' : '.24'}"/>
 <image href="../hit-shenzhen/hit-building.png" x="-60" y="606" width="720" opacity="${isLight ? '.07' : '.10'}"/>
-<image href="../hit-shenzhen/${motto}" x="${isCampaign ? 68 : 72}" y="${isCampaign ? 622 : 612}" width="${isCampaign ? 560 : 520}" opacity="${isCampaign ? '.22' : isLight ? '.14' : '.18'}"/>
+<image href="../hit-shenzhen/${motto}" x="${isCampaign ? 68 : 72}" y="${isCampaign ? 622 : 612}" width="${isCampaign ? 560 : 520}" opacity="${isCampaign ? '.06' : isLight ? '.04' : '.05'}"/>
 <image href="../ppt-media/image25.png" x="${isCampaign ? 1070 : 1120}" y="${isCampaign ? 250 : 120}" width="${isCampaign ? 620 : 520}" opacity="${isCampaign ? '.12' : '.08'}"/>
 ${skyline(lineColor, isLight ? '.13' : '.16')}
 ${dataMesh}
