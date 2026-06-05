@@ -91,6 +91,17 @@ function cssOverride(slug, cfg) {
 .brand-right-mark {
   z-index: 21;
 }
+.slide.kind-cover .slide-footer,
+.slide.kind-thanks .slide-footer {
+  left: auto !important;
+  right: 5.4% !important;
+  width: auto !important;
+  justify-content: flex-end !important;
+}
+.slide.kind-cover .slide-footer span:first-child,
+.slide.kind-thanks .slide-footer span:first-child {
+  display: none !important;
+}
 `;
 }
 
@@ -102,7 +113,10 @@ function applyHtml(slug, cfg) {
     .replace(/hit-logo\.png/g, cfg.logo)
     .replace(/hit-emblem-black\.png/g, cfg.emblem);
 
-  html = html.replace(/\n\/\* ===== Applied brand assets and architectural background:[\s\S]*?(?=\n\/\* ===== Applied brand assets and architectural background:|<\/style>)/g, '');
+  html = html.replace(
+    /\n\/\* ===== Applied brand assets and architectural background:[\s\S]*?(?=\n\/\* ===== Advanced generated layouts|\n@media print|<\/style>)/g,
+    ''
+  );
   html = html.replace('</style>', `${cssOverride(slug, cfg)}\n</style>`);
   fs.writeFileSync(file, html, 'utf8');
 }

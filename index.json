@@ -71,7 +71,7 @@
       "radar"
     ],
     "description": "深色科技舞台风格，工大蓝基调 + 青色数据光 + 金色细线，适合数据密集型学术汇报。",
-    "background_asset": "public/assets/generated/hit-shenzhen-campus/bg-data-deep-blue.svg",
+    "background_asset": "public/assets/generated/academic-tech-dark-bg.svg",
     "logo_asset": "public/assets/hit-shenzhen/hit-logo-ivory.png",
     "emblem_asset": "public/assets/hit-shenzhen/hit-emblem-ivory.png",
     "has_architecture_background": true,
@@ -148,7 +148,7 @@
       "doughnut"
     ],
     "description": "浅色数据面板风格，白底 + 工大蓝强调 + 青色数据光，适合大量图表和数据的学术报告。",
-    "background_asset": "public/assets/generated/hit-shenzhen-campus/bg-data-deep-blue.svg",
+    "background_asset": "public/assets/generated/academic-data-light-bg.svg",
     "logo_asset": "public/assets/hit-shenzhen/hit-logo-blue.png",
     "emblem_asset": "public/assets/hit-shenzhen/hit-emblem-blue.png",
     "has_architecture_background": true,
@@ -221,7 +221,7 @@
       "line"
     ],
     "description": "极简学术风格，白底黑字 + 工大蓝标题 + 金色细线，大量留白，强调文字本身的力量。",
-    "background_asset": "public/assets/generated/hit-shenzhen-campus/bg-data-deep-blue.svg",
+    "background_asset": "public/assets/generated/academic-minimal-bg.svg",
     "logo_asset": "public/assets/hit-shenzhen/hit-logo-blue.png",
     "emblem_asset": "public/assets/hit-shenzhen/hit-emblem-blue.png",
     "has_architecture_background": true,
@@ -296,7 +296,7 @@
       "radar"
     ],
     "description": "明亮协作风格，暖纸底色 + 工大蓝 + 蓝橙/蓝绿辅助色，适合小组项目和过程展示。",
-    "background_asset": "public/assets/generated/hit-shenzhen-campus/bg-course-illustration-light.svg",
+    "background_asset": "public/assets/generated/course-bright-bg.svg",
     "logo_asset": "public/assets/hit-shenzhen/hit-logo-blue.png",
     "emblem_asset": "public/assets/hit-shenzhen/hit-emblem-blue.png",
     "has_architecture_background": true,
@@ -368,7 +368,7 @@
       "doughnut"
     ],
     "description": "胶囊模块风格，卡片阴影 + 圆角色块 + 蓝橙配色，适合产品/设计类课程项目。",
-    "background_asset": "public/assets/generated/hit-shenzhen-campus/bg-course-illustration-light.svg",
+    "background_asset": "public/assets/generated/course-capsule-bg.svg",
     "logo_asset": "public/assets/hit-shenzhen/hit-logo-blue.png",
     "emblem_asset": "public/assets/hit-shenzhen/hit-emblem-blue.png",
     "has_architecture_background": true,
@@ -439,7 +439,7 @@
       "doughnut"
     ],
     "description": "现代专业风格，清爽网格布局 + 工大蓝 + 蓝绿辅助色，适合竞赛和正式汇报。",
-    "background_asset": "public/assets/generated/hit-shenzhen-campus/bg-course-illustration-light.svg",
+    "background_asset": "public/assets/generated/course-modern-bg.svg",
     "logo_asset": "public/assets/hit-shenzhen/hit-logo-blue.png",
     "emblem_asset": "public/assets/hit-shenzhen/hit-emblem-blue.png",
     "has_architecture_background": true,
@@ -513,7 +513,7 @@
       "radar"
     ],
     "description": "经典红金竞选风格，庆典红 + 金色 + 象牙白，团徽章印和红绸强化组织感和仪式感。",
-    "background_asset": "public/assets/generated/hit-shenzhen-campus/bg-campaign-sunset.svg",
+    "background_asset": "public/assets/generated/campaign-red-gold-bg.svg",
     "logo_asset": "public/assets/hit-shenzhen/hit-logo-gold.png",
     "emblem_asset": "public/assets/hit-shenzhen/hit-emblem-gold.png",
     "has_architecture_background": true,
@@ -586,7 +586,7 @@
       "doughnut"
     ],
     "description": "正式象牙白风格，白色基调 + 庆典红强调 + 金色边框，适合极度正式的竞选场合。",
-    "background_asset": "public/assets/generated/hit-shenzhen-campus/bg-campaign-sunset.svg",
+    "background_asset": "public/assets/generated/campaign-formal-bg.svg",
     "logo_asset": "public/assets/hit-shenzhen/hit-logo-red.png",
     "emblem_asset": "public/assets/hit-shenzhen/hit-emblem-red.png",
     "has_architecture_background": true,
@@ -659,7 +659,7 @@
       "doughnut"
     ],
     "description": "宣言力量风格，深红底色 + 大字标题 + 金色光芒，强化个人宣言和组织领导力。",
-    "background_asset": "public/assets/generated/hit-shenzhen-campus/bg-campaign-sunset.svg",
+    "background_asset": "public/assets/generated/campaign-manifesto-bg.svg",
     "logo_asset": "public/assets/hit-shenzhen/hit-logo-gold.png",
     "emblem_asset": "public/assets/hit-shenzhen/hit-emblem-gold.png",
     "has_architecture_background": true,

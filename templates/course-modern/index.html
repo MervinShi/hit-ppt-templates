@@ -269,6 +269,214 @@ body { display: grid; place-items: center; }
 
 
 
+
+/* ===== Advanced generated layouts shared by expanded templates ===== */
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 72px 34px 42px;
+  pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+  opacity: .7;
+  mask-image: linear-gradient(90deg, #000 0 18%, transparent 18% 82%, #000 82% 100%);
+}
+.slide.kind-cover::after,
+.slide.kind-thanks::after {
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 28%, transparent);
+  mask-image: linear-gradient(120deg, #000 0 28%, transparent 28% 70%, #000 70% 100%);
+}
+.slide.kind-cover .block-title p {
+  text-shadow: 0 20px 50px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.slide.kind-cover .block-subtitle,
+.slide.kind-thanks .block-subtitle {
+  border-left: 4px solid var(--gold, var(--accent));
+  padding-left: 18px;
+}
+.slide.kind-cover .slide-footer,
+.slide.kind-thanks .slide-footer {
+  left: auto;
+  right: 5.4%;
+  width: auto;
+  justify-content: flex-end;
+}
+.slide.kind-cover .slide-footer span:first-child,
+.slide.kind-thanks .slide-footer span:first-child {
+  display: none;
+}
+.slide.kind-data,
+.slide.kind-results {
+  background-image:
+    radial-gradient(circle at 74% 62%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 28%),
+    linear-gradient(120deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--surface) 82%, transparent)),
+    var(--template-bg-image) !important;
+}
+.slide.kind-data .block-metric,
+.slide.kind-results .block-metric {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 18%, transparent),
+    0 24px 70px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.slide.kind-data .bars,
+.slide.kind-results .bars {
+  position: relative;
+  padding: 18px 22px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  background:
+    linear-gradient(color-mix(in srgb, var(--accent) 11%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px),
+    color-mix(in srgb, var(--surface) 84%, transparent);
+  background-size: 100% 24px, 44px 100%, auto;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .12);
+}
+.slide.kind-figure .block-image,
+.slide.kind-gallery .block-image {
+  padding: 10px;
+  border: 1px solid color-mix(in srgb, var(--gold, var(--accent)) 42%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--surface) 90%, transparent), color-mix(in srgb, var(--paper) 66%, transparent));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .18);
+}
+.slide.kind-quote .block-title {
+  border-top: 2px solid color-mix(in srgb, var(--gold, var(--accent)) 72%, transparent);
+  border-bottom: 2px solid color-mix(in srgb, var(--gold, var(--accent)) 42%, transparent);
+  padding: 20px 0;
+}
+.slide.kind-plan .block-card,
+.slide.kind-team .block-card,
+.slide.kind-promise .block-card,
+.slide.kind-persona .block-card {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--surface) 92%, transparent), color-mix(in srgb, var(--gold, var(--accent)) 8%, transparent));
+  box-shadow: 0 20px 58px rgba(0, 0, 0, .13);
+}
+.block-section-index {
+  display: grid;
+  align-items: center;
+  border-left: 6px solid var(--gold, var(--accent));
+  padding-left: 18px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+.block-section-index p { font-size: clamp(16px, 1.8vw, 24px); }
+.campus-window img {
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .22));
+}
+.logic-center {
+  text-align: center;
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 7%, transparent), 0 26px 90px rgba(0,0,0,.16);
+}
+.logic-node {
+  box-shadow: 0 18px 56px rgba(0, 0, 0, .12);
+}
+.logic-node p,
+.swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
+.block-flow ol {
+  list-style: none;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+.flow-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 96px;
+  padding: 14px;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  font-size: clamp(13px, 1.25vw, 17px);
+  font-weight: 850;
+  line-height: 1.35;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 10px 50%);
+}
+.flow-node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: var(--gold, var(--accent));
+}
+.block-compare {
+  padding: 20px 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+.block-compare.is-accent {
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  background: color-mix(in srgb, var(--gold, var(--accent)) 10%, transparent);
+}
+.block-compare h3 {
+  margin: 0 0 14px;
+  color: var(--gold, var(--accent));
+  font-family: var(--font-body);
+  font-size: 15px;
+  letter-spacing: .08em;
+}
+.block-compare ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  padding: 0;
+}
+.block-compare li {
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+  font-size: clamp(14px, 1.25vw, 18px);
+  line-height: 1.45;
+}
+.swot-card {
+  grid-template-columns: 54px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+.swot-card b {
+  color: var(--gold, var(--accent));
+  font-family: Georgia, var(--font-title);
+  font-size: clamp(30px, 4vw, 54px);
+}
+.quote-mark {
+  color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
+  font-family: Georgia, serif;
+  font-size: 120px;
+  line-height: .8;
+}
+.slide.kind-transition {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
+    var(--template-building-image),
+    var(--template-bg-image) !important;
+  background-size: cover, 40% auto, cover !important;
+  background-position: center, 96% 74%, center !important;
+  background-repeat: no-repeat !important;
+}
+.slide.kind-figure,
+.slide.kind-gallery {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper) 90%, transparent), color-mix(in srgb, var(--paper) 62%, transparent) 48%, transparent),
+    var(--template-campus-clean, var(--template-bg-image)) !important;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+}
+@media print {
+  html, body { overflow: visible; background: #fff; }
+  body { display: block; }
+  .stage { width: 100%; height: auto; transform: none; box-shadow: none; }
+  .slide { position: relative; display: block !important; page-break-after: always; width: 100vw; height: 56.25vw; }
+  .nav-controls, .fullscreen-btn { display: none !important; }
+}
+
+
 /* ===== Applied brand assets and architectural background: course-modern ===== */
 :root {
   --template-bg-image: url('../../public/assets/generated/course-modern-bg.svg');
@@ -339,651 +547,18 @@ body { display: grid; place-items: center; }
 .brand-right-mark {
   z-index: 21;
 }
-
-
-
-
-/* ===== Advanced generated layouts shared by expanded templates ===== */
-.block-section-index {
-  display: grid;
-  align-items: center;
-  border-left: 6px solid var(--gold, var(--accent));
-  padding-left: 18px;
-  color: var(--gold, var(--accent));
-  font-family: var(--font-body);
-  font-weight: 900;
-  letter-spacing: .12em;
+.slide.kind-cover .slide-footer,
+.slide.kind-thanks .slide-footer {
+  left: auto !important;
+  right: 5.4% !important;
+  width: auto !important;
+  justify-content: flex-end !important;
 }
-.block-section-index p { font-size: clamp(16px, 1.8vw, 24px); }
-.campus-window img {
-  object-fit: contain;
-  border: 0;
-  background: transparent;
-  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .22));
-}
-.logic-center {
-  text-align: center;
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
-}
-.logic-node p,
-.swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
-.block-flow ol {
-  list-style: none;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
-  padding: 0;
-}
-.flow-node {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 96px;
-  padding: 14px;
-  text-align: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
-  background: color-mix(in srgb, var(--surface) 86%, transparent);
-  font-size: clamp(13px, 1.25vw, 17px);
-  font-weight: 850;
-  line-height: 1.35;
-}
-.flow-node:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: -12px;
-  top: 50%;
-  width: 12px;
-  height: 2px;
-  background: var(--gold, var(--accent));
-}
-.block-compare {
-  padding: 20px 22px;
-  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-}
-.block-compare.is-accent {
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
-  background: color-mix(in srgb, var(--gold, var(--accent)) 10%, transparent);
-}
-.block-compare h3 {
-  margin: 0 0 14px;
-  color: var(--gold, var(--accent));
-  font-family: var(--font-body);
-  font-size: 15px;
-  letter-spacing: .08em;
-}
-.block-compare ul {
-  list-style: none;
-  display: grid;
-  gap: 10px;
-  padding: 0;
-}
-.block-compare li {
-  color: color-mix(in srgb, var(--ink) 86%, transparent);
-  font-size: clamp(14px, 1.25vw, 18px);
-  line-height: 1.45;
-}
-.swot-card {
-  grid-template-columns: 54px 1fr;
-  align-items: center;
-  gap: 16px;
-}
-.swot-card b {
-  color: var(--gold, var(--accent));
-  font-family: Georgia, var(--font-title);
-  font-size: clamp(30px, 4vw, 54px);
-}
-.quote-mark {
-  color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
-  font-family: Georgia, serif;
-  font-size: 120px;
-  line-height: .8;
-}
-.slide.kind-transition {
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
-    var(--template-building-image),
-    var(--template-bg-image) !important;
-  background-size: cover, 48% auto, cover !important;
-  background-position: center, 98% 58%, center !important;
-  background-repeat: no-repeat !important;
-}
-.slide.kind-figure,
-.slide.kind-gallery {
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--paper) 90%, transparent), color-mix(in srgb, var(--paper) 62%, transparent) 48%, transparent),
-    var(--template-campus-clean, var(--template-bg-image)) !important;
-  background-size: cover, cover !important;
-  background-position: center, center !important;
-}
-@media print {
-  html, body { overflow: visible; background: #fff; }
-  body { display: block; }
-  .stage { width: 100%; height: auto; transform: none; box-shadow: none; }
-  .slide { position: relative; display: block !important; page-break-after: always; width: 100vw; height: 56.25vw; }
-  .nav-controls, .fullscreen-btn { display: none !important; }
+.slide.kind-cover .slide-footer span:first-child,
+.slide.kind-thanks .slide-footer span:first-child {
+  display: none !important;
 }
 
-
-
-/* ===== Advanced generated layouts shared by expanded templates ===== */
-.block-section-index {
-  display: grid;
-  align-items: center;
-  border-left: 6px solid var(--gold, var(--accent));
-  padding-left: 18px;
-  color: var(--gold, var(--accent));
-  font-family: var(--font-body);
-  font-weight: 900;
-  letter-spacing: .12em;
-}
-.block-section-index p { font-size: clamp(16px, 1.8vw, 24px); }
-.campus-window img {
-  object-fit: contain;
-  border: 0;
-  background: transparent;
-  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .22));
-}
-.logic-center {
-  text-align: center;
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
-}
-.logic-node p,
-.swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
-.block-flow ol {
-  list-style: none;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
-  padding: 0;
-}
-.flow-node {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 96px;
-  padding: 14px;
-  text-align: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
-  background: color-mix(in srgb, var(--surface) 86%, transparent);
-  font-size: clamp(13px, 1.25vw, 17px);
-  font-weight: 850;
-  line-height: 1.35;
-}
-.flow-node:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: -12px;
-  top: 50%;
-  width: 12px;
-  height: 2px;
-  background: var(--gold, var(--accent));
-}
-.block-compare {
-  padding: 20px 22px;
-  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-}
-.block-compare.is-accent {
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
-  background: color-mix(in srgb, var(--gold, var(--accent)) 10%, transparent);
-}
-.block-compare h3 {
-  margin: 0 0 14px;
-  color: var(--gold, var(--accent));
-  font-family: var(--font-body);
-  font-size: 15px;
-  letter-spacing: .08em;
-}
-.block-compare ul {
-  list-style: none;
-  display: grid;
-  gap: 10px;
-  padding: 0;
-}
-.block-compare li {
-  color: color-mix(in srgb, var(--ink) 86%, transparent);
-  font-size: clamp(14px, 1.25vw, 18px);
-  line-height: 1.45;
-}
-.swot-card {
-  grid-template-columns: 54px 1fr;
-  align-items: center;
-  gap: 16px;
-}
-.swot-card b {
-  color: var(--gold, var(--accent));
-  font-family: Georgia, var(--font-title);
-  font-size: clamp(30px, 4vw, 54px);
-}
-.quote-mark {
-  color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
-  font-family: Georgia, serif;
-  font-size: 120px;
-  line-height: .8;
-}
-.slide.kind-transition {
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
-    var(--template-building-image),
-    var(--template-bg-image) !important;
-  background-size: cover, 48% auto, cover !important;
-  background-position: center, 98% 58%, center !important;
-  background-repeat: no-repeat !important;
-}
-.slide.kind-figure,
-.slide.kind-gallery {
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--paper) 90%, transparent), color-mix(in srgb, var(--paper) 62%, transparent) 48%, transparent),
-    var(--template-campus-clean, var(--template-bg-image)) !important;
-  background-size: cover, cover !important;
-  background-position: center, center !important;
-}
-@media print {
-  html, body { overflow: visible; background: #fff; }
-  body { display: block; }
-  .stage { width: 100%; height: auto; transform: none; box-shadow: none; }
-  .slide { position: relative; display: block !important; page-break-after: always; width: 100vw; height: 56.25vw; }
-  .nav-controls, .fullscreen-btn { display: none !important; }
-}
-
-
-
-/* ===== Advanced generated layouts shared by expanded templates ===== */
-.slide::after {
-  content: '';
-  position: absolute;
-  inset: 72px 34px 42px;
-  pointer-events: none;
-  border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
-  opacity: .7;
-  mask-image: linear-gradient(90deg, #000 0 18%, transparent 18% 82%, #000 82% 100%);
-}
-.slide.kind-cover::after,
-.slide.kind-thanks::after {
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 28%, transparent);
-  mask-image: linear-gradient(120deg, #000 0 28%, transparent 28% 70%, #000 70% 100%);
-}
-.slide.kind-cover .block-title p {
-  text-shadow: 0 20px 50px color-mix(in srgb, var(--accent) 20%, transparent);
-}
-.slide.kind-cover .block-subtitle,
-.slide.kind-thanks .block-subtitle {
-  border-left: 4px solid var(--gold, var(--accent));
-  padding-left: 18px;
-}
-.slide.kind-data,
-.slide.kind-results {
-  background-image:
-    radial-gradient(circle at 74% 62%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 28%),
-    linear-gradient(120deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--surface) 82%, transparent)),
-    var(--template-bg-image) !important;
-}
-.slide.kind-data .block-metric,
-.slide.kind-results .block-metric {
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, #fff 18%, transparent),
-    0 24px 70px color-mix(in srgb, var(--accent) 16%, transparent);
-}
-.slide.kind-data .bars,
-.slide.kind-results .bars {
-  position: relative;
-  padding: 18px 22px 14px;
-  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-  background:
-    linear-gradient(color-mix(in srgb, var(--accent) 11%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px),
-    color-mix(in srgb, var(--surface) 84%, transparent);
-  background-size: 100% 24px, 44px 100%, auto;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, .12);
-}
-.slide.kind-figure .block-image,
-.slide.kind-gallery .block-image {
-  padding: 10px;
-  border: 1px solid color-mix(in srgb, var(--gold, var(--accent)) 42%, transparent);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--surface) 90%, transparent), color-mix(in srgb, var(--paper) 66%, transparent));
-  box-shadow: 0 28px 80px rgba(0, 0, 0, .18);
-}
-.slide.kind-quote .block-title {
-  border-top: 2px solid color-mix(in srgb, var(--gold, var(--accent)) 72%, transparent);
-  border-bottom: 2px solid color-mix(in srgb, var(--gold, var(--accent)) 42%, transparent);
-  padding: 20px 0;
-}
-.slide.kind-plan .block-card,
-.slide.kind-team .block-card,
-.slide.kind-promise .block-card,
-.slide.kind-persona .block-card {
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--surface) 92%, transparent), color-mix(in srgb, var(--gold, var(--accent)) 8%, transparent));
-  box-shadow: 0 20px 58px rgba(0, 0, 0, .13);
-}
-.block-section-index {
-  display: grid;
-  align-items: center;
-  border-left: 6px solid var(--gold, var(--accent));
-  padding-left: 18px;
-  color: var(--gold, var(--accent));
-  font-family: var(--font-body);
-  font-weight: 900;
-  letter-spacing: .12em;
-}
-.block-section-index p { font-size: clamp(16px, 1.8vw, 24px); }
-.campus-window img {
-  object-fit: contain;
-  border: 0;
-  background: transparent;
-  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .22));
-}
-.logic-center {
-  text-align: center;
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
-  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 7%, transparent), 0 26px 90px rgba(0,0,0,.16);
-}
-.logic-node {
-  box-shadow: 0 18px 56px rgba(0, 0, 0, .12);
-}
-.logic-node p,
-.swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
-.block-flow ol {
-  list-style: none;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
-  padding: 0;
-}
-.flow-node {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 96px;
-  padding: 14px;
-  text-align: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
-  background: color-mix(in srgb, var(--surface) 86%, transparent);
-  font-size: clamp(13px, 1.25vw, 17px);
-  font-weight: 850;
-  line-height: 1.35;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 10px 50%);
-}
-.flow-node:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: -12px;
-  top: 50%;
-  width: 12px;
-  height: 2px;
-  background: var(--gold, var(--accent));
-}
-.block-compare {
-  padding: 20px 22px;
-  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-}
-.block-compare.is-accent {
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
-  background: color-mix(in srgb, var(--gold, var(--accent)) 10%, transparent);
-}
-.block-compare h3 {
-  margin: 0 0 14px;
-  color: var(--gold, var(--accent));
-  font-family: var(--font-body);
-  font-size: 15px;
-  letter-spacing: .08em;
-}
-.block-compare ul {
-  list-style: none;
-  display: grid;
-  gap: 10px;
-  padding: 0;
-}
-.block-compare li {
-  color: color-mix(in srgb, var(--ink) 86%, transparent);
-  font-size: clamp(14px, 1.25vw, 18px);
-  line-height: 1.45;
-}
-.swot-card {
-  grid-template-columns: 54px 1fr;
-  align-items: center;
-  gap: 16px;
-}
-.swot-card b {
-  color: var(--gold, var(--accent));
-  font-family: Georgia, var(--font-title);
-  font-size: clamp(30px, 4vw, 54px);
-}
-.quote-mark {
-  color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
-  font-family: Georgia, serif;
-  font-size: 120px;
-  line-height: .8;
-}
-.slide.kind-transition {
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
-    var(--template-building-image),
-    var(--template-bg-image) !important;
-  background-size: cover, 40% auto, cover !important;
-  background-position: center, 96% 74%, center !important;
-  background-repeat: no-repeat !important;
-}
-.slide.kind-figure,
-.slide.kind-gallery {
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--paper) 90%, transparent), color-mix(in srgb, var(--paper) 62%, transparent) 48%, transparent),
-    var(--template-campus-clean, var(--template-bg-image)) !important;
-  background-size: cover, cover !important;
-  background-position: center, center !important;
-}
-@media print {
-  html, body { overflow: visible; background: #fff; }
-  body { display: block; }
-  .stage { width: 100%; height: auto; transform: none; box-shadow: none; }
-  .slide { position: relative; display: block !important; page-break-after: always; width: 100vw; height: 56.25vw; }
-  .nav-controls, .fullscreen-btn { display: none !important; }
-}
-
-
-
-/* ===== Advanced generated layouts shared by expanded templates ===== */
-.slide::after {
-  content: '';
-  position: absolute;
-  inset: 72px 34px 42px;
-  pointer-events: none;
-  border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
-  opacity: .7;
-  mask-image: linear-gradient(90deg, #000 0 18%, transparent 18% 82%, #000 82% 100%);
-}
-.slide.kind-cover::after,
-.slide.kind-thanks::after {
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 28%, transparent);
-  mask-image: linear-gradient(120deg, #000 0 28%, transparent 28% 70%, #000 70% 100%);
-}
-.slide.kind-cover .block-title p {
-  text-shadow: 0 20px 50px color-mix(in srgb, var(--accent) 20%, transparent);
-}
-.slide.kind-cover .block-subtitle,
-.slide.kind-thanks .block-subtitle {
-  border-left: 4px solid var(--gold, var(--accent));
-  padding-left: 18px;
-}
-.slide.kind-data,
-.slide.kind-results {
-  background-image:
-    radial-gradient(circle at 74% 62%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 28%),
-    linear-gradient(120deg, color-mix(in srgb, var(--paper) 94%, transparent), color-mix(in srgb, var(--surface) 82%, transparent)),
-    var(--template-bg-image) !important;
-}
-.slide.kind-data .block-metric,
-.slide.kind-results .block-metric {
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, #fff 18%, transparent),
-    0 24px 70px color-mix(in srgb, var(--accent) 16%, transparent);
-}
-.slide.kind-data .bars,
-.slide.kind-results .bars {
-  position: relative;
-  padding: 18px 22px 14px;
-  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-  background:
-    linear-gradient(color-mix(in srgb, var(--accent) 11%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px),
-    color-mix(in srgb, var(--surface) 84%, transparent);
-  background-size: 100% 24px, 44px 100%, auto;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, .12);
-}
-.slide.kind-figure .block-image,
-.slide.kind-gallery .block-image {
-  padding: 10px;
-  border: 1px solid color-mix(in srgb, var(--gold, var(--accent)) 42%, transparent);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--surface) 90%, transparent), color-mix(in srgb, var(--paper) 66%, transparent));
-  box-shadow: 0 28px 80px rgba(0, 0, 0, .18);
-}
-.slide.kind-quote .block-title {
-  border-top: 2px solid color-mix(in srgb, var(--gold, var(--accent)) 72%, transparent);
-  border-bottom: 2px solid color-mix(in srgb, var(--gold, var(--accent)) 42%, transparent);
-  padding: 20px 0;
-}
-.slide.kind-plan .block-card,
-.slide.kind-team .block-card,
-.slide.kind-promise .block-card,
-.slide.kind-persona .block-card {
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--surface) 92%, transparent), color-mix(in srgb, var(--gold, var(--accent)) 8%, transparent));
-  box-shadow: 0 20px 58px rgba(0, 0, 0, .13);
-}
-.block-section-index {
-  display: grid;
-  align-items: center;
-  border-left: 6px solid var(--gold, var(--accent));
-  padding-left: 18px;
-  color: var(--gold, var(--accent));
-  font-family: var(--font-body);
-  font-weight: 900;
-  letter-spacing: .12em;
-}
-.block-section-index p { font-size: clamp(16px, 1.8vw, 24px); }
-.campus-window img {
-  object-fit: contain;
-  border: 0;
-  background: transparent;
-  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .22));
-}
-.logic-center {
-  text-align: center;
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 64%, transparent);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--gold, var(--accent)) 16%, transparent), color-mix(in srgb, var(--accent) 9%, transparent));
-  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 7%, transparent), 0 26px 90px rgba(0,0,0,.16);
-}
-.logic-node {
-  box-shadow: 0 18px 56px rgba(0, 0, 0, .12);
-}
-.logic-node p,
-.swot-card p { font-size: clamp(14px, 1.35vw, 18px); }
-.block-flow ol {
-  list-style: none;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
-  padding: 0;
-}
-.flow-node {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 96px;
-  padding: 14px;
-  text-align: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
-  background: color-mix(in srgb, var(--surface) 86%, transparent);
-  font-size: clamp(13px, 1.25vw, 17px);
-  font-weight: 850;
-  line-height: 1.35;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 10px 50%);
-}
-.flow-node:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: -12px;
-  top: 50%;
-  width: 12px;
-  height: 2px;
-  background: var(--gold, var(--accent));
-}
-.block-compare {
-  padding: 20px 22px;
-  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-}
-.block-compare.is-accent {
-  border-color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
-  background: color-mix(in srgb, var(--gold, var(--accent)) 10%, transparent);
-}
-.block-compare h3 {
-  margin: 0 0 14px;
-  color: var(--gold, var(--accent));
-  font-family: var(--font-body);
-  font-size: 15px;
-  letter-spacing: .08em;
-}
-.block-compare ul {
-  list-style: none;
-  display: grid;
-  gap: 10px;
-  padding: 0;
-}
-.block-compare li {
-  color: color-mix(in srgb, var(--ink) 86%, transparent);
-  font-size: clamp(14px, 1.25vw, 18px);
-  line-height: 1.45;
-}
-.swot-card {
-  grid-template-columns: 54px 1fr;
-  align-items: center;
-  gap: 16px;
-}
-.swot-card b {
-  color: var(--gold, var(--accent));
-  font-family: Georgia, var(--font-title);
-  font-size: clamp(30px, 4vw, 54px);
-}
-.quote-mark {
-  color: color-mix(in srgb, var(--gold, var(--accent)) 52%, transparent);
-  font-family: Georgia, serif;
-  font-size: 120px;
-  line-height: .8;
-}
-.slide.kind-transition {
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--paper) 92%, transparent), color-mix(in srgb, var(--paper) 44%, transparent) 58%, transparent),
-    var(--template-building-image),
-    var(--template-bg-image) !important;
-  background-size: cover, 40% auto, cover !important;
-  background-position: center, 96% 74%, center !important;
-  background-repeat: no-repeat !important;
-}
-.slide.kind-figure,
-.slide.kind-gallery {
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--paper) 90%, transparent), color-mix(in srgb, var(--paper) 62%, transparent) 48%, transparent),
-    var(--template-campus-clean, var(--template-bg-image)) !important;
-  background-size: cover, cover !important;
-  background-position: center, center !important;
-}
-@media print {
-  html, body { overflow: visible; background: #fff; }
-  body { display: block; }
-  .stage { width: 100%; height: auto; transform: none; box-shadow: none; }
-  .slide { position: relative; display: block !important; page-break-after: always; width: 100vw; height: 56.25vw; }
-  .nav-controls, .fullscreen-btn { display: none !important; }
-}
 </style>
 </head>
 <body>

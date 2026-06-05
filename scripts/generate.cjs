@@ -64,6 +64,17 @@ const ADVANCED_LAYOUT_CSS = `
   border-left: 4px solid var(--gold, var(--accent));
   padding-left: 18px;
 }
+.slide.kind-cover .slide-footer,
+.slide.kind-thanks .slide-footer {
+  left: auto;
+  right: 5.4%;
+  width: auto;
+  justify-content: flex-end;
+}
+.slide.kind-cover .slide-footer span:first-child,
+.slide.kind-thanks .slide-footer span:first-child {
+  display: none;
+}
 .slide.kind-data,
 .slide.kind-results {
   background-image:
