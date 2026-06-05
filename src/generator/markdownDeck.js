@@ -3,6 +3,7 @@ import {
   defaultHeroForTemplate,
   defaultEmblemForTemplate,
   templateFamily,
+  normalizeAssetPath,
 } from "../core/deckCore.js";
 
 function textBlock(id, text, x, y, width, height, role = "body", animation = "fadeUp") {
@@ -65,13 +66,42 @@ export function generateDeckFromMarkdown(template, markdown, options = {}) {
   const parsedSlides = parseMarkdown(markdown);
   if (!parsedSlides) return null;
 
-  const slides = parsedSlides.map((slide) => buildSlide(template.id, slide));
+  return generateDeckFromSlides(template, parsedSlides, options);
+}
+
+export function generateDeckFromDeckJson(template, deckJson, options = {}) {
+  const slides = Array.isArray(deckJson?.slides) ? deckJson.slides : [];
+  if (!slides.length) return null;
+  return generateDeckFromSlides(template, slides, {
+    ...options,
+    title: deckJson.title,
+    meta: deckJson.meta,
+  });
+}
+
+export function generateDeckFromSlides(template, parsedSlides, options = {}) {
+  const slides = parsedSlides.map((slide) => buildSlide(template.id, normalizeGeneratedSlide(slide)));
   return {
     ...template,
     id: template.id,
     generatedAt: Date.now(),
     name: options.keepName ? template.name : `${template.name} · 自动生成`,
+    sourceTitle: options.title || parsedSlides[0]?.title || template.name,
+    sourceMeta: options.meta || {},
     slides,
+  };
+}
+
+function normalizeGeneratedSlide(slide) {
+  return {
+    kind: slide.kind || "background",
+    title: String(slide.title || "未命名页面"),
+    subtitle: String(slide.subtitle || ""),
+    body: String(slide.body || ""),
+    images: Array.isArray(slide.images) ? slide.images.map((image) => normalizeAssetPath(image, "./assets")) : [],
+    table: Array.isArray(slide.table) ? slide.table : null,
+    metrics: Array.isArray(slide.metrics) ? slide.metrics : [],
+    bullets: Array.isArray(slide.bullets) ? slide.bullets : [],
   };
 }
 

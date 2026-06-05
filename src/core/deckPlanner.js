@@ -89,11 +89,25 @@ function inferTitle(brief, fallback) {
   if (!text) return fallback;
   const quoted = text.match(/[《“"]([^》”"]+)[》”"]/);
   if (quoted) return quoted[1];
-  return text.replace(/^帮我(做|生成|设计)?/, "").replace(/PPT|ppt|汇报|模板/g, "").trim().slice(0, 36) || fallback;
+  return text
+    .replace(/^帮我(做|生成|设计)?/, "")
+    .replace(/^一份关于/, "")
+    .replace(/^关于/, "")
+    .replace(/[，,。；;].*$/, "")
+    .replace(/PPT|ppt|模板/g, "")
+    .replace(/的(开题报告|课程展示|课程汇报|竞选答辩|答辩报告|汇报)$/, "$1")
+    .trim()
+    .slice(0, 24) || fallback;
 }
 
 function defaultBody(category, kind, brief) {
-  if (kind === "cover") return brief ? `基于需求自动规划：${brief}` : "";
+  if (kind === "cover") {
+    return {
+      academic: "自动规划生成 · 科研学术汇报",
+      course: "自动规划生成 · 课程小组汇报",
+      campaign: "自动规划生成 · 竞选答辩汇报",
+    }[category] || (brief ? "自动规划生成" : "");
+  }
   if (kind === "thanks") return category === "campaign" ? "恳请各位支持与监督" : "欢迎批评指正";
   if (kind === "quote") return "以责任回应期待，以行动兑现承诺。";
   return "";
