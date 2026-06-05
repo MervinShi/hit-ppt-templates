@@ -83,7 +83,7 @@ export function SlideDeck({
                 <b>{String(slideIndex + 1).padStart(2, "0")} / {String(deck.slides.length).padStart(2, "0")}</b>
               </div>
             </div>
-            {activeSlide.kind !== "cover" && (
+            {activeSlide.kind !== "cover" && activeSlide.kind !== "transition" && (
               <>
                 <h1>{activeSlide.title}</h1>
                 <p>{activeSlide.subtitle}</p>

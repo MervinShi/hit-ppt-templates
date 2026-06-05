@@ -9,6 +9,7 @@ import { planDeckFromBrief } from "./core/deckPlanner.js";
 import "./styles.css";
 
 const STORAGE_PREFIX = "hit-html-ppt-template:";
+const STORAGE_VERSION = "2026-06-05-commercial-refresh";
 const TEMPLATE_TO_STATIC = {
   academic: "academic-tech-dark",
   course: "course-bright",
@@ -62,12 +63,19 @@ function getInitialTemplateId() {
   return templates.some((template) => template.id === id) ? id : templates[0].id;
 }
 
+function getInitialView() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("template");
+  return templates.some((template) => template.id === id) ? "play" : "library";
+}
+
 function loadDeck(template) {
   const stored = window.localStorage.getItem(`${STORAGE_PREFIX}${template.id}`);
   if (!stored) return clone(template);
 
   try {
     const parsed = JSON.parse(stored);
+    if (parsed.storageVersion !== STORAGE_VERSION) return clone(template);
     return { ...clone(template), ...parsed, theme: { ...template.theme, ...parsed.theme } };
   } catch {
     return clone(template);
@@ -75,7 +83,7 @@ function loadDeck(template) {
 }
 
 function App() {
-  const [view, setView] = useState("library");
+  const [view, setView] = useState(getInitialView);
   const [selectedId, setSelectedId] = useState(getInitialTemplateId);
   const [currentSlide, setCurrentSlide] = useState(0);
   const selectedTemplate = useMemo(() => templates.find((template) => template.id === selectedId), [selectedId]);
@@ -93,8 +101,9 @@ function App() {
   }
 
   function updateDeck(nextDeck) {
-    setDeck(nextDeck);
-    window.localStorage.setItem(`${STORAGE_PREFIX}${nextDeck.id}`, JSON.stringify(nextDeck));
+    const deckWithVersion = { ...nextDeck, storageVersion: STORAGE_VERSION };
+    setDeck(deckWithVersion);
+    window.localStorage.setItem(`${STORAGE_PREFIX}${nextDeck.id}`, JSON.stringify(deckWithVersion));
   }
 
   function resetDeck() {
