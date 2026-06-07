@@ -201,7 +201,11 @@ function drawSlideBody(slide, page, deck, visual, outputDir) {
     case 'data':
     case 'results':
       drawMetrics(slide, page, visual, 0.9, 2.5);
-      drawNativeChart(slide, page, visual);
+      if (hasRenderableTable(page)) {
+        drawNativeTable(slide, page, visual);
+      } else {
+        drawNativeChart(slide, page, visual);
+      }
       break;
     case 'figure':
       drawBullets(slide, page, visual, 0.9, 2.55, 4.25, 3.1);
@@ -210,11 +214,13 @@ function drawSlideBody(slide, page, deck, visual, outputDir) {
     case 'gallery':
       drawGallery(slide, page, deck, visual, outputDir);
       break;
-    case 'flow':
     case 'timeline':
-    case 'framework':
     case 'achievements':
       drawTimeline(slide, page, visual);
+      break;
+    case 'flow':
+    case 'framework':
+      drawFlow(slide, page, visual);
       break;
     case 'logic-chart':
       drawLogicChart(slide, page, visual);
@@ -390,8 +396,78 @@ function drawMetrics(slide, page, visual, x, y) {
   });
 }
 
+function hasRenderableTable(page) {
+  return Array.isArray(page.table) && page.table.length >= 2 && page.table.some((row) => row.length >= 2);
+}
+
+function drawNativeTable(slide, page, visual) {
+  const rows = normalizeTableRows(page.table).slice(0, 6);
+  if (rows.length < 2) {
+    drawNativeChart(slide, page, visual);
+    return;
+  }
+
+  const x = 0.92;
+  const y = 4.0;
+  const w = 11.28;
+  const h = 1.86;
+  const cols = Math.min(Math.max(...rows.map((row) => row.length)), 5);
+  const rowH = h / rows.length;
+  const colW = w / cols;
+
+  slide.addShape(SHAPE.roundRect, {
+    x, y, w, h,
+    rectRadius: 0.04,
+    fill: { color: visual.surface, transparency: 4 },
+    line: { color: visual.primary, transparency: 54, pt: 0.7 },
+  });
+
+  rows.forEach((row, rowIndex) => {
+    for (let colIndex = 0; colIndex < cols; colIndex++) {
+      const cellX = x + colIndex * colW;
+      const cellY = y + rowIndex * rowH;
+      const isHeader = rowIndex === 0;
+      const isFirstCol = colIndex === 0 && !isHeader;
+      slide.addShape(SHAPE.rect, {
+        x: cellX, y: cellY, w: colW, h: rowH,
+        fill: {
+          color: isHeader ? visual.primary : visual.surface,
+          transparency: isHeader ? 0 : rowIndex % 2 ? 8 : 0,
+        },
+        line: { color: isHeader ? visual.primary : visual.primary, transparency: isHeader ? 100 : 72, pt: 0.45 },
+      });
+      slide.addText(String(row[colIndex] ?? ''), {
+        x: cellX + 0.08, y: cellY + 0.06, w: colW - 0.16, h: rowH - 0.1,
+        fontSize: isHeader ? 8.2 : 7.8,
+        bold: isHeader || isFirstCol,
+        color: isHeader ? 'FFFFFF' : isFirstCol ? visual.primary : visual.ink,
+        fit: 'shrink',
+        valign: 'mid',
+        margin: 0,
+      });
+    }
+  });
+}
+
+function normalizeTableRows(table) {
+  if (!Array.isArray(table)) return [];
+  const cols = Math.min(Math.max(...table.map((row) => row.length)), 5);
+  return table.map((row) => Array.from({ length: cols }, (_, index) => String(row[index] ?? '').trim()));
+}
+
 function drawLogicChart(slide, page, visual) {
   const items = page.bullets.length ? page.bullets.slice(0, 6) : ['目标', '约束', '路径', '验证'];
+  [
+    [3.62, 3.55, 1.3, 0],
+    [7.85, 3.55, 1.5, 0],
+    [3.62, 4.95, 1.1, -0.45],
+    [7.85, 4.95, 1.1, -0.45],
+  ].forEach(([x, y, w, h], index) => {
+    slide.addShape(SHAPE.line, {
+      x, y, w, h,
+      line: { color: index % 2 ? visual.gold : visual.primary, transparency: 42, pt: 0.9 },
+    });
+  });
   slide.addShape(SHAPE.roundRect, {
     x: 5.0, y: 3.05, w: 2.85, h: 1.0,
     rectRadius: 0.06,
@@ -410,6 +486,50 @@ function drawLogicChart(slide, page, visual) {
     });
     slide.addText(item, { x: x + 0.15, y: y + 0.22, w: 2.35, h: 0.25, fontSize: 10.5, bold: true, color: visual.ink, align: 'center', fit: 'shrink', margin: 0 });
   });
+}
+
+function drawFlow(slide, page, visual) {
+  const items = page.bullets.length ? page.bullets.slice(0, 6) : ['输入', '处理', '验证', '输出'];
+  const count = Math.max(items.length, 1);
+  const totalW = 11.1;
+  const gap = 0.18;
+  const cardW = (totalW - gap * (count - 1)) / count;
+  const y = 3.15;
+  slide.addShape(SHAPE.line, {
+    x: 1.05, y: y + 0.46, w: 10.8, h: 0,
+    line: { color: visual.primary, transparency: 55, pt: 1.1 },
+  });
+  items.forEach((item, index) => {
+    const x = 0.95 + index * (cardW + gap);
+    slide.addShape(SHAPE.roundRect, {
+      x, y, w: cardW, h: 1.1,
+      rectRadius: 0.05,
+      fill: { color: visual.surface, transparency: 2 },
+      line: { color: index % 2 ? visual.gold : visual.primary, transparency: 22, pt: 0.9 },
+    });
+    slide.addText(String(index + 1).padStart(2, '0'), {
+      x: x + 0.12, y: y + 0.16, w: 0.42, h: 0.2,
+      fontSize: 7.5, bold: true, color: visual.gold, margin: 0,
+    });
+    slide.addText(item, {
+      x: x + 0.18, y: y + 0.42, w: cardW - 0.36, h: 0.42,
+      fontSize: 10.2, bold: true, color: visual.ink, align: 'center', fit: 'shrink', margin: 0,
+    });
+    if (index < items.length - 1) {
+      slide.addShape(SHAPE.triangle, {
+        x: x + cardW + 0.02, y: y + 0.42, w: 0.12, h: 0.18,
+        rotate: 90,
+        fill: { color: visual.gold, transparency: 5 },
+        line: { color: visual.gold, transparency: 100 },
+      });
+    }
+  });
+  if (page.body) {
+    slide.addText(page.body, {
+      x: 1.3, y: 5.15, w: 10.0, h: 0.48,
+      fontSize: 10.5, color: visual.muted, align: 'center', fit: 'shrink', margin: 0,
+    });
+  }
 }
 
 function drawNativeChart(slide, page, visual) {

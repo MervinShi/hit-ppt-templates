@@ -32,6 +32,13 @@ function main() {
   assertFile(path.join(markdownPackage, 'index.html'));
   assertFile(path.join(markdownPackage, 'deck.pptx'));
 
+  const complexPackage = path.join(outDir, 'complex-package');
+  run('node', ['scripts/create-deck.cjs', '--content', 'examples/sample-complex-content.md', '--template', 'academic-data-light', '--outDir', complexPackage]);
+  assertFile(path.join(complexPackage, 'deck.json'));
+  assertFile(path.join(complexPackage, 'index.html'));
+  assertFile(path.join(complexPackage, 'deck.pptx'));
+  assertDeck(path.join(complexPackage, 'deck.json'), { minSlides: 9, template: 'academic-data-light', requiresTable: true });
+
   const importedDeck = path.join(outDir, 'imported.deck.json');
   run('node', ['scripts/import-pptx.cjs', '--input', path.join(markdownPackage, 'deck.pptx'), '--output', importedDeck, '--template', 'course-bright']);
   assertDeck(importedDeck, { minSlides: 8, template: 'course-bright' });
@@ -76,6 +83,9 @@ function assertDeck(file, expectations = {}) {
   }
   if (deck.slides.at(-1)?.kind !== 'thanks') {
     throw new Error(`Expected last slide to be thanks in ${file}`);
+  }
+  if (expectations.requiresTable && !deck.slides.some((slide) => Array.isArray(slide.table) && slide.table.length >= 2)) {
+    throw new Error(`Expected at least one table slide in ${file}`);
   }
 }
 

@@ -140,7 +140,7 @@ npm run export:pptx -- \
   --output my-deck.pptx
 ```
 
-The PPTX path creates native editable text, bullets, metric cards, and image frames. HTML remains the high-fidelity animated output.
+The PPTX path creates native editable text, bullets, metric cards, image frames, data tables, charts, and flow diagrams. HTML remains the high-fidelity animated output.
 
 ### 4. Skill Helper Commands
 

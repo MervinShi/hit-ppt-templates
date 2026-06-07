@@ -92,7 +92,7 @@ The renderer should keep page types locked enough for quality but flexible enoug
 
 Phase 1 creates editable native PPTX with:
 
-- text boxes, metric cards, bullets, and simple image placeholders;
+- text boxes, metric cards, bullets, native data tables, native charts, flow diagrams, and image placeholders;
 - template-matched colors and brand header;
 - 16:9 wide slides;
 - stable page kinds from Deck JSON.
@@ -105,7 +105,7 @@ Phase 2 now has a working baseline:
 
 Remaining PPTX fidelity improvements:
 
-- richer editable diagrams and native charts;
+- richer editable diagrams for dense research and campaign pages;
 - better image cropping strategies;
 - higher-fidelity handling of arbitrary third-party PPTX layouts.
 
