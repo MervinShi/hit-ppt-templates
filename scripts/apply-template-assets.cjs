@@ -7,15 +7,15 @@ const templateDir = path.join(root, 'templates');
 const indexPath = path.join(root, 'index.json');
 
 const configs = {
-  'academic-tech-dark': { logo: 'hit-logo-ivory.png', emblem: 'hit-emblem-ivory.png', motto: 'hit-motto-ivory.png', building: 'hit-building-watermark-ivory.png', tone: 'dark' },
-  'academic-data-light': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light' },
-  'academic-minimal': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light' },
-  'course-bright': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light' },
-  'course-capsule': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light' },
-  'course-modern': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light' },
-  'campaign-red-gold': { logo: 'hit-logo-gold.png', emblem: 'hit-emblem-gold.png', motto: 'hit-motto-gold.png', building: 'hit-building-watermark-gold.png', tone: 'red' },
-  'campaign-formal': { logo: 'hit-logo-red.png', emblem: 'hit-emblem-red.png', motto: 'hit-motto-red.png', building: 'hit-building-watermark-red.png', tone: 'light' },
-  'campaign-manifesto': { logo: 'hit-logo-gold.png', emblem: 'hit-emblem-gold.png', motto: 'hit-motto-gold.png', building: 'hit-building-watermark-gold.png', tone: 'red' },
+  'academic-tech-dark': { logo: 'hit-logo-ivory.png', emblem: 'hit-emblem-ivory.png', motto: 'hit-motto-ivory.png', building: 'hit-building-watermark-ivory.png', tone: 'dark', family: 'academic' },
+  'academic-data-light': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light', family: 'academic' },
+  'academic-minimal': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light', family: 'academic' },
+  'course-bright': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light', family: 'course' },
+  'course-capsule': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light', family: 'course' },
+  'course-modern': { logo: 'hit-logo-blue.png', emblem: 'hit-emblem-blue.png', motto: 'hit-motto-blue.png', building: 'hit-building-watermark-blue.png', tone: 'light', family: 'course' },
+  'campaign-red-gold': { logo: 'hit-logo-gold.png', emblem: 'hit-emblem-gold.png', motto: 'hit-motto-gold.png', building: 'hit-building-watermark-gold.png', tone: 'red', family: 'campaign' },
+  'campaign-formal': { logo: 'hit-logo-red.png', emblem: 'hit-emblem-red.png', motto: 'hit-motto-red.png', building: 'hit-building-watermark-red.png', tone: 'light', family: 'campaign' },
+  'campaign-manifesto': { logo: 'hit-logo-gold.png', emblem: 'hit-emblem-gold.png', motto: 'hit-motto-gold.png', building: 'hit-building-watermark-gold.png', tone: 'red', family: 'campaign' },
 };
 
 function cssOverride(slug, cfg) {
@@ -28,10 +28,18 @@ function cssOverride(slug, cfg) {
     : cfg.tone === 'light'
       ? 'drop-shadow(0 10px 18px rgba(255,255,255,.72))'
       : 'drop-shadow(0 12px 22px rgba(0,0,0,.26))';
+  const palette = paletteFor(cfg);
   return `
 
 /* ===== Applied brand assets and architectural background: ${slug} ===== */
 :root {
+  --primary: ${palette.primary};
+  --accent: ${palette.accent};
+  --gold: ${palette.gold};
+  --ink: ${palette.ink};
+  --paper: ${palette.paper};
+  --muted: ${palette.muted};
+  --surface: ${palette.surface};
   --template-bg-image: url('../../public/assets/generated/${slug}-bg.svg');
   --template-motto-image: url('../../public/assets/hit-shenzhen/${cfg.motto}');
   --template-building-image: url('../../public/assets/hit-shenzhen/${cfg.building}');
@@ -97,6 +105,31 @@ function cssOverride(slug, cfg) {
   bottom: 13.8%;
   opacity: var(--template-motto-feature-opacity);
 }
+.slide-chrome h1,
+.block-title p {
+  color: var(--ink) !important;
+}
+.slide-chrome p,
+.block-subtitle p,
+.block-body p,
+.block-list li,
+.block-timeline .timeline-node,
+.block-card p,
+.block-compare li,
+.flow-node {
+  color: color-mix(in srgb, var(--ink) 88%, transparent) !important;
+}
+.slide-chrome .kicker,
+.block-section-index {
+  color: var(--accent) !important;
+}
+.block-card,
+.block-list li,
+.block-timeline .timeline-node,
+.block-compare,
+.flow-node {
+  background-color: var(--surface);
+}
 .brand-header {
   position: absolute !important;
   top: 4.4% !important;
@@ -129,6 +162,62 @@ function cssOverride(slug, cfg) {
   display: none !important;
 }
 `;
+}
+
+function paletteFor(cfg) {
+  if (cfg.family === 'campaign' && cfg.tone === 'light') {
+    return {
+      primary: '#A72126',
+      accent: '#A72126',
+      gold: '#9f6a22',
+      ink: '#24110d',
+      paper: '#fff3d6',
+      muted: '#705348',
+      surface: 'rgba(255, 250, 238, .76)',
+    };
+  }
+  if (cfg.family === 'campaign') {
+    return {
+      primary: '#A72126',
+      accent: '#f5c66b',
+      gold: '#f5c66b',
+      ink: '#fff3d6',
+      paper: '#23090b',
+      muted: '#f1d39c',
+      surface: 'rgba(255, 243, 214, .16)',
+    };
+  }
+  if (cfg.family === 'course') {
+    return {
+      primary: '#005375',
+      accent: cfg.tone === 'light' ? '#ff7a3d' : '#70c7b2',
+      gold: '#d7b66f',
+      ink: '#17323b',
+      paper: '#fbf8ef',
+      muted: '#526873',
+      surface: 'rgba(255, 255, 255, .82)',
+    };
+  }
+  if (cfg.tone === 'light') {
+    return {
+      primary: '#005375',
+      accent: '#005375',
+      gold: '#b98a38',
+      ink: '#122f3a',
+      paper: '#f5fbff',
+      muted: '#426170',
+      surface: 'rgba(255, 255, 255, .78)',
+    };
+  }
+  return {
+    primary: '#005375',
+    accent: '#45d6c8',
+    gold: '#d7b66f',
+    ink: '#eaf7ff',
+    paper: '#071117',
+    muted: '#8ab8d0',
+    surface: 'rgba(233, 251, 255, .08)',
+  };
 }
 
 function applyHtml(slug, cfg) {

@@ -26,12 +26,35 @@ The smoke test covers:
 
 ```bash
 npm run verify
+npm run visual:audit
 npm run build
 ```
+
+## Visual Audit
+
+Run the visual audit whenever template CSS, brand assets, backgrounds, or generated HTML changes:
+
+```bash
+npm run visual:audit
+```
+
+The audit checks all 9 templates for:
+
+- independent motto watermark layer;
+- cover/thanks footer overlap guard;
+- title and body readability overrides;
+- brand header presence;
+- print stylesheet presence;
+- palette risks for light and dark schemes.
+
+If Puppeteer is installed, the same command also captures sampled pages into `docs/visual-audit/{template}/`. Without Puppeteer, it still produces a static report at `docs/visual-audit/report.md`.
 
 ## Manual Review
 
 - Open one generated HTML deck from `npm run create` and check navigation.
+- Open cover, transition, data/timeline, and thanks pages for at least one academic, course, and campaign template.
+- Confirm light templates use dark readable text and dark templates use light readable text.
+- Confirm the motto watermark is legible but does not cover content.
 - Open one generated PPTX and confirm title/body/metric text remains editable.
 - Import that PPTX back with `npm run import:pptx` and confirm page kinds are preserved.
 - Confirm the brand header is unobstructed on cover, content, and thanks pages.
