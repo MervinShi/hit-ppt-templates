@@ -119,22 +119,32 @@ npm run smoke
 
 `match` 用于模板推荐，`plan` 用于从一句需求生成 Deck JSON 大纲，`quality` 用于检查页面丰富度、数据/图片占位和结构完整性，`smoke` 用于完整链路回归。
 
-### 5. 一站式生成与 PPTX 导入
+### 5. 一站式交付包
 
-从一句需求直接生成 Deck JSON、HTML 和 PPTX：
+从一句需求直接生成完整交付目录：
 
 ```bash
-npm run create -- \
+npm run deck -- \
   --brief "面向智能制造的多源数据融合课程小组汇报" \
   --outDir generated/智能制造汇报
+```
+
+交付目录包含 `index.html`、`deck.pptx`、`deck.json`、`quality.json`、`manifest.json` 和本地 `README.md`。
+
+从 Markdown 内容生成交付目录：
+
+```bash
+npm run deck -- \
+  --content examples/sample-academic.md \
+  --template academic-data-light \
+  --outDir generated/学术汇报
 ```
 
 从已有 PowerPoint 提取文字、图片和页面结构，再进入模板重排：
 
 ```bash
-npm run import:pptx -- \
-  --input old-deck.pptx \
-  --output imported.deck.json \
+npm run deck -- \
+  --pptx old-deck.pptx \
   --template academic-tech-dark
 ```
 
@@ -240,6 +250,7 @@ npm run dev
 │   ├── match-template.cjs      # 根据场景/语气推荐模板
 │   ├── plan-deck.cjs           # 根据简要需求规划 Deck JSON
 │   ├── quality-deck.cjs        # Deck JSON / Markdown 质量评分
+│   ├── visual-audit.cjs        # 静态视觉与可读性巡检
 │   ├── create-brand-assets.cjs # 品牌资产创建脚本
 │   ├── apply-template-assets.cjs
 │   └── generate-previews.cjs   # 预览截图生成器

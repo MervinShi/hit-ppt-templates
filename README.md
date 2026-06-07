@@ -153,22 +153,32 @@ npm run smoke
 
 `match` recommends templates, `plan` creates a Deck JSON outline from a brief, `quality` checks visual/content richness before rendering, and `smoke` runs the full workflow regression.
 
-### 5. One-Step Creation And PPTX Import
+### 5. One-Step Deck Package
 
-Create Deck JSON, HTML, and PPTX from one brief:
+Create a delivery-ready folder from one brief:
 
 ```bash
-npm run create -- \
+npm run deck -- \
   --brief "Course group presentation on multisource data fusion for intelligent manufacturing" \
   --outDir generated/manufacturing-report
 ```
 
-Import an existing PowerPoint into Deck JSON for template-based re-layout:
+The generated folder contains `index.html`, `deck.pptx`, `deck.json`, `quality.json`, `manifest.json`, and a local `README.md`.
+
+Create a package from Markdown:
 
 ```bash
-npm run import:pptx -- \
-  --input old-deck.pptx \
-  --output imported.deck.json \
+npm run deck -- \
+  --content examples/sample-academic.md \
+  --template academic-data-light \
+  --outDir generated/academic-report
+```
+
+Import an existing PowerPoint and re-layout it through a template:
+
+```bash
+npm run deck -- \
+  --pptx old-deck.pptx \
   --template academic-tech-dark
 ```
 
@@ -196,7 +206,8 @@ Recommended agent workflow:
 5. Convert user content into Markdown sections.
 6. Run `scripts/generate.cjs`.
 7. Export Deck JSON or PPTX when needed.
-8. Preview the generated HTML and iterate.
+8. Prefer `npm run deck` for delivery packages that need HTML, PPTX, Deck JSON, quality report, and manifest together.
+9. Preview the generated HTML and iterate.
 
 The reusable skill entry is [skill/SKILL.md](./skill/SKILL.md).
 
@@ -260,6 +271,7 @@ All templates are indexed in [index.json](./index.json). Each item contains:
 │   ├── match-template.cjs        # template recommendation
 │   ├── plan-deck.cjs             # brief -> Deck JSON outline
 │   ├── quality-deck.cjs          # deck quality scoring
+│   ├── visual-audit.cjs          # static visual/readability audit
 │   ├── create-brand-assets.cjs   # transparent logo/motto/background generation
 │   ├── apply-template-assets.cjs # apply per-template assets
 │   └── generate-previews.cjs     # regenerate preview screenshots

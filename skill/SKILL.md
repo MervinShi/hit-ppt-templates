@@ -40,17 +40,24 @@ node scripts/export-pptx.cjs --template TEMPLATE_SLUG --content input.md --outpu
 
 8. Preview the output HTML and iterate if layout, tone, or content density is not acceptable.
 
-For a one-step package from a short brief:
+For a one-step delivery package from a short brief:
 
 ```bash
-npm run create -- --brief "用户需求" --outDir output-folder
+npm run deck -- --brief "用户需求" --outDir output-folder
 ```
+
+The package contains:
+- `index.html`: animated browser deck;
+- `deck.pptx`: editable PowerPoint deck, unless `--noPptx` is used;
+- `deck.json`: normalized Deck JSON for reuse;
+- `quality.json`: deck quality score and suggestions;
+- `manifest.json`: generated output metadata;
+- `README.md`: package-local usage notes.
 
 For existing PowerPoint re-layout:
 
 ```bash
-npm run import:pptx -- --input old-deck.pptx --output imported.deck.json --template TEMPLATE_SLUG
-npm run generate -- --content imported.deck.json --output imported.html
+npm run deck -- --pptx old-deck.pptx --template TEMPLATE_SLUG --outDir relayout-output
 ```
 
 ## Content Format
@@ -144,6 +151,7 @@ cover, agenda, transition, background, quote, logic-chart, timeline, data, galle
 Before delivery:
 
 - Build or run generation successfully.
+- Prefer `npm run deck` for user-facing delivery because it creates HTML, PPTX, Deck JSON, quality report, manifest, and package README together.
 - Export Deck JSON with `--exportDeck` when the deck may be reused.
 - For PPTX delivery, run `npm run export:pptx`.
 - For existing PowerPoint content, run `npm run import:pptx`, then regenerate HTML/PPTX from the imported Deck JSON.

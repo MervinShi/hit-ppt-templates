@@ -17,6 +17,7 @@
     "export:pptx": "node scripts/export-pptx.cjs",
     "import:pptx": "node scripts/import-pptx.cjs",
     "create": "node scripts/create-deck.cjs",
+    "deck": "node scripts/create-deck.cjs",
     "match": "node scripts/match-template.cjs",
     "plan": "node scripts/plan-deck.cjs",
     "quality": "node scripts/quality-deck.cjs",

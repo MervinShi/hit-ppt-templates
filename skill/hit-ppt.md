@@ -114,10 +114,29 @@
 
 ### Step 5: 输出与迭代
 
-1. 将生成的 HTML 写入文件（如 `output.html`）
-2. 用 `open` 命令在浏览器中打开预览
-3. 询问用户是否需要调整（颜色、布局、内容增删）
-4. 根据反馈修改并重新生成
+优先使用一站式交付命令：
+
+```bash
+npm run deck -- --brief "用户需求" --outDir output-folder
+```
+
+如果用户提供的是 Markdown 或已有 PPTX：
+
+```bash
+npm run deck -- --content input.md --template academic-data-light --outDir output-folder
+npm run deck -- --pptx old-deck.pptx --template campaign-formal --outDir output-folder
+```
+
+输出目录包含：
+
+1. `index.html` — 可直接展示的 HTML 幻灯片
+2. `deck.pptx` — 可编辑 PowerPoint 文件（除非使用 `--noPptx`）
+3. `deck.json` — 标准化 Deck JSON，可复用再生成
+4. `quality.json` — 页面结构和内容丰富度评分
+5. `manifest.json` — 输出元数据
+6. `README.md` — 交付包使用说明
+
+生成后打开 `index.html` 预览，根据用户反馈调整颜色、布局、内容增删并重新生成。
 
 ## 内容格式规范
 
