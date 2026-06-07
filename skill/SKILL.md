@@ -76,6 +76,15 @@ Body paragraph.
 ---
 ```
 
+Auto-layout behavior:
+- long paragraphs are split into continuation slides;
+- long bullet lists are split into multiple slides;
+- Markdown tables become `data` slides and table panels;
+- table numeric values are promoted into metric cards;
+- `>` blockquotes become `quote` slides;
+- formula lines such as `公式：...` or `$$...$$` are preserved in slide notes;
+- 3+ images become `gallery` slides.
+
 Image paths:
 - `hit-shenzhen/name.png` becomes `./assets/hit-shenzhen/name.png`.
 - `assets/name.png` becomes `./assets/name.png`.

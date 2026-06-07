@@ -47,7 +47,7 @@ async function main(args) {
     inputType,
     title: deck.title || deck.slides?.[0]?.title || '',
     template: deck.template,
-    category: deck.meta?.category || '',
+    category: deck.meta?.category || deck.family || inferFamily(deck.template),
     slides: deck.slides?.length || 0,
     quality: { score: quality.score, level: quality.level },
     outputs: {
@@ -66,6 +66,12 @@ async function main(args) {
   if (shouldExportPptx) console.log(`  PPTX: ${pptxPath}`);
   console.log(`  Quality: ${qualityPath}`);
   console.log(`  Manifest: ${manifestPath}`);
+}
+
+function inferFamily(template = '') {
+  if (template.startsWith('course-')) return 'course';
+  if (template.startsWith('campaign-')) return 'campaign';
+  return 'academic';
 }
 
 function run(command, args) {

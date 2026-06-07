@@ -38,6 +38,7 @@ async function main() {
       content: path.join(root, content),
       output: path.join(root, 'templates', slug, 'index.html'),
       assetPrefix: '../../public/assets',
+      noAutoLayout: true,
     });
   }
 }

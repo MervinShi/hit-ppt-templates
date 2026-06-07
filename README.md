@@ -153,6 +153,18 @@ npm run smoke
 
 `match` recommends templates, `plan` creates a Deck JSON outline from a brief, `quality` checks visual/content richness before rendering, and `smoke` runs the full workflow regression.
 
+### Content Auto-Layout
+
+The Deck JSON normalizer now applies density-aware layout before rendering:
+
+- long paragraphs are split into continuation slides;
+- long bullet lists are split across timeline/background pages;
+- Markdown tables are recognized as data slides and rendered as table panels;
+- table values are converted into metric cards when possible;
+- blockquotes become quote/declaration pages;
+- formula lines are preserved in slide notes and can trigger framework layouts;
+- multi-image sections become gallery pages.
+
 ### 5. One-Step Deck Package
 
 Create a delivery-ready folder from one brief:

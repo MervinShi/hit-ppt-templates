@@ -90,14 +90,17 @@
    - 如果有 `指标：` 或表格 → `data` 页面（使用 Chart.js）
    - 如果有多张图片 → `figure` 或 `gallery`
    - 如果有多条列表 → `timeline`
+   - 如果有引用块 `>` → `quote` / 宣言页
+   - 如果有公式 `公式：...` 或 `$$...$$` → 保留到 notes，并优先使用框架页
    - 首段 → `cover`，末段 → `thanks`
    - 否则 → `background` 或 `body`
 
 3. **填充内容**：
    - 将标题、正文、图片等填入对应 HTML 结构
    - 数据指标渲染为 metric cards
-   - 表格渲染为 Chart.js 图表
+   - 表格渲染为数据表格面板，并自动抽取指标卡
    - 列表渲染为 timeline 或 bullet list
+   - 长段落和长列表会自动拆分为续页，避免挤爆版面
 
 4. **应用 GSAP 动画**：
    - 封面标题 → `heroReveal`

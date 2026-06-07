@@ -100,6 +100,35 @@ const ADVANCED_LAYOUT_CSS = `
   background-size: 100% 24px, 44px 100%, auto;
   box-shadow: 0 24px 80px rgba(0, 0, 0, .12);
 }
+.data-table {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .12);
+}
+.data-table table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: clamp(12px, 1.1vw, 15px);
+  color: color-mix(in srgb, var(--ink) 92%, transparent);
+}
+.data-table th,
+.data-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
+  text-align: left;
+  vertical-align: middle;
+}
+.data-table th {
+  color: var(--gold, var(--accent));
+  font-weight: 900;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
 .slide.kind-figure .block-image,
 .slide.kind-gallery .block-image {
   padding: 10px;
@@ -351,7 +380,7 @@ const LAYOUTS = {
 
 // ===== HTML Generator =====
 function generateSlideHTML(slide, templateSlug, index, total, assetPrefix = './assets') {
-  const { kind, title, subtitle, body, images, metrics, bullets } = slide;
+  const { kind, title, subtitle, body, images, metrics, bullets, table, charts } = slide;
 
   const family = templateFamily(templateSlug);
   const isAcademic = family === 'academic';
@@ -389,7 +418,7 @@ function generateSlideHTML(slide, templateSlug, index, total, assetPrefix = './a
     </div>` : '';
 
   // Content blocks
-  const blocksHTML = generateBlocks(kind, { title, subtitle, body, images, metrics, bullets }, templateSlug, defaultHero, defaultEmblem, assetPrefix);
+  const blocksHTML = generateBlocks(kind, { title, subtitle, body, images, metrics, bullets, table, charts }, templateSlug, defaultHero, defaultEmblem, assetPrefix);
 
   // Footer
   const footerHTML = `
@@ -425,7 +454,7 @@ function kindLabel(kind) {
 }
 
 function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem, assetPrefix = './assets') {
-  const { title, subtitle, body, images, metrics, bullets } = content;
+  const { title, subtitle, body, images, metrics, bullets, table } = content;
 
   switch (kind) {
     case 'cover':
@@ -578,8 +607,8 @@ function generateBlocks(kind, content, templateSlug, defaultHero, defaultEmblem,
       <strong>${escapeHTML(m.value)}</strong><span>${escapeHTML(m.label)}</span>
     </div>`;
     }).join('\n')}
-    <div class="block" style="left:10%;top:58%;width:76%;height:16%;" data-animation="chartRise">
-      <div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>
+    <div class="block" style="left:10%;top:58%;width:76%;height:${table ? '21%' : '16%'};" data-animation="chartRise">
+      ${table ? renderTable(table) : '<div class="bars"><i class="bar" style="height:38%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:50%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:58%"></i></div>'}
     </div>
     <div class="block block-body" style="left:14%;bottom:8%;width:66%;height:6%;" data-animation="fadeUp">
       <p style="font-size:13px;text-align:center;">${escapeHTML(body || '')}</p>
@@ -697,6 +726,18 @@ function assetPath(file, assetPrefix = './assets') {
   return `${assetPrefix.replace(/\/$/, '')}/${file.replace(/^\//, '')}`;
 }
 
+function renderTable(table) {
+  if (!Array.isArray(table) || !table.length) return '';
+  const [head, ...rows] = table;
+  return `
+      <div class="data-table">
+        <table>
+          <thead><tr>${head.map((cell) => `<th>${escapeHTML(cell)}</th>`).join('')}</tr></thead>
+          <tbody>${rows.slice(0, 5).map((row) => `<tr>${row.map((cell) => `<td>${escapeHTML(cell)}</td>`).join('')}</tr>`).join('')}</tbody>
+        </table>
+      </div>`;
+}
+
 function copyDir(src, dest) {
   if (!fs.existsSync(src)) return;
   fs.mkdirSync(dest, { recursive: true });
@@ -747,7 +788,7 @@ async function generate(args) {
     const raw = fs.readFileSync(contentPath, 'utf-8');
 
     if (content.endsWith('.json')) {
-      deck = normalizeDeck(JSON.parse(raw), { template, title });
+      deck = normalizeDeck(JSON.parse(raw), { template, title, disableAutoLayout: args.noAutoLayout });
     } else {
       const slides = parseMarkdown(raw, { assetPrefix });
       if (!slides) {
@@ -759,7 +800,7 @@ async function generate(args) {
         title: title || slides[0]?.title,
         source: { type: 'markdown', file: contentPath },
         slides,
-      }, { template, title });
+      }, { template, title, disableAutoLayout: args.noAutoLayout });
     }
   } else if (title) {
     // Generate from title only
@@ -777,13 +818,13 @@ async function generate(args) {
       { kind: 'timeline', title: '规划', subtitle: '', body: '按计划推进各项工作。', images: [], metrics: [], bullets: ['第一阶段', '第二阶段', '第三阶段', '第四阶段'] },
       { kind: 'summary', title: '总结', subtitle: '', body: '', images: [], metrics: [], bullets: ['结论一', '结论二', '结论三'] },
       { kind: 'thanks', title: '谢谢聆听', subtitle: '欢迎批评指正', body: '', images: [], metrics: [], bullets: [] },
-    ]}, { template, title });
+    ]}, { template, title, disableAutoLayout: args.noAutoLayout });
   } else {
     console.error('Please provide --content or --title');
     process.exit(1);
   }
 
-  const validation = validateDeck(deck, { template, title });
+  const validation = validateDeck(deck, { template, title, disableAutoLayout: args.noAutoLayout });
   if (!validation.ok) {
     console.error(validation.errors.join('\n'));
     process.exit(1);

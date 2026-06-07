@@ -33,10 +33,24 @@ export function parseMarkdownSection(section, index, total, options = {}) {
   const table = extractTable(lines);
   const metrics = extractMetrics(lines);
   const bullets = extractBullets(lines);
-  const body = extractBody(lines);
-  const kind = explicitKind || detectKind(index, total, images, metrics, table, bullets, title);
+  const quote = extractQuote(lines);
+  const formulas = extractFormulas(lines);
+  const chartHint = findMeta(lines, '图表') || findMeta(lines, 'chart');
+  const body = extractBody(lines, { quote, formulas });
+  const kind = explicitKind || detectKind(index, total, images, metrics, table, bullets, title, { quote, formulas, chartHint });
 
-  return { kind, title, subtitle, body, images, metrics, table, bullets };
+  return {
+    kind,
+    title,
+    subtitle,
+    body,
+    images,
+    metrics,
+    table,
+    bullets,
+    charts: chartHint ? [{ type: normalizeChartType(chartHint), title }] : [],
+    notes: formulas.length ? `Formulas:\n${formulas.join('\n')}` : '',
+  };
 }
 
 function findMeta(lines, key) {
@@ -55,15 +69,32 @@ function extractBullets(lines) {
     .map((line) => line.replace(/^[-*]\s+/, '').replace(/^(\d+)[.)、]\s+/, ''));
 }
 
-function extractBody(lines) {
-  return lines
+function extractBody(lines, extras = {}) {
+  const quoteSet = new Set(extras.quote ? [extras.quote] : []);
+  const formulaSet = new Set(extras.formulas || []);
+  const bodyLines = lines
     .filter((line) => !/^#{1,3}\s+/.test(line))
     .filter((line) => !line.includes('|'))
     .filter((line) => !singleImagePattern.test(line))
+    .filter((line) => !/^>\s+/.test(line))
+    .filter((line) => !formulaSet.has(line))
+    .filter((line) => !quoteSet.has(line))
     .filter((line) => !/^[-*]\s+/.test(line))
     .filter((line) => !/^(\d+)[.)、]\s+/.test(line))
-    .filter((line) => !/^(副标题|subtitle|metric|指标|类型|kind|layout)[:：]/i.test(line))
-    .join('\n');
+    .filter((line) => !/^(副标题|subtitle|metric|指标|类型|kind|layout|图表|chart)[:：]/i.test(line));
+  if (extras.quote && !bodyLines.length) bodyLines.push(extras.quote);
+  return bodyLines.join('\n');
+}
+
+export function extractQuote(lines) {
+  const quoted = lines.find((line) => /^>\s+/.test(line));
+  if (quoted) return quoted.replace(/^>\s+/, '').trim();
+  const marked = findMeta(lines, '引用') || findMeta(lines, 'quote') || findMeta(lines, '宣言');
+  return marked.trim();
+}
+
+export function extractFormulas(lines) {
+  return lines.filter((line) => /^\$\$.*\$\$$/.test(line) || /^公式[:：]/.test(line) || /\\\(|\\\[/.test(line));
 }
 
 export function extractTable(lines) {
@@ -86,7 +117,7 @@ export function extractMetrics(lines) {
     .filter((item) => item.value);
 }
 
-export function detectKind(index, total, images, metrics, table, bullets, title = '') {
+export function detectKind(index, total, images, metrics, table, bullets, title = '', extras = {}) {
   if (index === 0) return 'cover';
   if (index === total - 1) return 'thanks';
   if (/^第[一二三四五六七八九十0-9]+[章节篇]|章节|chapter|part\s*\d+|过渡页/i.test(title)) return 'transition';
@@ -95,10 +126,11 @@ export function detectKind(index, total, images, metrics, table, bullets, title 
   if (/对比|比较|竞品|差异|versus|\bvs\.?\b|compare/i.test(title)) return 'compare';
   if (/流程|过程|路线|路径|技术路线|pipeline|process|roadmap/i.test(title)) return 'flow';
   if (/框架|架构|模型|机理|逻辑|问题分解|framework|architecture|logic/i.test(title)) return 'logic-chart';
-  if (/引用|寄语|原声|宣言|quote/i.test(title)) return 'quote';
+  if (/引用|寄语|原声|宣言|quote/i.test(title) || extras.quote) return 'quote';
   if (metrics.length || table) return 'data';
   if (images.length >= 3) return 'gallery';
   if (images.length) return 'figure';
+  if (extras.formulas?.length && /模型|公式|推导|方法|framework|method/i.test(title)) return 'framework';
   if (bullets.length >= 5) return 'timeline';
   if (bullets.length >= 3) return 'summary';
   return 'background';
@@ -144,6 +176,14 @@ export function normalizeKind(value = '') {
     promise: 'promise',
   };
   return aliases[key] || '';
+}
+
+function normalizeChartType(value = '') {
+  const key = String(value).toLowerCase();
+  if (/line|折线|趋势/.test(key)) return 'line';
+  if (/radar|雷达/.test(key)) return 'radar';
+  if (/doughnut|donut|环|饼/.test(key)) return 'doughnut';
+  return 'bar';
 }
 
 export function templateFamily(templateId) {
