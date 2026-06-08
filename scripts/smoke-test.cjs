@@ -32,6 +32,17 @@ function main() {
   assertFile(path.join(markdownPackage, 'index.html'));
   assertFile(path.join(markdownPackage, 'deck.pptx'));
 
+  if (commandExists('markitdown')) {
+    const markitdownPackage = path.join(outDir, 'markitdown-package');
+    run('node', ['scripts/create-deck.cjs', '--source', path.join(markdownPackage, 'deck.pptx'), '--template', 'course-bright', '--outDir', markitdownPackage, '--noPptx']);
+    assertFile(path.join(markitdownPackage, 'source.md'));
+    assertFile(path.join(markitdownPackage, 'deck.json'));
+    assertFile(path.join(markitdownPackage, 'index.html'));
+    assertDeck(path.join(markitdownPackage, 'deck.json'), { minSlides: 2, template: 'course-bright' });
+  } else {
+    console.log('markitdown not found; skipping source-file conversion smoke check.');
+  }
+
   const complexPackage = path.join(outDir, 'complex-package');
   run('node', ['scripts/create-deck.cjs', '--content', 'examples/sample-complex-content.md', '--template', 'academic-data-light', '--outDir', complexPackage]);
   assertFile(path.join(complexPackage, 'deck.json'));
@@ -67,6 +78,11 @@ function assertFile(file) {
   if (!fs.existsSync(file) || fs.statSync(file).size === 0) {
     throw new Error(`Expected non-empty file: ${file}`);
   }
+}
+
+function commandExists(command) {
+  const result = spawnSync('which', [command], { encoding: 'utf8' });
+  return result.status === 0 && result.stdout.trim();
 }
 
 function assertDeck(file, expectations = {}) {

@@ -14,7 +14,13 @@ async function main(args) {
   const qualityPath = path.join(outDir, 'quality.json');
   const readmePath = path.join(outDir, 'README.md');
   const manifestPath = path.join(outDir, 'manifest.json');
-  const inputType = args.brief ? 'brief' : args.content ? 'content' : args.pptx ? 'pptx' : '';
+  const convertedMarkdownPath = path.join(outDir, 'source.md');
+  const inputType = args.brief ? 'brief'
+    : args.content ? 'content'
+    : args.source || args.file ? 'markitdown'
+    : args.pptx && args.useMarkitdown ? 'pptx-markdown'
+    : args.pptx ? 'pptx'
+    : '';
 
   if (args.brief) {
     run('node', ['scripts/plan-deck.cjs', '--brief', args.brief, '--output', deckPath, ...(args.template ? ['--template', args.template] : [])]);
@@ -25,10 +31,17 @@ async function main(args) {
     } else {
       run('node', ['scripts/generate.cjs', '--template', args.template || 'academic-tech-dark', '--content', content, '--output', htmlPath, '--exportDeck', deckPath]);
     }
+  } else if (args.source || args.file) {
+    const source = path.resolve(args.source || args.file);
+    convertWithMarkitdown(source, convertedMarkdownPath, args.markitdownBin);
+    run('node', ['scripts/generate.cjs', '--template', args.template || 'academic-tech-dark', '--content', convertedMarkdownPath, '--output', htmlPath, '--exportDeck', deckPath]);
+  } else if (args.pptx && args.useMarkitdown) {
+    convertWithMarkitdown(path.resolve(args.pptx), convertedMarkdownPath, args.markitdownBin);
+    run('node', ['scripts/generate.cjs', '--template', args.template || 'academic-tech-dark', '--content', convertedMarkdownPath, '--output', htmlPath, '--exportDeck', deckPath]);
   } else if (args.pptx) {
     run('node', ['scripts/import-pptx.cjs', '--input', path.resolve(args.pptx), '--output', deckPath, ...(args.template ? ['--template', args.template] : [])]);
   } else {
-    console.error('Please provide --brief, --content, or --pptx');
+    console.error('Please provide --brief, --content, --source, --file, or --pptx');
     process.exit(1);
   }
 
@@ -55,6 +68,7 @@ async function main(args) {
       html: path.relative(outDir, htmlPath),
       pptx: shouldExportPptx ? path.relative(outDir, pptxPath) : null,
       quality: path.relative(outDir, qualityPath),
+      sourceMarkdown: fs.existsSync(convertedMarkdownPath) ? path.relative(outDir, convertedMarkdownPath) : null,
     },
   };
   fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
@@ -79,6 +93,15 @@ function run(command, args) {
   if (result.status !== 0) process.exit(result.status || 1);
 }
 
+function convertWithMarkitdown(inputPath, outputPath, bin) {
+  run('node', [
+    'scripts/convert-to-markdown.cjs',
+    '--input', inputPath,
+    '--output', outputPath,
+    ...(bin ? ['--bin', bin] : []),
+  ]);
+}
+
 function captureJson(command, args) {
   const result = spawnSync(command, args, { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
   if (result.status !== 0) {
@@ -94,6 +117,7 @@ function packageReadme(manifest) {
     `- Deck JSON: \`${manifest.outputs.deckJson}\``,
     manifest.outputs.pptx ? `- PPTX: \`${manifest.outputs.pptx}\`` : '',
     `- Quality report: \`${manifest.outputs.quality}\``,
+    manifest.outputs.sourceMarkdown ? `- Converted Markdown: \`${manifest.outputs.sourceMarkdown}\`` : '',
   ].filter(Boolean).join('\n');
 
   return `# ${manifest.title || 'Generated HIT PPT Deck'}

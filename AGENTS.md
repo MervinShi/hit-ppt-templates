@@ -23,6 +23,16 @@ Each template is a self-contained HTML file with:
 4. **Generate the deck** by filling user content into the template structure
 5. **Output a single `.html` file** that the user can open directly
 
+### Source File Conversion
+
+If the user provides an existing file instead of Markdown:
+
+- Use `npm run deck -- --source file.pptx --template academic-tech-dark --outDir generated/from-source` for MarkItDown-supported inputs such as PPTX, PDF, DOCX, XLSX, or mixed documents.
+- Use `npm run deck -- --pptx file.pptx --template academic-tech-dark --outDir generated/from-pptx` when preserving PowerPoint images and generated-deck metadata matters.
+- Use `npm run deck -- --pptx file.pptx --useMarkitdown --template academic-tech-dark` when a PowerPoint file should explicitly be normalized through Markdown before layout.
+
+MarkItDown is an optional external CLI. If it is missing, ask the user to install it or fall back to the native PPTX importer for `.pptx` files.
+
 ### Template Matching Logic
 
 ```

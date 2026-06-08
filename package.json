@@ -16,6 +16,7 @@
     "previews": "node scripts/generate-previews.cjs",
     "export:pptx": "node scripts/export-pptx.cjs",
     "import:pptx": "node scripts/import-pptx.cjs",
+    "convert:md": "node scripts/convert-to-markdown.cjs",
     "create": "node scripts/create-deck.cjs",
     "deck": "node scripts/create-deck.cjs",
     "match": "node scripts/match-template.cjs",

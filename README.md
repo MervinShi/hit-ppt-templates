@@ -194,6 +194,17 @@ npm run deck -- \
   --template academic-tech-dark
 ```
 
+Convert any MarkItDown-supported source file to Markdown first, then auto-layout it into HTML/PPTX:
+
+```bash
+npm run deck -- \
+  --source old-deck.pptx \
+  --template academic-tech-dark \
+  --outDir generated/from-source
+```
+
+Use `--pptx` when you want the native PPTX importer to preserve images from a PowerPoint file. Use `--source` or `--file` when you want MarkItDown to normalize PPTX, PDF, DOCX, or other documents into Markdown before template layout. For PPTX specifically, `--pptx old-deck.pptx --useMarkitdown` forces the Markdown path.
+
 ### 6. Use The React Designer
 
 ```bash
@@ -279,7 +290,8 @@ All templates are indexed in [index.json](./index.json). Each item contains:
 │   ├── generate.cjs              # Markdown / Deck JSON -> standalone HTML
 │   ├── export-pptx.cjs           # Markdown / Deck JSON -> editable PPTX
 │   ├── import-pptx.cjs           # PPTX -> Deck JSON + extracted images
-│   ├── create-deck.cjs           # brief/content/pptx -> deck/html/pptx
+│   ├── convert-to-markdown.cjs   # MarkItDown-supported files -> Markdown
+│   ├── create-deck.cjs           # brief/content/source/pptx -> deck/html/pptx
 │   ├── match-template.cjs        # template recommendation
 │   ├── plan-deck.cjs             # brief -> Deck JSON outline
 │   ├── quality-deck.cjs          # deck quality scoring
